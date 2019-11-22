@@ -1,0 +1,3 @@
+﻿  Game.cpp
+C:\Programing\DiabloFP\DiabloFP\src\Core\Game.h(22,45): warning C4244: 'return': conversion from 'uint32_t' to 'const float', possible loss of data
+  DiabloFP.vcxproj -> C:\Programing\DiabloFP\DiabloFP\..\bin\Debug-windows-x86_64\Lamp\DiabloFP.exe

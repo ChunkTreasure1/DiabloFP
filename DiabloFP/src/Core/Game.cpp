@@ -74,7 +74,20 @@ namespace Diablo
 		Print::Clear();
 		do
 		{
-				Prnt
+			Print::Clear();
+			Print::PrintColorText("DIABLO\n\n", COLOR_RED);
+			Print::PrintColorText("1. Start Game\n", COLOR_DARK_RED);
+			Print::PrintColorText("2. Quit\n", COLOR_DARK_RED);
+
+			std::string tempInput = Input::GetInput();
+			if (tempInput == "1")
+			{
+
+			}
+			else if (tempInput == "2")
+			{
+
+			}
 
 		} while (true);
 	}

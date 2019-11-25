@@ -57,5 +57,12 @@ namespace Diablo
 			tempPlayer->SetYPos(tempYPos);
 			tempPlayer->SetAngle(tempAngle);
 		}
+		static std::string GetInput()
+		{
+			char tempSelection[255];
+			std::cin.getline(tempSelection, 255);
+
+			return std::string(tempSelection);
+		}
 	};
 }

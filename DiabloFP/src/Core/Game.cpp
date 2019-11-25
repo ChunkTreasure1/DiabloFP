@@ -2,7 +2,6 @@
 
 #include <chrono>
 
-#include "Rendering/Renderer.h"
 #include "Input/Input.h"
 #include "Print.h"
 
@@ -11,8 +10,8 @@ namespace Diablo
 	Game* Game::myInstance = nullptr;
 
 	Game::Game()
-		: myIsRunning(true), myScreenWidth(120), myScreenHeight(40), 
-		myMapHeight(16), myMapWidth(16), myIs3D(true)
+		: myIsRunning(true), myScreenWidth(120), myScreenHeight(40),
+		myMapHeight(16), myMapWidth(16), myIs3D(false), myDefaultConsole(GetStdHandle(STD_OUTPUT_HANDLE))
 	{
 		myInstance = this;
 		Renderer::Initialize(myScreenWidth, myScreenHeight);
@@ -49,7 +48,7 @@ namespace Diablo
 		auto tempTP1 = std::chrono::system_clock::now();
 		auto tempTP2 = std::chrono::system_clock::now();
 
-		//StartMenu();
+		StartMenu();
 
 		while (myIsRunning)
 		{
@@ -74,7 +73,10 @@ namespace Diablo
 		Print::Clear();
 		do
 		{
-				Prnt
+			Print::PrintColorText("Menu\n", COLOR_GREEN);
+			Print::PrintColorText("1. Start\n", COLOR_GREEN);
+			Print::PrintColorText("2. Quit\n", COLOR_GREEN);
+			std::cin.get();
 
 		} while (true);
 	}

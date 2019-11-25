@@ -30,7 +30,6 @@ namespace Diablo
 		sData = new RendererStorage();
 		sData->Screen = new wchar_t[myWidth * myHeight];
 		sData->Console = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-		SetConsoleActiveScreenBuffer(sData->Console);
 		sData->BytesWritten = 0;
 
 		sData->Map += L"#########.......";
@@ -49,6 +48,11 @@ namespace Diablo
 		sData->Map += L"#......#########";
 		sData->Map += L"#..............#";
 		sData->Map += L"################";
+	}
+
+	void Renderer::SetActiveBuffer()
+	{
+		SetConsoleActiveScreenBuffer(sData->Console);
 	}
 
 	void Renderer::Draw(float aDeltaTime)

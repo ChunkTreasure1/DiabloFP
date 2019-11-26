@@ -1,6 +1,3 @@
-
-*.ipch
-*.obj
-*.tlog
-*.ipch
-*.log
+.vs/
+bin-int/
+bin/

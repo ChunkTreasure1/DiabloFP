@@ -31,8 +31,6 @@ namespace Diablo
 		static void PrintColorText(const std::string& aText, ColorCodes aColor);
 		static void PrintMiddle(const std::string& aText, ColorCodes aColor);
 
-		static void PrintPlayer();
-		static void PrintStats();
 		static std::string ToString(float aValue);
 	};
 }

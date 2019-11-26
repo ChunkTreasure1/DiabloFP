@@ -30,12 +30,12 @@ namespace Diablo
 		HANDLE tempHConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(tempHConsole, aColor);
 		std::cout << aText.c_str();
-		SetConsoleTextAttribute(tempHConsole, 15);
+		SetConsoleTextAttribute(tempHConsole, 15);                    
 	}
 
 	void Print::PrintMiddle(const std::string& aText, ColorCodes aColor)
 	{
-		
+		std::cout << std::setw((140 / 2) + aText.length() / 2) << std::right << aText;
 	}
 
 	std::string Print::ToString(float aValue)

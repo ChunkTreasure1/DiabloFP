@@ -45,6 +45,11 @@ namespace Diablo
 		SetConsoleActiveScreenBuffer(sData->Console);
 	}
 
+	void Renderer::SetActiveBuffer()
+	{
+		SetConsoleActiveScreenBuffer(sData->Console);
+	}
+
 	void Renderer::Draw(float aDeltaTime)
 	{
 		Player* tempPlayer = Player::Get();

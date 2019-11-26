@@ -2,3 +2,5 @@
 *.ipch
 *.obj
 *.tlog
+*.ipch
+*.log

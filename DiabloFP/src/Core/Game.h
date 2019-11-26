@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <string>
 #include <Windows.h>
 
 #include "Gameplay/Player.h"
@@ -25,8 +24,13 @@ namespace Diablo
 
 		//Getting
 		inline static Game* Get() { return myInstance; }
-		
-		inline const float GetMapWidth() { return myMapWidth; }
+		inline const uint32_t GetMapWidth() { return myMapWidth; }
+
+		//Setting
+		inline void SetIs3D(bool aState) { myIs3D = aState; myIs3D == true ? Renderer::SetActiveBuffer() : SetActiveBuffer(); }
+
+	public:
+		void SetActiveBuffer() { SetConsoleActiveScreenBuffer(myDefaultConsole); }
 
 	private:
 		bool myIsRunning;
@@ -41,6 +45,7 @@ namespace Diablo
 		HANDLE myBuffer;
 		Map* myMap;
 		Player* myPlayer;
+		HANDLE myDefaultConsole;
 
 	private:
 		static Game* myInstance;

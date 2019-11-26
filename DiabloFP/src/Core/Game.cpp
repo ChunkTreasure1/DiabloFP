@@ -2,7 +2,6 @@
 
 #include <chrono>
 
-#include "Rendering/Renderer.h"
 #include "Input/Input.h"
 #include "Gameplay/Map/MapGenerator.h"
 #include "Print.h"
@@ -12,8 +11,8 @@ namespace Diablo
 	Game* Game::myInstance = nullptr;
 
 	Game::Game()
-		: myIsRunning(true), myScreenWidth(120), myScreenHeight(40), 
-		myMapHeight(16), myMapWidth(16), myIs3D(true)
+		: myIsRunning(true), myScreenWidth(120), myScreenHeight(40),
+		myMapHeight(16), myMapWidth(16), myIs3D(false), myDefaultConsole(GetStdHandle(STD_OUTPUT_HANDLE))
 	{
 		myInstance = this;
 		Renderer::Initialize(myScreenWidth, myScreenHeight);

@@ -17,7 +17,7 @@ namespace Diablo
 		myInstance = this;
 		Renderer::Initialize(myScreenWidth, myScreenHeight);
 
-		myBuffer = GetStdHandle(STD_OUTPUT_HANDLE);
+		myDefaultConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 		myPlayer = new Player();
 	}

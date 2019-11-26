@@ -20,17 +20,11 @@ namespace Diablo
 
 		//Setting
 		inline void SetIs3D(bool aState) { myIs3D = aState; aState == true ? Renderer::SetBuffer() : SetBuffer(); }
-		inline void SetBuffer() { SetConsoleActiveScreenBuffer(myBuffer); }
+		inline void SetBuffer() { SetConsoleActiveScreenBuffer(myDefaultConsole); }
 
 		//Getting
 		inline static Game* Get() { return myInstance; }
 		inline const uint32_t GetMapWidth() { return myMapWidth; }
-
-		//Setting
-		inline void SetIs3D(bool aState) { myIs3D = aState; myIs3D == true ? Renderer::SetActiveBuffer() : SetActiveBuffer(); }
-
-	public:
-		void SetActiveBuffer() { SetConsoleActiveScreenBuffer(myDefaultConsole); }
 
 	private:
 		bool myIsRunning;
@@ -42,7 +36,6 @@ namespace Diablo
 		uint32_t myMapWidth;
 		uint32_t myMapHeight;
 
-		HANDLE myBuffer;
 		Map* myMap;
 		Player* myPlayer;
 		HANDLE myDefaultConsole;

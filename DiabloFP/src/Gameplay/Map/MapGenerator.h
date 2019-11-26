@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Gameplay/Map/Map.h"
+#include "Map.h"
 
 namespace Diablo
 {

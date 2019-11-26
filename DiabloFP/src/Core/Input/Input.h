@@ -6,13 +6,14 @@
 
 #include "Gameplay/Player.h"
 #include "Core/Game.h"
+#include "Gameplay/Map/Map.h"
 
 namespace Diablo
 {
 	class Input
 	{
 	public:
-		static void HandleInput(float aDeltaTime, const std::wstring& aMap)
+		static void HandleInput(float aDeltaTime, Map* aMap)
 		{
 			Player* tempPlayer = Player::Get();
 
@@ -34,7 +35,7 @@ namespace Diablo
 			{
 				tempXPos += sinf(tempAngle) * tempSpeed * aDeltaTime;
 				tempYPos += cosf(tempAngle) * tempSpeed * aDeltaTime;
-				if (aMap.c_str()[(int)tempXPos * 16 + (int)tempYPos] == '#')
+				if (aMap->GetStringMap().c_str()[(int)tempXPos * aMap->GetMapSize() + (int)tempYPos] == '#')
 				{
 					tempXPos -= sinf(tempAngle) * tempSpeed * aDeltaTime;
 					tempYPos -= cosf(tempAngle) * tempSpeed * aDeltaTime;
@@ -46,7 +47,7 @@ namespace Diablo
 			{
 				tempXPos -= sinf(tempAngle) * tempSpeed * aDeltaTime;
 				tempYPos -= cosf(tempAngle) * tempSpeed * aDeltaTime;
-				if (aMap.c_str()[(int)tempXPos * 16 + (int)tempYPos] == '#')
+				if (aMap->GetStringMap().c_str()[(int)tempXPos * aMap->GetMapSize() + (int)tempYPos] == '#')
 				{
 					tempXPos += sinf(tempAngle) * tempSpeed * aDeltaTime;
 					tempYPos += cosf(tempAngle) * tempSpeed * aDeltaTime;

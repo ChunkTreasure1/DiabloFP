@@ -160,6 +160,7 @@
     <ClCompile Include="src\Core\Print.cpp" />
     <ClCompile Include="src\Core\Rendering\Renderer.cpp" />
     <ClCompile Include="src\DiabloFP.cpp" />
+    <ClCompile Include="src\Gameplay\Map\MapGenerator.cpp" />
     <ClCompile Include="src\Gameplay\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,8 @@
     <ClInclude Include="src\Core\Print.h" />
     <ClInclude Include="src\Core\Rendering\Renderer.h" />
     <ClInclude Include="src\Core\Game.h" />
+    <ClInclude Include="src\Gameplay\Map\Map.h" />
+    <ClInclude Include="src\Gameplay\Map\MapGenerator.h" />
     <ClInclude Include="src\Gameplay\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

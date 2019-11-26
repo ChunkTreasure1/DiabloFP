@@ -1,9 +1,12 @@
 #pragma once
 
-#include <functional>
 #include <memory>
+#include <string>
+#include <Windows.h>
 
-#include "../Gameplay/Player.h"
+#include "Gameplay/Player.h"
+#include "Rendering/Renderer.h"
+#include "Gameplay/Map/Map.h"
 
 namespace Diablo
 {
@@ -14,7 +17,11 @@ namespace Diablo
 		~Game();
 
 		void Run();
-		void StartMenu();
+		bool StartMenu();
+
+		//Setting
+		inline void SetIs3D(bool aState) { myIs3D = aState; aState == true ? Renderer::SetBuffer() : SetBuffer(); }
+		inline void SetBuffer() { SetConsoleActiveScreenBuffer(myBuffer); }
 
 		//Getting
 		inline static Game* Get() { return myInstance; }
@@ -31,6 +38,8 @@ namespace Diablo
 		uint32_t myMapWidth;
 		uint32_t myMapHeight;
 
+		HANDLE myBuffer;
+		Map* myMap;
 		Player* myPlayer;
 
 	private:

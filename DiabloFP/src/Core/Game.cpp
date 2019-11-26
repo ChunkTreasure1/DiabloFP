@@ -4,6 +4,7 @@
 
 #include "Rendering/Renderer.h"
 #include "Input/Input.h"
+#include "Gameplay/Map/MapGenerator.h"
 #include "Print.h"
 
 namespace Diablo
@@ -17,6 +18,8 @@ namespace Diablo
 		myInstance = this;
 		Renderer::Initialize(myScreenWidth, myScreenHeight);
 
+		myBuffer = GetStdHandle(STD_OUTPUT_HANDLE);
+
 		myPlayer = new Player();
 	}
 
@@ -27,49 +30,36 @@ namespace Diablo
 
 	void Game::Run()
 	{
-		std::wstring tempMap;
-		tempMap += L"#########.......";
-		tempMap += L"#...............";
-		tempMap += L"#.......########";
-		tempMap += L"#..............#";
-		tempMap += L"#......##......#";
-		tempMap += L"#......##......#";
-		tempMap += L"#..............#";
-		tempMap += L"###............#";
-		tempMap += L"##.............#";
-		tempMap += L"#......####..###";
-		tempMap += L"#......#.......#";
-		tempMap += L"#......#.......#";
-		tempMap += L"#..............#";
-		tempMap += L"#......#########";
-		tempMap += L"#..............#";
-		tempMap += L"################";
-		
-
 		auto tempTP1 = std::chrono::system_clock::now();
 		auto tempTP2 = std::chrono::system_clock::now();
 
-		//StartMenu();
-
-		while (myIsRunning)
+		do
 		{
-			//Setup timing so the console runs at constant speed
-			tempTP2 = std::chrono::system_clock::now();
-			std::chrono::duration<float> tempElapsed = tempTP2 - tempTP1;
-			tempTP1 = tempTP2;
-			float tempElapsedTime = tempElapsed.count();
+			bool tempRunning = StartMenu();
+			myMap = MapGenerator::GenerateMap();
+			Renderer::Update(myMap->GetMapSize(), myMap->GetStringMap());
 
-			if (myIs3D)
+			while (tempRunning)
 			{
-				Input::HandleInput(tempElapsedTime, tempMap);
+				//Setup timing so the console runs at constant speed
+				tempTP2 = std::chrono::system_clock::now();
+				std::chrono::duration<float> tempElapsed = tempTP2 - tempTP1;
+				tempTP1 = tempTP2;
+				float tempElapsedTime = tempElapsed.count();
 
-				//Draws all of the "3D";
-				Renderer::Draw(tempElapsedTime);
+				if (myIs3D)
+				{
+					Input::HandleInput(tempElapsedTime, myMap);
+
+					//Draws all of the "3D";
+					Renderer::Draw(tempElapsedTime);
+				}
 			}
-		}
+
+		} while (myIsRunning);
 	}
 
-	void Game::StartMenu()
+	bool Game::StartMenu()
 	{
 		Print::Clear();
 		do
@@ -82,13 +72,27 @@ namespace Diablo
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")
 			{
+				Print::Clear();
+				Print::PrintColorText("You wake up in a cold and dark room. Where are you? How will you get out?\n", COLOR_GREEN);
+				Print::PrintColorText("Use your instincts.\n", COLOR_GREEN);
+				Print::PrintColorText("Press ANY button to continue.", COLOR_BLUE);
+				std::cin.get();
 
+				SetIs3D(true);
+				return true;
 			}
 			else if (tempInput == "2")
 			{
-
+				return false;
+			}
+			else
+			{
+				Print::Clear();
+				Print::PrintColorText("Wrong input!", COLOR_RED);
 			}
 
 		} while (true);
+
+		return false;
 	}
 }

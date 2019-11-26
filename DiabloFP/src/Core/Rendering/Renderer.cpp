@@ -21,6 +21,7 @@ namespace Diablo
 	static RendererStorage* sData = nullptr;
 	uint32_t Renderer::myHeight = 0;
 	uint32_t Renderer::myWidth = 0;
+	uint32_t Renderer::myMapSize = 0;
 
 	void Renderer::Initialize(uint32_t aWidth, uint32_t aHeight)
 	{
@@ -30,25 +31,18 @@ namespace Diablo
 		sData = new RendererStorage();
 		sData->Screen = new wchar_t[myWidth * myHeight];
 		sData->Console = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-		SetConsoleActiveScreenBuffer(sData->Console);
 		sData->BytesWritten = 0;
+	}
 
-		sData->Map += L"#########.......";
-		sData->Map += L"#...............";
-		sData->Map += L"#.......########";
-		sData->Map += L"#..............#";
-		sData->Map += L"#......##......#";
-		sData->Map += L"#......##......#";
-		sData->Map += L"#..............#";
-		sData->Map += L"###............#";
-		sData->Map += L"##.............#";
-		sData->Map += L"#......####..###";
-		sData->Map += L"#......#.......#";
-		sData->Map += L"#......#.......#";
-		sData->Map += L"#..............#";
-		sData->Map += L"#......#########";
-		sData->Map += L"#..............#";
-		sData->Map += L"################";
+	void Renderer::Update(uint32_t aMapSize, const std::wstring& aMap)
+	{
+		myMapSize = aMapSize;
+		sData->Map = aMap;
+	}
+
+	void Renderer::SetBuffer()
+	{
+		SetConsoleActiveScreenBuffer(sData->Console);
 	}
 
 	void Renderer::Draw(float aDeltaTime)
@@ -79,7 +73,7 @@ namespace Diablo
 				int nTestY = (int)(tempPlayer->GetYPos() + fEyeY * fDistanceToWall);
 
 				// Test if ray is out of bounds
-				if (nTestX < 0 || nTestX >= 16 || nTestY < 0 || nTestY >= 16)
+				if (nTestX < 0 || nTestX >= myMapSize || nTestY < 0 || nTestY >= myMapSize)
 				{
 					bHitWall = true;			// Just set distance to maximum depth
 					fDistanceToWall = tempPlayer->GetDepth();
@@ -87,7 +81,7 @@ namespace Diablo
 				else
 				{
 					// Ray is inbounds so test to see if the ray cell is a wall block
-					if (sData->Map.c_str()[nTestX * 16 + nTestY] == '#')
+					if (sData->Map.c_str()[nTestX * myMapSize + nTestY] == '#')
 					{
 						// Ray has hit wall
 						bHitWall = true;
@@ -162,10 +156,10 @@ namespace Diablo
 		swprintf_s(sData->Screen, 40, L"X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f ", tempPlayer->GetXPos(), tempPlayer->GetYPos(), tempPlayer->GetAngle(), 1.0f / aDeltaTime);
 
 		// Display Map
-		for (int nx = 0; nx < 16; nx++)
-			for (int ny = 0; ny < 16; ny++)
+		for (int nx = 0; nx < myMapSize; nx++)
+			for (int ny = 0; ny < myMapSize; ny++)
 			{
-				sData->Screen[(ny + 1) * myWidth + nx] = sData->Map[ny * 16 + nx];
+				sData->Screen[(ny + 1) * myWidth + nx] = sData->Map[ny * myMapSize + nx];
 			}
 		sData->Screen[((int)tempPlayer->GetXPos() + 1) * myWidth + (int)tempPlayer->GetYPos()] = 'P';
 

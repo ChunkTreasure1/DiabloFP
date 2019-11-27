@@ -56,5 +56,8 @@
     <ClInclude Include="src\Gameplay\Map\Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Gameplay\Room\Room.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

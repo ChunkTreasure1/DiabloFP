@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+#include "Gameplay/Room/Room.h"
 #include "Map.h"
 
 namespace Diablo
@@ -9,5 +12,8 @@ namespace Diablo
 	{
 	public:
 		static Map* GenerateMap();
+
+	private:
+		static std::vector<Room> GenerateRooms(uint32_t aMapSize, uint32_t aRoomSize);
 	};
 }

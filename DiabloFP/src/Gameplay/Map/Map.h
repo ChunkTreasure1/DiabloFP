@@ -7,8 +7,8 @@ namespace Diablo
 	class Map
 	{
 	public:
-		Map(std::wstring map, uint32_t size) 
-			: myStringMap(map), myMapSize(size)
+		Map(std::wstring aMap, uint32_t aSize, uint32_t aRoomCount) 
+			: myStringMap(aMap), myMapSize(aSize), myRoomCount(aRoomCount)
 		{}
 		~Map() = default;
 
@@ -20,6 +20,6 @@ namespace Diablo
 	private:
 		std::wstring myStringMap;
 		uint32_t myRoomCount;
-		uint32_t myMapSize = 64;
+		uint32_t myMapSize;
 	};
 }

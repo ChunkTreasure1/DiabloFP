@@ -13,30 +13,38 @@ namespace Diablo
 		std::vector<Room> tempRooms = GenerateRooms(tempMapSize, tempMaxRoomSize);
 
 		std::wstring tempMap;
-		for (size_t i = 0; i < tempMapSize; i++)
-		{
-			tempMap += L"#";
-		}
 
-		for (size_t x = 0; x < tempMapSize; x++)
+		for (auto& aR : tempRooms)
 		{
-			for (size_t y = 0; y < tempMapSize; y++)
+			for (auto& aC : aR.GetTiles())
 			{
-				if (y == 0 || y == tempMapSize - 1)
-				{
-					tempMap += L"#";
-					continue;
-				}
-
-
-				tempMap += L".";
+				tempMap += aC.Type;
 			}
 		}
 
-		for (size_t i = 0; i < tempMapSize; i++)
-		{
-			tempMap += L"#";
-		}
+		//for (size_t i = 0; i < tempMapSize; i++)
+		//{
+		//	tempMap += L"#";
+		//}
+
+		//for (size_t x = 0; x < tempMapSize; x++)
+		//{
+		//	for (size_t y = 0; y < tempMapSize; y++)
+		//	{
+		//		if (y == 0 || y == tempMapSize - 1)
+		//		{
+		//			tempMap += L"#";
+		//			continue;
+		//		}
+
+		//		tempMap += L".";
+		//	}
+		//}
+
+		//for (size_t i = 0; i < tempMapSize; i++)
+		//{
+		//	tempMap += L"#";
+		//}
 
 		//map += L"################";
 		//map += L"#....#.....#...#";
@@ -60,6 +68,8 @@ namespace Diablo
 
 	std::vector<Room> MapGenerator::GenerateRooms(uint32_t aMapSize, uint32_t aRoomSize)
 	{
+		std::vector<Room> tempRooms;
+
 		vec2 tempLastStartPos(0, 0);
 		vec2 tempLastEndPos(aRoomSize, aRoomSize);
 
@@ -80,27 +90,31 @@ namespace Diablo
 
 			for (size_t i = 0; i < aRoomSize; i++)
 			{
-				tempRoom.GetWalls().insert(std::pair<char, vec2>('#', vec2(tempStart.x + i, 0)));
+				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, 0)));
 			}
 
-			for (size_t x = 0; x < aRoomSize; x++)
+			for (size_t y = 1; y < aRoomSize; y++)
 			{
-				for (size_t y = 0; y < aRoomSize - 2; y++)
+				for (size_t x = 0; x < aRoomSize; x++)
 				{
-					if (y == 0 || y == aRoomSize - 1)
+					if (x == 0 || x == aRoomSize - 1)
 					{
-						tempRoom.GetWalls().insert(std::pair<char, vec2>('#', vec2(tempStart.x + x, tempStart.y + y)));
+						tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + x, tempStart.y + y)));
+						continue;
 					}
 					
+					tempRoom.GetTiles().push_back(Tile('.', vec2(tempStart.x + x, tempStart.y + y)));
 				}
 			}
 
 			for (size_t i = 0; i < aRoomSize; i++)
 			{
-				tempRoom.GetWalls().insert(std::pair<char, vec2>('#', vec2(tempStart.x + i, aRoomSize)));
+				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, aRoomSize)));
 			}
+
+			tempRooms.push_back(tempRoom);
 		}
 
-		return std::vector<Room>();
+		return tempRooms;
 	}
 }

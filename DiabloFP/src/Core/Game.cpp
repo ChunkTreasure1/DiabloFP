@@ -60,10 +60,19 @@ namespace Diablo
 
 	bool Game::StartMenu()
 	{
-		Print::Clear();
 		do
 		{
 			Print::Clear();
+
+			for (size_t i = 0; i < 4; i++)
+			{
+				for (size_t j = 0; j < 4; j++)
+				{
+					Print::PrintColorText("x", COLOR_GREEN);
+				}
+				std::cout << "\n";
+			}
+
 			Print::PrintColorText("DIABLO\n\n", COLOR_RED);
 			Print::PrintColorText("1. Start Game\n", COLOR_DARK_RED);
 			Print::PrintColorText("2. Quit\n", COLOR_DARK_RED);

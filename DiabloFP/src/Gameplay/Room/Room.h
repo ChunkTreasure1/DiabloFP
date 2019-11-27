@@ -5,7 +5,7 @@
 
 namespace Diablo
 {
-	class vec2
+	struct vec2
 	{
 	public:
 		vec2(float anX, float aY)
@@ -17,15 +17,26 @@ namespace Diablo
 		float x, y;
 	};
 
+	struct Tile
+	{
+	public:
+		Tile(char aT, vec2 aPos)
+			: Type(aT), Position(aPos)
+		{}
+
+		char Type;
+		vec2 Position;
+	};
+
 	class Room
 	{
 	public:
 		Room() {}
 
 		//Getting
-		inline std::map<char, vec2> GetWalls() const { return myWalls; }
+		inline std::vector<Tile>& GetTiles() { return myTiles; }
 		
 	private:
-		std::map<char, vec2> myWalls;
+		std::vector<Tile> myTiles;
 	};
 }

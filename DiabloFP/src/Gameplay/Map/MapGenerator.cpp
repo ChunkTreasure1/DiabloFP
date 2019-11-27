@@ -14,11 +14,26 @@ namespace Diablo
 
 		std::wstring tempMap;
 
+		for (size_t i = 0; i < tempMapSize * tempMapSize; i++)
+		{
+			tempMap += L" ";
+		}
+
 		for (auto& aR : tempRooms)
 		{
-			for (auto& aC : aR.GetTiles())
+			for (auto& aT : aR.GetTiles())
 			{
-				tempMap += aC.Type;
+				float y = aT.Position.y;
+				float x = aT.Position.x;
+
+				if (aT.Position.y > 0)
+				{
+					tempMap[x + (y * tempMapSize - 1)] = aT.Type;
+				}
+				else
+				{
+					tempMap[x] = aT.Type;
+				}
 			}
 		}
 
@@ -90,7 +105,7 @@ namespace Diablo
 
 			for (size_t i = 0; i < aRoomSize; i++)
 			{
-				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, 0)));
+				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, tempLastStartPos.y + aRoomSize)));
 			}
 
 			for (size_t y = 1; y < aRoomSize; y++)
@@ -109,10 +124,13 @@ namespace Diablo
 
 			for (size_t i = 0; i < aRoomSize; i++)
 			{
-				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, aRoomSize)));
+				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, tempLastStartPos.y + 2 * aRoomSize)));
 			}
 
 			tempRooms.push_back(tempRoom);
+
+			tempLastStartPos = tempStart;
+			tempLastEndPos = vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
 		}
 
 		return tempRooms;

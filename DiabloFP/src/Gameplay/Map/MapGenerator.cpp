@@ -85,6 +85,49 @@ namespace Diablo
 	{
 		std::vector<Room> tempRooms;
 
+		vec2 tempLastStartPos(1, 0);
+
+		uint32_t tempRoomCount = (aMapSize * aMapSize) / (aRoomSize * aRoomSize);
+		for (size_t i = 0; i < 6; i++)
+		{
+			vec2 tempStart = vec2(tempLastStartPos);
+			vec2 tempEnd = vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
+
+			if (tempEnd.x >= aMapSize)
+			{
+				tempStart.x = 1;
+				tempStart.y + aRoomSize;
+				tempEnd = vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
+			}
+
+			Room tempRoom;
+			for (size_t i = 0; i < aRoomSize; i++)
+			{
+				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i - 1, tempStart.y)));
+			}
+
+			for (size_t y = 1; y < aRoomSize; y++)
+			{
+				for (size_t x = 0; x < aRoomSize; x++)
+				{
+
+					if (x == aRoomSize - 1)
+					{
+						tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + x, tempStart.y + y)));
+						continue;
+					}
+
+					tempRoom.GetTiles().push_back(Tile('.', vec2(tempStart.x + x, tempStart.y + y)));
+				}
+			}
+
+			tempLastStartPos = vec2(tempStart.x + aRoomSize, tempStart.y);
+
+			tempRooms.push_back(tempRoom);
+		}
+
+		/*std::vector<Room> tempRooms;
+
 		vec2 tempLastStartPos(0, 0);
 		vec2 tempLastEndPos(aRoomSize, aRoomSize);
 
@@ -131,7 +174,7 @@ namespace Diablo
 
 			tempLastStartPos = tempStart;
 			tempLastEndPos = vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
-		}
+		}*/
 
 		return tempRooms;
 	}

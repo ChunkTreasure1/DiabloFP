@@ -36,11 +36,12 @@ namespace Diablo
 				}
 			}
 		}
-
 		for (size_t i = 0; i < tempMapSize - 3; i++)
 		{
 			tempMap[i + ((tempMapSize - 1) * (tempMapSize - 1) - tempMapSize - 1)] = '#';
 		}
+
+		std::vector<std::shared_ptr<Enemy>> tempEnemies = GenerateEnemies(tempMapSize);
 
 		//map += L"################";
 		//map += L"#....#.....#...#";
@@ -188,5 +189,12 @@ namespace Diablo
 		}*/
 
 		return tempRooms;
+	}
+
+	std::vector<std::shared_ptr<Enemy>> MapGenerator::GenerateEnemies(uint32_t aMapSize)
+	{
+
+
+		return std::vector<std::shared_ptr<Enemy>>();
 	}
 }

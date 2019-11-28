@@ -2,6 +2,7 @@
 
 #include <string>
 #include "Gameplay/Entities/Enemy/Enemy.h"
+#include "Gameplay/Items/Systems/Chest.h"
 
 namespace Diablo
 {
@@ -20,6 +21,7 @@ namespace Diablo
 
 	private:
 		std::vector<std::shared_ptr<Enemy>> myEnemies;
+		std::vector<std::shared_ptr<Chest>> myChests;
 
 		std::wstring myStringMap;
 		uint32_t myRoomCount;

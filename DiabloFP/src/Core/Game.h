@@ -3,7 +3,7 @@
 #include <memory>
 #include <Windows.h>
 
-#include "Gameplay/Player.h"
+#include "Gameplay/Entities/Player.h"
 #include "Rendering/Renderer.h"
 #include "Gameplay/Map/Map.h"
 
@@ -25,6 +25,8 @@ namespace Diablo
 		//Getting
 		inline static Game* Get() { return myInstance; }
 		inline const uint32_t GetMapWidth() { return myMapWidth; }
+
+		PlayerType GetPlayerType();
 
 	private:
 		bool myIsRunning;

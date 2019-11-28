@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-#include "Gameplay/Player.h"
+#include "Gameplay/Entities/Player.h"
 #include "Core/Game.h"
 #include "Gameplay/Map/Map.h"
 

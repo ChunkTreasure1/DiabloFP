@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "Gameplay/Entities/Enemy/Enemy.h"
 
 namespace Diablo
 {
@@ -18,6 +19,8 @@ namespace Diablo
 		inline const uint32_t GetMapSize() { return myMapSize; }
 
 	private:
+		std::vector<std::shared_ptr<Enemy>> myEnemies;
+
 		std::wstring myStringMap;
 		uint32_t myRoomCount;
 		uint32_t myMapSize;

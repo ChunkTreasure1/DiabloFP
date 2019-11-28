@@ -19,7 +19,7 @@ namespace Diablo
 
 		myDefaultConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-		myPlayer = new Player();
+		myPlayer = new Player(10.f);
 	}
 
 	Game::~Game()
@@ -63,16 +63,6 @@ namespace Diablo
 		do
 		{
 			Print::Clear();
-
-			for (size_t i = 0; i < 4; i++)
-			{
-				for (size_t j = 0; j < 4; j++)
-				{
-					Print::PrintColorText("x", COLOR_GREEN);
-				}
-				std::cout << "\n";
-			}
-
 			Print::PrintColorText("DIABLO\n\n", COLOR_RED);
 			Print::PrintColorText("1. Start Game\n", COLOR_DARK_RED);
 			Print::PrintColorText("2. Quit\n", COLOR_DARK_RED);
@@ -80,9 +70,11 @@ namespace Diablo
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")
 			{
+				myPlayer->SetPlayerType(GetPlayerType());
+
 				Print::Clear();
 				Print::PrintColorText("You wake up in a cold and dark room. Where are you? How will you get out?\n", COLOR_GREEN);
-				Print::PrintColorText("Use your instincts.\n", COLOR_GREEN);
+				Print::PrintColorText("Use your instincts...\n", COLOR_GREEN);
 				Print::PrintColorText("Press ANY button to continue.", COLOR_BLUE);
 				std::cin.get();
 
@@ -102,5 +94,56 @@ namespace Diablo
 		} while (true);
 
 		return false;
+	}
+
+	PlayerType Game::GetPlayerType()
+	{
+		bool tempSelecting = true;
+		do
+		{
+			Print::Clear();
+			Print::PrintColorText("Choose player type: \n", COLOR_DARK_BLUE);
+			Print::PrintColorText("1. Warrior\n", COLOR_DARK_BLUE);
+			Print::PrintColorText("2. Rogue\n", COLOR_DARK_BLUE);
+			Print::PrintColorText("3. Sorcerer\n", COLOR_DARK_BLUE);
+
+			std::string tempSelected = Input::GetInput();
+
+			if (tempSelected == "1")
+			{
+				Print::Clear();
+				Print::PrintColorText("You selected warrior!", COLOR_YELLOW);
+				myPlayer->SetPlayerStats(PlayerType::Warrior);
+				std::cin.get();
+
+				return PlayerType::Warrior;
+			}
+			else if (tempSelected == "2")
+			{
+				Print::Clear();
+				Print::PrintColorText("You selected rogue!", COLOR_YELLOW);
+				myPlayer->SetPlayerStats(PlayerType::Rogue);
+				std::cin.get();
+
+				return PlayerType::Rogue;
+			}
+			else if (tempSelected == "3")
+			{
+				Print::Clear();
+				Print::PrintColorText("You selected sorcerer", COLOR_YELLOW);
+				myPlayer->SetPlayerStats(PlayerType::Sorcerer);
+				std::cin.get();
+
+				return PlayerType::Sorcerer;
+			}
+			else
+			{
+				Print::PrintColorText("Wrong input!\n", COLOR_RED);
+				continue;
+			}
+			tempSelecting = false;
+		} while (tempSelecting);
+
+		return PlayerType();
 	}
 }

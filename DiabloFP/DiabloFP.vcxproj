@@ -164,16 +164,17 @@
     <ClCompile Include="src\Core\Rendering\Renderer.cpp" />
     <ClCompile Include="src\DiabloFP.cpp" />
     <ClCompile Include="src\Gameplay\Map\MapGenerator.cpp" />
-    <ClCompile Include="src\Gameplay\Player.cpp" />
+    <ClCompile Include="src\Gameplay\Entities\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Input\Input.h" />
     <ClInclude Include="src\Core\Print.h" />
     <ClInclude Include="src\Core\Rendering\Renderer.h" />
     <ClInclude Include="src\Core\Game.h" />
+    <ClInclude Include="src\Gameplay\Entities\Enemy.h" />
     <ClInclude Include="src\Gameplay\Map\Map.h" />
     <ClInclude Include="src\Gameplay\Map\MapGenerator.h" />
-    <ClInclude Include="src\Gameplay\Player.h" />
+    <ClInclude Include="src\Gameplay\Entities\Player.h" />
     <ClInclude Include="src\Gameplay\Room\Room.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,7 +5,7 @@
 #include <vector>
 #include <Algorithm>
 
-#include "Gameplay/Player.h"
+#include "Gameplay/Entities/Player.h"
 
 namespace Diablo
 {

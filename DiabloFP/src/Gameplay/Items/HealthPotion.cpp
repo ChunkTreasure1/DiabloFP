@@ -4,8 +4,8 @@
 
 namespace Diablo
 {
-	HealthPotion::HealthPotion(float anAmount)
-		: Item("Health Potion"), myHealthAdd(anAmount)
+	HealthPotion::HealthPotion()
+		: Item("Health Potion")
 	{}
 
 	bool HealthPotion::Use()

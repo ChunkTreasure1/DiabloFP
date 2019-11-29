@@ -9,8 +9,8 @@ namespace Diablo
 	class Map
 	{
 	public:
-		Map(std::wstring aMap, uint32_t aSize, uint32_t aRoomCount) 
-			: myStringMap(aMap), myMapSize(aSize), myRoomCount(aRoomCount)
+		Map(std::wstring aMap, uint32_t aSize, uint32_t aRoomCount, std::vector<std::shared_ptr<Enemy>> someEnemies) 
+			: myStringMap(aMap), myMapSize(aSize), myRoomCount(aRoomCount), myEnemies(someEnemies)
 		{}
 		~Map() = default;
 

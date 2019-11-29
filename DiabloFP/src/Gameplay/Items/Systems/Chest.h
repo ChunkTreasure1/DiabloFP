@@ -12,7 +12,9 @@ namespace Diablo
 	public:
 		Chest() {}
 
+		void AddItem(Item* anItem) { myItems.push_back(anItem); }
+
 	private:
-		std::vector<std::shared_ptr<Item>> mypItems;
+		std::vector<Item*> myItems;
 	};
 }

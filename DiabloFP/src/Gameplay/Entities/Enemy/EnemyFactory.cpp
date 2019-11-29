@@ -12,12 +12,13 @@
 
 namespace Diablo
 {
-	std::shared_ptr<Enemy> EnemyFactory::CreateEnemy()
+	std::shared_ptr<Enemy> EnemyFactory::CreateEnemy(uint32_t aCharPos)
 	{
 		//Generate stats
 		int tempDiff = LevelSystem::GetDifficulty();
 
 		std::shared_ptr<Enemy> tempEnemy = std::make_shared<Enemy>(8.f);
+		tempEnemy->SetCharPos(aCharPos);
 
 		std::tuple<Stats, std::string, std::shared_ptr<Attack>> tempTuple = GetEnemyStats();
 		tempEnemy->SetStats(std::get<0>(tempTuple));

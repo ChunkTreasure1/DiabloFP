@@ -2,6 +2,10 @@
 #include "Map.h"
 
 #include <utility>
+#include <time.h>
+
+#include "Gameplay/Entities/Enemy/EnemyFactory.h"
+#include "Gameplay/Items/Systems/ChestFactory.h"
 
 namespace Diablo
 {
@@ -42,6 +46,7 @@ namespace Diablo
 		}
 
 		std::vector<std::shared_ptr<Enemy>> tempEnemies = GenerateEnemies(tempMapSize);
+		std::vector<std::shared_ptr<Chest>> tempChests = GenerateChests(tempMapSize);
 
 		//map += L"################";
 		//map += L"#....#.....#...#";
@@ -60,7 +65,7 @@ namespace Diablo
 		//map += L"#..............#";
 		//map += L"################";
 
-		return new Map(tempMap, tempMapSize, 1);
+		return new Map(tempMap, tempMapSize, 1, tempEnemies);
 	}
 
 	std::vector<Room> MapGenerator::GenerateRooms(uint32_t aMapSize, uint32_t aRoomSize)
@@ -193,8 +198,31 @@ namespace Diablo
 
 	std::vector<std::shared_ptr<Enemy>> MapGenerator::GenerateEnemies(uint32_t aMapSize)
 	{
+		srand(time(NULL));
+		std::vector<std::shared_ptr<Enemy>> tempEnemies;
 
+		uint32_t tempEnemyCount = rand() % 10 + 1;
 
-		return std::vector<std::shared_ptr<Enemy>>();
+		for (size_t i = 0; i < tempEnemyCount; i++)
+		{
+			std::shared_ptr<Enemy> tempEnemy = EnemyFactory::CreateEnemy(rand() % (aMapSize * aMapSize));
+
+			tempEnemies.push_back(std::move(tempEnemy));
+		}
+
+		return tempEnemies;
+	}
+	std::vector<std::shared_ptr<Chest>> MapGenerator::GenerateChests(uint32_t aMapSize)
+	{
+		srand(time(NULL));
+		std::vector<std::shared_ptr<Chest>> tempChests;
+
+		uint32_t tempChestCount = rand() % 10 + 1;
+		for (size_t i = 0; i < tempChestCount; i++)
+		{
+			std::shared_ptr<Chest> tempChest = ChestFactory::CreateChest();
+		}
+
+		return tempChests;
 	}
 }

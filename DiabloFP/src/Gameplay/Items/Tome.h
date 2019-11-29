@@ -13,6 +13,10 @@ namespace Diablo
 
 		std::string GetStat();
 
+	public:
+		static Item* CreateMethod() { return new Tome(); }
+		static std::string GetFactoryName() { return "Tome"; }
+
 	private:
 		std::string myStat;
 	};

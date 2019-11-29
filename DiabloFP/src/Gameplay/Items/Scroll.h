@@ -17,6 +17,10 @@ namespace Diablo
 		//Getting
 		inline void SetIsUsed(bool aValue) { myIsUsed = aValue; }
 
+	public:
+		static Item* CreateMethod() { return new Scroll(); }
+		static std::string GetFactoryName() { return "Scroll"; }
+
 	private:
 		std::string GetStat();
 		void Unuse();

@@ -28,7 +28,9 @@ namespace Diablo
 		inline std::shared_ptr<Item>& GetDropLoot() { return myDropLoot; }
 
 		inline float GetMaxHealth() const { return myMaxHealth; }
+		inline uint32_t GetCharPos() const { return myCharPos; }
 		inline std::shared_ptr<Attack> GetAttack() const { return myAttack; }
+
 
 		//Setting
 		inline void SetName(std::string aName) { myName = aName; }
@@ -37,12 +39,14 @@ namespace Diablo
 
 		inline void SetMaxHealth(float aHealth) { myMaxHealth = aHealth; }
 		inline void SetAttack(std::shared_ptr<Attack>& anAttack) { myAttack = std::move(anAttack); }
+		inline void SetCharPos(uint32_t aPos) { myCharPos = aPos; }
 
 		EnemyChoice GetCombatChoice();
 
 	private:
 		std::string myName;
 		uint32_t myKillXP;
+		uint32_t myCharPos;
 
 		float myMaxHealth;
 		std::shared_ptr<Item> myDropLoot;

@@ -114,6 +114,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Programing\DiabloFP\DiabloFP\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,15 +170,19 @@
     <ClCompile Include="src\Gameplay\Items\HealthPotion.cpp" />
     <ClCompile Include="src\Gameplay\Items\Scroll.cpp" />
     <ClCompile Include="src\Gameplay\Items\Systems\Chest.cpp" />
+    <ClCompile Include="src\Gameplay\Items\Systems\ChestFactory.cpp" />
     <ClCompile Include="src\Gameplay\Items\Systems\Inventory.cpp" />
+    <ClCompile Include="src\Gameplay\Items\Systems\ItemFactory.cpp" />
     <ClCompile Include="src\Gameplay\Items\Tome.cpp" />
     <ClCompile Include="src\Gameplay\LevelSystem.cpp" />
+    <ClCompile Include="src\Gameplay\Map\Map.cpp" />
     <ClCompile Include="src\Gameplay\Map\MapGenerator.cpp" />
     <ClCompile Include="src\Gameplay\Entities\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Input\Input.h" />
     <ClInclude Include="src\Core\Print.h" />
+    <ClInclude Include="src\Core\Random.h" />
     <ClInclude Include="src\Core\Rendering\Renderer.h" />
     <ClInclude Include="src\Core\Game.h" />
     <ClInclude Include="src\Gameplay\Entities\Enemy\Enemy.h" />
@@ -192,7 +197,9 @@
     <ClInclude Include="src\Gameplay\Items\Item.h" />
     <ClInclude Include="src\Gameplay\Items\Scroll.h" />
     <ClInclude Include="src\Gameplay\Items\Systems\Chest.h" />
+    <ClInclude Include="src\Gameplay\Items\Systems\ChestFactory.h" />
     <ClInclude Include="src\Gameplay\Items\Systems\Inventory.h" />
+    <ClInclude Include="src\Gameplay\Items\Systems\ItemFactory.h" />
     <ClInclude Include="src\Gameplay\Items\Tome.h" />
     <ClInclude Include="src\Gameplay\LevelSystem.h" />
     <ClInclude Include="src\Gameplay\Map\Map.h" />

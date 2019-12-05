@@ -7,6 +7,8 @@
 #include "Rendering/Renderer.h"
 #include "Gameplay/Map/Map.h"
 
+#include "Gameplay/Fighting/FightSystem.h"
+
 namespace Diablo
 {
 	class Game
@@ -25,6 +27,7 @@ namespace Diablo
 		//Getting
 		inline static Game* Get() { return myInstance; }
 		inline const uint32_t GetMapWidth() { return myMapWidth; }
+		inline Map* GetMap() { return myMap; }
 
 		PlayerType GetPlayerType();
 
@@ -41,6 +44,8 @@ namespace Diablo
 		Map* myMap;
 		Player* myPlayer;
 		HANDLE myDefaultConsole;
+
+		std::shared_ptr<FightSystem> myFightSystem;
 
 	private:
 		static Game* myInstance;

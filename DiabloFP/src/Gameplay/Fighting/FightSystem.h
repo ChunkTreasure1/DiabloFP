@@ -20,7 +20,7 @@ namespace Diablo
 		~FightSystem();
 
 		//Getting
-		inline std::shared_ptr<FightSystem>& Get() { return mypInstance; }
+		static inline std::shared_ptr<FightSystem>& Get() { return mypInstance; }
 
 		FightExit FightEnemy(std::shared_ptr<Enemy> apEnemy);
 

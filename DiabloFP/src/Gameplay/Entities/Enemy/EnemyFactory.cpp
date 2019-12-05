@@ -38,7 +38,9 @@ namespace Diablo
 			std::shared_ptr<Item> tempItem;
 			if (tempVal <= 0.7f)
 			{
-				tempItem = std::make_shared<HealthPotion>((float)(rand() % 20 + 10));
+				tempItem = std::make_shared<HealthPotion>();
+				auto tempI = std::dynamic_pointer_cast<HealthPotion>(tempItem);
+				tempI->SetAddAmount((float)(rand() % 20 + 10));
 			}
 			else if (tempVal > 0.7f && tempVal < 0.9f)
 			{

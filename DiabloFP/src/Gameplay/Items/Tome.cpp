@@ -4,8 +4,12 @@
 #include "Core/Print.h"
 #include "Core/Input/Input.h"
 
+#include "Systems/ItemFactory.h"
+
 namespace Diablo
 {
+	//bool Tome::myRegistered = ItemFactory::Register(Tome::GetFactoryName(), Tome::CreateMethod);
+
 	Tome::Tome()
 		: Item("Tome")
 	{
@@ -110,8 +114,8 @@ namespace Diablo
 			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
-			return false;
 		}
+		return false;
 	}
 
 	std::string Tome::GetStat()
@@ -146,5 +150,7 @@ namespace Diablo
 		{
 			return "Charisma";
 		}
+
+		return "null";
 	}
 }

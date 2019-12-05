@@ -19,5 +19,8 @@ namespace Diablo
 
 	private:
 		std::string myStat;
+
+	private:
+		static bool myRegistered;
 	};
 }

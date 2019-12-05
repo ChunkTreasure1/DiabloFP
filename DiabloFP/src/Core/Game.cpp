@@ -19,7 +19,8 @@ namespace Diablo
 
 		myDefaultConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-		myPlayer = new Player(10.f);
+		myPlayer = new Player(10.f, myMapWidth);
+		myFightSystem = std::make_shared<FightSystem>();
 	}
 
 	Game::~Game()

@@ -127,7 +127,7 @@ namespace Diablo
 			else if (fDistanceToWall < tempPlayer->GetDepth() / 3.0f)		nShade = 0x2593;
 			else if (fDistanceToWall < tempPlayer->GetDepth() / 2.0f)		nShade = 0x2592;
 			else if (fDistanceToWall < tempPlayer->GetDepth())				nShade = 0x2591;
-			else											nShade = ' ';		// Too far away
+			else															nShade = ' ';		// Too far away
 
 			if (bBoundary)		nShade = ' '; // Black it out
 

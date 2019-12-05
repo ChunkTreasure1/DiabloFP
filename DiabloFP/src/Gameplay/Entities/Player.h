@@ -7,6 +7,9 @@
 #include "Gameplay/Fighting/Attack.h"
 #include "Gameplay/Items/Systems/Inventory.h"
 
+#include "Gameplay/Map/Map.h"
+#include "Gameplay/Fighting/FightSystem.h"
+
 namespace Diablo
 {
 	enum class PlayerType
@@ -19,11 +22,55 @@ namespace Diablo
 	class Player : public Entity
 	{
 	public:
-		Player(float aHealth);
+		Player(float aHealth, uint32_t aMapWidth);
 		~Player() = default;
 
 		//Setting
-		inline void SetXPos(float aPos) { myXPos = aPos; }
+		inline void SetXPos(float aPos)
+		{
+			myXPos = aPos;
+			uint32_t tempCharPos = myXPos + (myYPos * (myMapWidth - 1));
+			if (Map::Get()->GetStringMap()[tempCharPos - myMapWidth - 1] == '*')
+			{
+				for (auto& tempE : Map::Get()->GetEnemies())
+				{
+					if (tempE->GetCharPos() == tempCharPos - myMapWidth - 1)
+					{
+						FightSystem::Get()->FightEnemy(tempE);
+					}
+				}
+			}
+			else if (Map::Get()->GetStringMap()[tempCharPos + myMapWidth - 1] == '*')
+			{
+				for (auto& tempE : Map::Get()->GetEnemies())
+				{
+					if (tempE->GetCharPos() == tempCharPos + myMapWidth - 1)
+					{
+						FightSystem::Get()->FightEnemy(tempE);
+					}
+				}
+			}
+			else if (Map::Get()->GetStringMap()[tempCharPos - 1] == '*')
+			{
+				for (auto& tempE : Map::Get()->GetEnemies())
+				{
+					if (tempE->GetCharPos() == tempCharPos - 1)
+					{
+						FightSystem::Get()->FightEnemy(tempE);
+					}
+				}
+			}
+			else if (Map::Get()->GetStringMap()[tempCharPos + 1] == '*')
+			{
+				for (auto& tempE : Map::Get()->GetEnemies())
+				{
+					if (tempE->GetCharPos() == tempCharPos + 1)
+					{
+						FightSystem::Get()->FightEnemy(tempE);
+					}
+				}
+			}
+		}
 		inline void SetYPos(float aPos) { myYPos = aPos; }
 		inline void SetAngle(float anAngle) { myAngle = anAngle; }
 
@@ -57,6 +104,7 @@ namespace Diablo
 
 		float myLevel;
 		PlayerType myPlayerType;
+		uint32_t myMapWidth;
 
 		std::unique_ptr<Inventory> mypInventory;
 		std::vector<std::shared_ptr<Attack>> myAttacks;

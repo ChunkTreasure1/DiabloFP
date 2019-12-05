@@ -4,8 +4,12 @@
 #include "Core/Print.h"
 #include "Core/Input/Input.h"
 
+#include "Systems/ItemFactory.h"
+
 namespace Diablo
 {
+	//bool Scroll::myRegistered = ItemFactory::Register(Scroll::GetFactoryName(), Scroll::CreateMethod);
+
 	Scroll::Scroll()
 		: Item("Scroll")
 	{
@@ -129,6 +133,8 @@ namespace Diablo
 
 			return false;
 		}
+
+		return false;
 	}
 
 	void Scroll::Unuse()
@@ -195,5 +201,7 @@ namespace Diablo
 		{
 			return "Charisma";
 		}
+	
+		return "null";
 	}
 }

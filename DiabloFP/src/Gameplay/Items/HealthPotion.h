@@ -19,5 +19,8 @@ namespace Diablo
 
 	private:
 		float myHealthAdd;
+
+	private:
+		static bool myRegistered;
 	};
 }

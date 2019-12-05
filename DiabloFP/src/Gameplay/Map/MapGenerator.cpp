@@ -7,6 +7,8 @@
 #include "Gameplay/Entities/Enemy/EnemyFactory.h"
 #include "Gameplay/Items/Systems/ChestFactory.h"
 
+#include "Core/Random.h"
+
 namespace Diablo
 {
 	Map* MapGenerator::GenerateMap()
@@ -48,6 +50,15 @@ namespace Diablo
 		std::vector<std::shared_ptr<Enemy>> tempEnemies = GenerateEnemies(tempMapSize);
 		std::vector<std::shared_ptr<Chest>> tempChests = GenerateChests(tempMapSize);
 
+		for (auto& tempE : tempEnemies)
+		{
+			tempMap[tempE->GetCharPos()] = '*';
+		}
+		for (auto& tempC : tempChests)
+		{
+			tempMap[tempC->GetCharPos()] = '=';
+		}
+
 		//map += L"################";
 		//map += L"#....#.....#...#";
 		//map += L"#....#.....#...#";
@@ -65,7 +76,7 @@ namespace Diablo
 		//map += L"#..............#";
 		//map += L"################";
 
-		return new Map(tempMap, tempMapSize, 1, tempEnemies);
+		return new Map(tempMap, tempMapSize, 1, tempEnemies, tempChests);
 	}
 
 	std::vector<Room> MapGenerator::GenerateRooms(uint32_t aMapSize, uint32_t aRoomSize)
@@ -198,14 +209,13 @@ namespace Diablo
 
 	std::vector<std::shared_ptr<Enemy>> MapGenerator::GenerateEnemies(uint32_t aMapSize)
 	{
-		srand(time(NULL));
 		std::vector<std::shared_ptr<Enemy>> tempEnemies;
 
-		uint32_t tempEnemyCount = rand() % 10 + 1;
+		uint32_t tempEnemyCount = Random::Int(1, 10);
 
 		for (size_t i = 0; i < tempEnemyCount; i++)
 		{
-			std::shared_ptr<Enemy> tempEnemy = EnemyFactory::CreateEnemy(rand() % (aMapSize * aMapSize));
+			std::shared_ptr<Enemy> tempEnemy = EnemyFactory::CreateEnemy(Random::Int(0, aMapSize * aMapSize));
 
 			tempEnemies.push_back(std::move(tempEnemy));
 		}
@@ -214,13 +224,12 @@ namespace Diablo
 	}
 	std::vector<std::shared_ptr<Chest>> MapGenerator::GenerateChests(uint32_t aMapSize)
 	{
-		srand(time(NULL));
 		std::vector<std::shared_ptr<Chest>> tempChests;
 
-		uint32_t tempChestCount = rand() % 10 + 1;
+		uint32_t tempChestCount = Random::Int(1, 10);
 		for (size_t i = 0; i < tempChestCount; i++)
 		{
-			std::shared_ptr<Chest> tempChest = ChestFactory::CreateChest();
+			std::shared_ptr<Chest> tempChest = ChestFactory::CreateChest(Random::Int(0, aMapSize * aMapSize));
 		}
 
 		return tempChests;

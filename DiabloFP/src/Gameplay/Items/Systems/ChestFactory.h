@@ -8,6 +8,6 @@ namespace Diablo
 	class ChestFactory
 	{
 	public:
-		static std::shared_ptr<Chest> CreateChest();
+		static std::shared_ptr<Chest> CreateChest(uint32_t aCharPos);
 	};
 }

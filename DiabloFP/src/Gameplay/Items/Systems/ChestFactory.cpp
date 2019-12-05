@@ -1,21 +1,22 @@
 #include "ChestFactory.h"
 #include "Gameplay/Items/Systems/ItemFactory.h"
+#include "Core/Random.h"
 
 #include <time.h>
 
 namespace Diablo
 {
-	std::shared_ptr<Chest> ChestFactory::CreateChest()
+	std::shared_ptr<Chest> ChestFactory::CreateChest(uint32_t aCharPos)
 	{
-		srand(time(NULL));
-		std::shared_ptr<Chest> tempChest;
+		std::shared_ptr<Chest> tempChest = std::make_shared<Chest>();
 
-		uint32_t tempLootCount = rand() % 10 + 1;
+		tempChest->SetCharPos(aCharPos);
+		uint32_t tempLootCount = Random::Int(1, 10);
 		for (size_t i = 0; i < tempLootCount; i++)
 		{
-			tempChest->AddItem(ItemFactory::Create());
+			tempChest->AddItem(ItemFactory::Create(Random::Int(0, ItemFactory::GetSize())));
 		}
 
-		return std::move(tempChest);
+		return tempChest;
 	}
 }

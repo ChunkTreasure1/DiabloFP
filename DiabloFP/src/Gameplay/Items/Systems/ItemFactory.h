@@ -16,7 +16,7 @@ namespace Diablo
 
 		static bool Register(const std::string& aName, TCreateMethod aFunc)
 		{
-			for (auto tempIT = myMethods.find(aName); tempIT == myMethods.end();)
+			if (auto tempIT = myMethods.find(aName); tempIT == myMethods.end())
 			{
 				myMethods[aName] = aFunc;
 				return true;
@@ -27,7 +27,7 @@ namespace Diablo
 
 		static Item* Create(const std::string& aName)
 		{
-			for (auto tempIT = myMethods.find(aName); tempIT != myMethods.end();)
+			if (auto tempIT = myMethods.find(aName); tempIT != myMethods.end())
 			{
 				return tempIT->second();
 			}
@@ -35,16 +35,21 @@ namespace Diablo
 			return nullptr;
 		}
 
-		static Item* Create(uint32_t aValue)
+		static Item* Create(uint32_t anI)
 		{
-			for (size_t i = 0; i < myMethods.size(); i++)
+			std::map<std::string, TCreateMethod>::const_iterator tempEnd = myMethods.end();
+
+			int counter = 0;
+			for (std::map<std::string, TCreateMethod>::const_iterator tempIT = myMethods.begin(); tempIT != tempEnd; ++tempIT)
 			{
-				if (i == aValue)
-				{
-					return myMethods.at(i);
-				}
+				counter++;
+
+				if (counter == anI)
+					return tempIT->second();
 			}
 		}
+
+		static uint32_t GetSize() { return myMethods.size(); }
 
 	private:
 		static std::map<std::string, TCreateMethod> myMethods;

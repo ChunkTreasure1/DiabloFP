@@ -1,6 +1,6 @@
 #include "Inventory.h"
 
-#include "DiabloTB/Gameplay/Items/Scroll.h"
+#include "Gameplay/Items/Scroll.h"
 #include "Core/Print.h"
 #include "Core/Input/Input.h"
 

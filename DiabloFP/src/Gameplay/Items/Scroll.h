@@ -29,5 +29,8 @@ namespace Diablo
 		std::string myStat;
 		uint8_t myLifeTime;
 		bool myIsUsed = false;
+
+	private:
+		static bool myRegistered;
 	};
 }

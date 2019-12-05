@@ -29,45 +29,33 @@ namespace Diablo
 		inline void SetXPos(float aPos)
 		{
 			myXPos = aPos;
-			uint32_t tempCharPos = myXPos + (myYPos * (myMapWidth - 1));
-			if (Map::Get()->GetStringMap()[tempCharPos - myMapWidth - 1] == '*')
+			uint32_t tempCharPos = (int)myYPos + (int)myXPos * myMapWidth;
+			if (Map::Get()->GetStringMap().c_str()[tempCharPos - myMapWidth] == '*')
 			{
 				for (auto& tempE : Map::Get()->GetEnemies())
 				{
-					if (tempE->GetCharPos() == tempCharPos - myMapWidth - 1)
-					{
-						FightSystem::Get()->FightEnemy(tempE);
-					}
+					FightSystem::Get()->FightEnemy(tempE);
 				}
 			}
-			else if (Map::Get()->GetStringMap()[tempCharPos + myMapWidth - 1] == '*')
+			else if (Map::Get()->GetStringMap().c_str()[tempCharPos + myMapWidth] == '*')
 			{
 				for (auto& tempE : Map::Get()->GetEnemies())
 				{
-					if (tempE->GetCharPos() == tempCharPos + myMapWidth - 1)
-					{
-						FightSystem::Get()->FightEnemy(tempE);
-					}
+					FightSystem::Get()->FightEnemy(tempE);
 				}
 			}
-			else if (Map::Get()->GetStringMap()[tempCharPos - 1] == '*')
+			else if (Map::Get()->GetStringMap().c_str()[tempCharPos - 1] == '*')
 			{
 				for (auto& tempE : Map::Get()->GetEnemies())
 				{
-					if (tempE->GetCharPos() == tempCharPos - 1)
-					{
-						FightSystem::Get()->FightEnemy(tempE);
-					}
+					FightSystem::Get()->FightEnemy(tempE);
 				}
 			}
-			else if (Map::Get()->GetStringMap()[tempCharPos + 1] == '*')
+			else if (Map::Get()->GetStringMap().c_str()[tempCharPos + 1] == '*')
 			{
 				for (auto& tempE : Map::Get()->GetEnemies())
 				{
-					if (tempE->GetCharPos() == tempCharPos + 1)
-					{
-						FightSystem::Get()->FightEnemy(tempE);
-					}
+					FightSystem::Get()->FightEnemy(tempE);
 				}
 			}
 		}

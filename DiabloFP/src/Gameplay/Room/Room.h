@@ -3,29 +3,19 @@
 #include <map>
 #include <string>
 
+#include <glm/glm.hpp>
+
 namespace Diablo
 {
-	struct vec2
-	{
-	public:
-		vec2(float anX, float aY)
-		{
-			x = anX;
-			y = aY;
-		}
-
-		float x, y;
-	};
-
 	struct Tile
 	{
 	public:
-		Tile(char aT, vec2 aPos)
+		Tile(char aT, glm::vec2 aPos)
 			: Type(aT), Position(aPos)
 		{}
 
 		char Type;
-		vec2 Position;
+		glm::vec2 Position;
 	};
 
 	class Room

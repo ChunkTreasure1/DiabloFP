@@ -9,7 +9,7 @@ namespace Diablo
 	class EnemyFactory
 	{
 	public:
-		static std::shared_ptr<Enemy> CreateEnemy(uint32_t aCharPos);
+		static std::shared_ptr<Enemy> CreateEnemy(const glm::vec2& aCharPos);
 
 	private:
 		static std::tuple<Stats, std::string, std::shared_ptr<Attack>> GetEnemyStats();

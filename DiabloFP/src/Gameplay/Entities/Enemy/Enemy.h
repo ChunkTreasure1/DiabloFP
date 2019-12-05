@@ -6,6 +6,8 @@
 #include "Gameplay/Items/Item.h"
 #include "Gameplay/Fighting/Attack.h"
 
+#include <glm/glm.hpp>
+
 namespace Diablo
 {
 	enum class EnemyChoice
@@ -28,7 +30,7 @@ namespace Diablo
 		inline std::shared_ptr<Item>& GetDropLoot() { return myDropLoot; }
 
 		inline float GetMaxHealth() const { return myMaxHealth; }
-		inline uint32_t GetCharPos() const { return myCharPos; }
+		inline const glm::vec2& GetCharPos() { return myCharPos; }
 		inline std::shared_ptr<Attack> GetAttack() const { return myAttack; }
 
 
@@ -39,14 +41,14 @@ namespace Diablo
 
 		inline void SetMaxHealth(float aHealth) { myMaxHealth = aHealth; }
 		inline void SetAttack(std::shared_ptr<Attack>& anAttack) { myAttack = std::move(anAttack); }
-		inline void SetCharPos(uint32_t aPos) { myCharPos = aPos; }
+		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
 
 		EnemyChoice GetCombatChoice();
 
 	private:
 		std::string myName;
 		uint32_t myKillXP;
-		uint32_t myCharPos;
+		glm::vec2 myCharPos;
 
 		float myMaxHealth;
 		std::shared_ptr<Item> myDropLoot;

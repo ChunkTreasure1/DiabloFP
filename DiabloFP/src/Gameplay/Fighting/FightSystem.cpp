@@ -5,6 +5,7 @@
 
 #include "Core/Print.h"
 #include "Core/Input/Input.h"
+#include "Core/Game.h"
 
 namespace Diablo
 {
@@ -20,6 +21,7 @@ namespace Diablo
 
 	FightExit FightSystem::FightEnemy(std::shared_ptr<Enemy> apEnemy)
 	{
+		Game::Get()->SetIs3D(false);
 		bool tempRunning = true;
 		do
 		{

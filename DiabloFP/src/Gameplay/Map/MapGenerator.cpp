@@ -52,29 +52,32 @@ namespace Diablo
 
 		for (auto& tempE : tempEnemies)
 		{
-			tempMap[tempE->GetCharPos()] = '*';
+			float tempPos = tempE->GetCharPos().x + (tempMapSize * tempE->GetCharPos().y) - 1;
+			tempMap[tempPos] = '*';
 		}
 		for (auto& tempC : tempChests)
 		{
-			tempMap[tempC->GetCharPos()] = '=';
+			float tempPos = tempC->GetCharPos().x + (tempMapSize * tempC->GetCharPos().y) - 1;
+			tempMap[tempPos] = '=';
 		}
 
-		//map += L"################";
-		//map += L"#....#.....#...#";
-		//map += L"#....#.....#...#";
-		//map += L"#....#.....#...#";
-		//map += L"####.#.....#####";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"#..............#";
-		//map += L"################";
+		//(2, 3)
+		//map += L"################..";
+		//map += L"#....#.....#...#..";
+		//map += L"#....#.....#...#..";
+		//map += L"#....#.....#...#..";
+		//map += L"####.#.....#####..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"#..............#..";
+		//map += L"################..";
 
 		return new Map(tempMap, tempMapSize, 1, tempEnemies, tempChests);
 	}
@@ -83,19 +86,19 @@ namespace Diablo
 	{
 		std::vector<Room> tempRooms;
 
-		vec2 tempLastStartPos(1, 0);
+		glm::vec2 tempLastStartPos(1, 0);
 
 		uint32_t tempRoomCount = (aMapSize * aMapSize) / (aRoomSize * aRoomSize) - aMapSize / aRoomSize;
 		for (size_t i = 0; i < tempRoomCount; i++)
 		{
-			vec2 tempStart = vec2(tempLastStartPos);
-			vec2 tempEnd = vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
+			glm::vec2 tempStart(tempLastStartPos);
+			glm::vec2 tempEnd(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
 
 			if (tempEnd.x >= aMapSize)
 			{
 				tempStart.x = 1;
 				tempStart.y += aRoomSize;
-				tempEnd = vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
+				tempEnd = glm::vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
 			}
 
 			Room tempRoom;
@@ -103,15 +106,15 @@ namespace Diablo
 			{
 				if (i == aRoomSize / 2 && tempStart.y != 0)
 				{
-					tempRoom.GetTiles().push_back(Tile('.', vec2(tempStart.x + i - 1, tempStart.y)));
+					tempRoom.GetTiles().push_back(Tile('.', glm::vec2(tempStart.x + i - 1, tempStart.y)));
 				}
 				else if (tempStart.y == 0)
 				{
-					tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i - 1, tempStart.y)));
+					tempRoom.GetTiles().push_back(Tile('#', glm::vec2(tempStart.x + i - 1, tempStart.y)));
 				}
 				else
 				{
-					tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, tempStart.y)));
+					tempRoom.GetTiles().push_back(Tile('#', glm::vec2(tempStart.x + i, tempStart.y)));
 				}
 			}
 
@@ -128,7 +131,7 @@ namespace Diablo
 				{
 					if (tempStart.x + x == 1)
 					{
-						tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + x, tempStart.y + y)));
+						tempRoom.GetTiles().push_back(Tile('#', glm::vec2(tempStart.x + x, tempStart.y + y)));
 						continue;
 					}
 
@@ -136,73 +139,23 @@ namespace Diablo
 					{
 						if (y == aRoomSize / 2 && tempEnd.x != aMapSize - 2)
 						{
-							tempRoom.GetTiles().push_back(Tile('.', vec2(tempStart.x + x, tempStart.y + y)));
+							tempRoom.GetTiles().push_back(Tile('.', glm::vec2(tempStart.x + x, tempStart.y + y)));
 						}
 						else
 						{
-							tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + x, tempStart.y + y)));
+							tempRoom.GetTiles().push_back(Tile('#', glm::vec2(tempStart.x + x, tempStart.y + y)));
 						}
 						continue;
 					}
 
-					tempRoom.GetTiles().push_back(Tile('.', vec2(tempStart.x + x, tempStart.y + y)));
+					tempRoom.GetTiles().push_back(Tile('.', glm::vec2(tempStart.x + x, tempStart.y + y)));
 				}
 			}
 
-			tempLastStartPos = vec2(tempStart.x + aRoomSize, tempStart.y);
+			tempLastStartPos = glm::vec2(tempStart.x + aRoomSize, tempStart.y);
 
 			tempRooms.push_back(tempRoom);
 		}
-
-		/*std::vector<Room> tempRooms;
-
-		vec2 tempLastStartPos(0, 0);
-		vec2 tempLastEndPos(aRoomSize, aRoomSize);
-
-		uint32_t tempRoomCount = (aMapSize * aMapSize) / (aRoomSize * aRoomSize);
-
-		for (size_t i = 0; i < tempRoomCount; i++)
-		{
-			vec2 tempStart = vec2(tempLastStartPos.x, tempLastStartPos.y);
-			vec2 tempEnd(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
-
-			if (tempEnd.x >= aMapSize)
-			{
-				tempStart.x = 0;
-				tempStart.y = tempStart.y + aRoomSize;
-			}
-
-			Room tempRoom;
-
-			for (size_t i = 0; i < aRoomSize; i++)
-			{
-				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, tempLastStartPos.y + aRoomSize)));
-			}
-
-			for (size_t y = 1; y < aRoomSize; y++)
-			{
-				for (size_t x = 0; x < aRoomSize; x++)
-				{
-					if (x == 0 || x == aRoomSize - 1)
-					{
-						tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + x, tempStart.y + y)));
-						continue;
-					}
-					
-					tempRoom.GetTiles().push_back(Tile('.', vec2(tempStart.x + x, tempStart.y + y)));
-				}
-			}
-
-			for (size_t i = 0; i < aRoomSize; i++)
-			{
-				tempRoom.GetTiles().push_back(Tile('#', vec2(tempStart.x + i, tempLastStartPos.y + 2 * aRoomSize)));
-			}
-
-			tempRooms.push_back(tempRoom);
-
-			tempLastStartPos = tempStart;
-			tempLastEndPos = vec2(tempStart.x + aRoomSize, tempStart.y + aRoomSize);
-		}*/
 
 		return tempRooms;
 	}
@@ -215,7 +168,7 @@ namespace Diablo
 
 		for (size_t i = 0; i < tempEnemyCount; i++)
 		{
-			std::shared_ptr<Enemy> tempEnemy = EnemyFactory::CreateEnemy(Random::Int(0, aMapSize * aMapSize));
+			std::shared_ptr<Enemy> tempEnemy = EnemyFactory::CreateEnemy(GeneratePosition(aMapSize));
 
 			tempEnemies.push_back(std::move(tempEnemy));
 		}
@@ -229,9 +182,18 @@ namespace Diablo
 		uint32_t tempChestCount = Random::Int(1, 10);
 		for (size_t i = 0; i < tempChestCount; i++)
 		{
-			std::shared_ptr<Chest> tempChest = ChestFactory::CreateChest(Random::Int(0, aMapSize * aMapSize));
+			std::shared_ptr<Chest> tempChest = ChestFactory::CreateChest(GeneratePosition(aMapSize));
 		}
 
 		return tempChests;
+	}
+
+	glm::vec2 MapGenerator::GeneratePosition(uint32_t aMapSize)
+	{
+		glm::vec2 tempPos;
+		tempPos.x = Random::Int(1, aMapSize - 4);
+		tempPos.y = Random::Int(1, aMapSize - 3);
+
+		return tempPos;
 	}
 }

@@ -12,7 +12,7 @@
 
 namespace Diablo
 {
-	std::shared_ptr<Enemy> EnemyFactory::CreateEnemy(uint32_t aCharPos)
+	std::shared_ptr<Enemy> EnemyFactory::CreateEnemy(const glm::vec2& aCharPos)
 	{
 		//Generate stats
 		int tempDiff = LevelSystem::GetDifficulty();

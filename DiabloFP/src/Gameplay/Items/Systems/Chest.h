@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <glm/glm.hpp>
 
 #include "Gameplay/Items/Item.h"
 
@@ -14,11 +15,11 @@ namespace Diablo
 
 		inline void AddItem(Item* anItem) { myItems.push_back(anItem); }
 
-		inline void SetCharPos(uint32_t aPos) { myCharPos = aPos; }
-		inline const uint32_t GetCharPos() { return myCharPos; }
+		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
+		inline const glm::vec2& GetCharPos() { return myCharPos; }
 
 	private:
 		std::vector<Item*> myItems;
-		uint32_t myCharPos;
+		glm::vec2 myCharPos;
 	};
 }

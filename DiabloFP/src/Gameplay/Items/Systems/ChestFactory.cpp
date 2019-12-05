@@ -6,7 +6,7 @@
 
 namespace Diablo
 {
-	std::shared_ptr<Chest> ChestFactory::CreateChest(uint32_t aCharPos)
+	std::shared_ptr<Chest> ChestFactory::CreateChest(const glm::vec2& aCharPos)
 	{
 		std::shared_ptr<Chest> tempChest = std::make_shared<Chest>();
 

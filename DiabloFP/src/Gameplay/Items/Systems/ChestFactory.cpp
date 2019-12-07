@@ -1,6 +1,6 @@
 #include "ChestFactory.h"
 #include "Gameplay/Items/Systems/ItemFactory.h"
-#include "Core/Random.h"
+#include "Core/Utility/Random.h"
 
 #include <time.h>
 

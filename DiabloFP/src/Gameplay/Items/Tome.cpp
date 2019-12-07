@@ -1,7 +1,7 @@
 #include "Tome.h"
 
 #include "Gameplay/Entities/Player.h"
-#include "Core/Print.h"
+#include "Core/Utility/Print.h"
 #include "Core/Input/Input.h"
 
 #include "Systems/ItemFactory.h"

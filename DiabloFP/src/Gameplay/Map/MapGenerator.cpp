@@ -7,7 +7,7 @@
 #include "Gameplay/Entities/Enemy/EnemyFactory.h"
 #include "Gameplay/Items/Systems/ChestFactory.h"
 
-#include "Core/Random.h"
+#include "Core/Utility/Random.h"
 
 namespace Diablo
 {
@@ -52,12 +52,12 @@ namespace Diablo
 
 		for (auto& tempE : tempEnemies)
 		{
-			float tempPos = tempE->GetCharPos().x + (tempMapSize * tempE->GetCharPos().y) - 1;
+			float tempPos = tempE->GetCharPos().y + (tempMapSize * tempE->GetCharPos().x) - 1;
 			tempMap[tempPos] = '*';
 		}
 		for (auto& tempC : tempChests)
 		{
-			float tempPos = tempC->GetCharPos().x + (tempMapSize * tempC->GetCharPos().y) - 1;
+			float tempPos = tempC->GetCharPos().y + (tempMapSize * tempC->GetCharPos().x) - 1;
 			tempMap[tempPos] = '=';
 		}
 

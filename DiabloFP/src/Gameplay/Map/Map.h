@@ -17,7 +17,7 @@ namespace Diablo
 		~Map() = default;
 
 		//Getting
-		inline const std::wstring& GetStringMap() { return myStringMap; }
+		inline std::wstring& GetStringMap() { return myStringMap; }
 		inline const uint32_t GetRoomCount() { return myRoomCount; }
 		inline const uint32_t GetMapSize() { return myMapSize; }
 

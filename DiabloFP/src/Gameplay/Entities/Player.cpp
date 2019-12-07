@@ -4,8 +4,9 @@
 #include "Gameplay/Fighting/Attacks/Spell.h"
 #include "Gameplay/Fighting/Attacks/Sword.h"
 
-#include "Core/Print.h"
+#include "Core/Utility/Print.h"
 #include "Core/Input/Input.h"
+#include "Core/Utility/Utility.h"
 
 namespace Diablo
 {
@@ -18,6 +19,139 @@ namespace Diablo
 		myInstance = this;
 		mypInventory = std::make_unique<Inventory>();
 	}
+
+	void Player::SetXPos(float aPos)
+	{
+		myXPos = aPos;
+		uint32_t tempCharPos = Utility::GetRounded(myYPos) + Utility::GetRounded(myXPos) * myMapWidth;
+		if (Map::Get()->GetStringMap().c_str()[tempCharPos - myMapWidth] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+
+				if (tempCheck != tempCharPos - myMapWidth)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + myMapWidth] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+
+				if (tempCheck != tempCharPos + myMapWidth)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos - 1] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+
+				if (tempCheck != tempCharPos - 1)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + 1] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+
+				if (tempCheck != tempCharPos + 1)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+	}
+
+	void Player::SetYPos(float aPos)
+	{
+		myYPos = aPos;
+		uint32_t tempCharPos = Utility::GetRounded(myYPos) + Utility::GetRounded(myXPos) * myMapWidth;
+		if (Map::Get()->GetStringMap().c_str()[tempCharPos - myMapWidth] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = tempCharPos;
+				tempCheck -= (int)tempE->GetCharPos().y;
+				tempCheck /= ((int)tempE->GetCharPos().x * myMapWidth);
+
+				if (tempCheck != tempCharPos - myMapWidth)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + myMapWidth] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = tempCharPos;
+				tempCheck -= (int)tempE->GetCharPos().y;
+				tempCheck /= ((int)tempE->GetCharPos().x * myMapWidth);
+
+				if (tempCheck != tempCharPos + myMapWidth)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos - 1] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = tempCharPos;
+				tempCheck -= (int)tempE->GetCharPos().y;
+				tempCheck /= ((int)tempE->GetCharPos().x * myMapWidth);
+
+				if (tempCheck != tempCharPos - 1)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + 1] == '*')
+		{
+			for (auto& tempE : Map::Get()->GetEnemies())
+			{
+				uint32_t tempCheck = tempCharPos;
+				tempCheck -= (int)tempE->GetCharPos().y;
+				tempCheck /= ((int)tempE->GetCharPos().x * myMapWidth);
+
+				if (tempCheck != tempCharPos + 1)
+				{
+					continue;
+				}
+
+				AttackEnemy(tempE);
+			}
+		}
+	}
+
 	void Player::SetPlayerStats(PlayerType aPlayerType)
 	{
 		if (aPlayerType == PlayerType::Warrior)

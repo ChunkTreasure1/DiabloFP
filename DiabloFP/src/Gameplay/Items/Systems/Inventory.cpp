@@ -1,7 +1,7 @@
 #include "Inventory.h"
 
 #include "Gameplay/Items/Scroll.h"
-#include "Core/Print.h"
+#include "Core/Utility/Print.h"
 #include "Core/Input/Input.h"
 
 namespace Diablo

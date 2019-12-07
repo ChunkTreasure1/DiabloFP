@@ -1,6 +1,6 @@
 #include "LevelSystem.h"
 #include "Entities/Player.h"
-#include "Core/Print.h"
+#include "Core/Utility/Print.h"
 #include "Core/Input/Input.h"
 
 namespace Diablo

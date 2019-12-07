@@ -3,7 +3,7 @@
 #include "Gameplay/Entities/Player.h"
 #include "Gameplay/LevelSystem.h"
 
-#include "Core/Print.h"
+#include "Core/Utility/Print.h"
 #include "Core/Input/Input.h"
 #include "Core/Game.h"
 
@@ -18,6 +18,11 @@ namespace Diablo
 
 	FightSystem::~FightSystem()
 	{}
+
+	void FightSystem::GameOver()
+	{
+		
+	}
 
 	FightExit FightSystem::FightEnemy(std::shared_ptr<Enemy> apEnemy)
 	{
@@ -52,7 +57,7 @@ namespace Diablo
 						Print::Clear();
 
 						if (AttackEnemy(apEnemy, tempAttack)) { return FightExit::EnemyKilled; }
-						if (AttackPlayer(apEnemy)) { return FightExit::PlayerKilled; }
+						if (AttackPlayer(apEnemy)) { Game::Get()->SetIs3D(true); return FightExit::PlayerKilled; }
 
 						std::cin.get();
 					}
@@ -61,7 +66,7 @@ namespace Diablo
 						Print::Clear();
 
 						if (AttackPlayer(apEnemy)) { return FightExit::PlayerKilled; }
-						if (AttackEnemy(apEnemy, tempAttack)) { return FightExit::EnemyKilled; }
+						if (AttackEnemy(apEnemy, tempAttack)) { Game::Get()->SetIs3D(true); return FightExit::EnemyKilled; }
 
 						std::cin.get();
 					}
@@ -70,7 +75,7 @@ namespace Diablo
 				{
 					Print::Clear();
 
-					if (AttackEnemy(apEnemy, tempAttack)) { return FightExit::EnemyKilled; }
+					if (AttackEnemy(apEnemy, tempAttack)) { Game::Get()->SetIs3D(true); return FightExit::EnemyKilled; }
 
 					std::cin.get();
 				}
@@ -159,12 +164,13 @@ namespace Diablo
 
 		if (tempVal > apEnemy->GetAgility())
 		{
+			apEnemy->SetHealth(apEnemy->GetHealth() - apAttack->GetDamage());
+
 			if (apEnemy->GetHealth() <= 0)
 			{
 				return true;
 			}
 
-			apEnemy->SetHealth(apEnemy->GetHealth() - apAttack->GetDamage());
 			Print::PrintColorText("You damaged " + apEnemy->GetName() + " by " + Print::ToString(apAttack->GetDamage()) + "HP!\n", COLOR_GREEN);
 		}
 		else

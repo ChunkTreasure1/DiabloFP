@@ -4,7 +4,7 @@
 
 #include "Input/Input.h"
 #include "Gameplay/Map/MapGenerator.h"
-#include "Print.h"
+#include "Utility/Print.h"
 
 namespace Diablo
 {

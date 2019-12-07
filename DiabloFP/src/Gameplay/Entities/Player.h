@@ -26,40 +26,8 @@ namespace Diablo
 		~Player() = default;
 
 		//Setting
-		inline void SetXPos(float aPos)
-		{
-			myXPos = aPos;
-			uint32_t tempCharPos = (int)myYPos + (int)myXPos * myMapWidth;
-			if (Map::Get()->GetStringMap().c_str()[tempCharPos - myMapWidth] == '*')
-			{
-				for (auto& tempE : Map::Get()->GetEnemies())
-				{
-					FightSystem::Get()->FightEnemy(tempE);
-				}
-			}
-			else if (Map::Get()->GetStringMap().c_str()[tempCharPos + myMapWidth] == '*')
-			{
-				for (auto& tempE : Map::Get()->GetEnemies())
-				{
-					FightSystem::Get()->FightEnemy(tempE);
-				}
-			}
-			else if (Map::Get()->GetStringMap().c_str()[tempCharPos - 1] == '*')
-			{
-				for (auto& tempE : Map::Get()->GetEnemies())
-				{
-					FightSystem::Get()->FightEnemy(tempE);
-				}
-			}
-			else if (Map::Get()->GetStringMap().c_str()[tempCharPos + 1] == '*')
-			{
-				for (auto& tempE : Map::Get()->GetEnemies())
-				{
-					FightSystem::Get()->FightEnemy(tempE);
-				}
-			}
-		}
-		inline void SetYPos(float aPos) { myYPos = aPos; }
+	    void SetXPos(float aPos);
+		void SetYPos(float aPos);
 		inline void SetAngle(float anAngle) { myAngle = anAngle; }
 
 		inline void SetPlayerType(PlayerType aPlayerType) { myPlayerType = aPlayerType; }
@@ -80,6 +48,28 @@ namespace Diablo
 
 		std::shared_ptr<Attack> GetAttack();
 		void Update();
+
+	private:
+		void AttackEnemy(std::shared_ptr<Enemy> aEnemy)
+		{
+			auto tempRet = FightSystem::Get()->FightEnemy(aEnemy);
+
+			if (tempRet == FightExit::EnemyKilled)
+			{
+				uint32_t tempEPos = (int)aEnemy->GetCharPos().y + (int)aEnemy->GetCharPos().x * myMapWidth;
+				Map::Get()->GetStringMap()[tempEPos] = '.';
+
+				auto tempIT = std::find(Map::Get()->GetEnemies().begin(), Map::Get()->GetEnemies().end(), aEnemy);
+				if (tempIT != Map::Get()->GetEnemies().end())
+				{
+					Map::Get()->GetEnemies().erase(tempIT);
+				}
+			}
+			else if (tempRet == FightExit::PlayerKilled)
+			{
+				FightSystem::Get()->GameOver();
+			}
+		}
 
 	private:
 		float myXPos;

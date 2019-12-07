@@ -161,7 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Game.cpp" />
-    <ClCompile Include="src\Core\Print.cpp" />
+    <ClCompile Include="src\Core\Utility\Print.cpp" />
     <ClCompile Include="src\Core\Rendering\Renderer.cpp" />
     <ClCompile Include="src\DiabloFP.cpp" />
     <ClCompile Include="src\Gameplay\Entities\Enemy\Enemy.cpp" />
@@ -181,10 +181,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Input\Input.h" />
-    <ClInclude Include="src\Core\Print.h" />
-    <ClInclude Include="src\Core\Random.h" />
+    <ClInclude Include="src\Core\Utility\Print.h" />
+    <ClInclude Include="src\Core\Utility\Random.h" />
     <ClInclude Include="src\Core\Rendering\Renderer.h" />
     <ClInclude Include="src\Core\Game.h" />
+    <ClInclude Include="src\Core\Utility\Utility.h" />
     <ClInclude Include="src\Gameplay\Entities\Enemy\Enemy.h" />
     <ClInclude Include="src\Gameplay\Entities\Enemy\EnemyFactory.h" />
     <ClInclude Include="src\Gameplay\Entities\Entity.h" />

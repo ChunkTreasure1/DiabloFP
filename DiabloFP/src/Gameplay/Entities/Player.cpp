@@ -36,6 +36,7 @@ namespace Diablo
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + myMapWidth] == '*')
@@ -50,6 +51,7 @@ namespace Diablo
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 		else if (Map::Get()->GetStringMap().c_str()[tempCharPos - 1] == '*')
@@ -58,12 +60,13 @@ namespace Diablo
 			{
 				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
 
-				if (tempCheck != tempCharPos - 1)
+				if (tempCheck != tempCharPos)
 				{
 					continue;
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + 1] == '*')
@@ -72,12 +75,13 @@ namespace Diablo
 			{
 				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
 
-				if (tempCheck != tempCharPos + 1)
+				if (tempCheck != tempCharPos)
 				{
 					continue;
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 	}
@@ -100,6 +104,7 @@ namespace Diablo
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + myMapWidth] == '*')
@@ -116,6 +121,7 @@ namespace Diablo
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 		else if (Map::Get()->GetStringMap().c_str()[tempCharPos - 1] == '*')
@@ -126,12 +132,13 @@ namespace Diablo
 				tempCheck -= (int)tempE->GetCharPos().y;
 				tempCheck /= ((int)tempE->GetCharPos().x * myMapWidth);
 
-				if (tempCheck != tempCharPos - 1)
+				if (tempCheck != tempCharPos)
 				{
 					continue;
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + 1] == '*')
@@ -142,12 +149,13 @@ namespace Diablo
 				tempCheck -= (int)tempE->GetCharPos().y;
 				tempCheck /= ((int)tempE->GetCharPos().x * myMapWidth);
 
-				if (tempCheck != tempCharPos + 1)
+				if (tempCheck != tempCharPos)
 				{
 					continue;
 				}
 
 				AttackEnemy(tempE);
+				break;
 			}
 		}
 	}

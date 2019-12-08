@@ -6,6 +6,7 @@
 #include "Core/Utility/Print.h"
 #include "Core/Input/Input.h"
 #include "Core/Game.h"
+#include "Core/Utility/ExitException.h"
 
 namespace Diablo
 {
@@ -21,7 +22,12 @@ namespace Diablo
 
 	void FightSystem::GameOver()
 	{
-		
+		Print::Clear();
+		Print::PrintColorText("GAME OVER", COLOR_RED);
+		Print::PrintColorText("Press ENTER to exit", COLOR_RED);
+		std::cin.get();
+
+		throw ExitException();
 	}
 
 	FightExit FightSystem::FightEnemy(std::shared_ptr<Enemy> apEnemy)

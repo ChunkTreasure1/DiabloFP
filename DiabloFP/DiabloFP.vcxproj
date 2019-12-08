@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Input\Input.h" />
+    <ClInclude Include="src\Core\Utility\ExitException.h" />
     <ClInclude Include="src\Core\Utility\Print.h" />
     <ClInclude Include="src\Core\Utility\Random.h" />
     <ClInclude Include="src\Core\Rendering\Renderer.h" />

@@ -50,26 +50,10 @@ namespace Diablo
 		void Update();
 
 	private:
-		void AttackEnemy(std::shared_ptr<Enemy> aEnemy)
-		{
-			auto tempRet = FightSystem::Get()->FightEnemy(aEnemy);
-
-			if (tempRet == FightExit::EnemyKilled)
-			{
-				uint32_t tempEPos = (int)aEnemy->GetCharPos().y + (int)aEnemy->GetCharPos().x * myMapWidth;
-				Map::Get()->GetStringMap()[tempEPos] = '.';
-
-				auto tempIT = std::find(Map::Get()->GetEnemies().begin(), Map::Get()->GetEnemies().end(), aEnemy);
-				if (tempIT != Map::Get()->GetEnemies().end())
-				{
-					Map::Get()->GetEnemies().erase(tempIT);
-				}
-			}
-			else if (tempRet == FightExit::PlayerKilled)
-			{
-				FightSystem::Get()->GameOver();
-			}
-		}
+		void AttackEnemy(std::shared_ptr<Enemy> aEnemy);
+		void OpenChest(std::shared_ptr<Chest> aChest);
+		void CheckForEnemy();
+		void CheckForChest();
 
 	private:
 		float myXPos;

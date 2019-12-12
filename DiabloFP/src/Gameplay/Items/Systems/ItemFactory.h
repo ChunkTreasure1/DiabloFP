@@ -16,7 +16,9 @@ namespace Diablo
 
 		static bool Register(const std::string& aName, TCreateMethod aFunc)
 		{
-			if (auto tempIT = myMethods.find(aName); tempIT == myMethods.end())
+			auto tempIT = myMethods.find(aName);
+
+			if (tempIT == myMethods.end())
 			{
 				myMethods[aName] = aFunc;
 				return true;
@@ -39,13 +41,15 @@ namespace Diablo
 		{
 			std::map<std::string, TCreateMethod>::const_iterator tempEnd = myMethods.end();
 
-			int counter = 0;
+			int tempCounter = 0;
 			for (std::map<std::string, TCreateMethod>::const_iterator tempIT = myMethods.begin(); tempIT != tempEnd; ++tempIT)
 			{
-				counter++;
+				tempCounter++;
 
-				if (counter == anI)
+				if (tempCounter == anI)
+				{
 					return tempIT->second();
+				}
 			}
 		}
 

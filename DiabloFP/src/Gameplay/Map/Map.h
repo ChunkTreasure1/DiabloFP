@@ -22,6 +22,7 @@ namespace Diablo
 		inline const uint32_t GetMapSize() { return myMapSize; }
 
 		inline std::vector<std::shared_ptr<Enemy>>& GetEnemies() { return myEnemies; }
+		inline std::vector<std::shared_ptr<Chest>>& GetChests() { return myChests; }
 
 	public:
 		static Map* Get() { return myInstance; }

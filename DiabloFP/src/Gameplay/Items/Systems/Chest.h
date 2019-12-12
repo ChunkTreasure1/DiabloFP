@@ -11,12 +11,14 @@ namespace Diablo
 	class Chest
 	{
 	public:
-		Chest() {}
+		Chest() = default;
 
 		inline void AddItem(Item* anItem) { myItems.push_back(anItem); }
 
 		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
 		inline const glm::vec2& GetCharPos() { return myCharPos; }
+
+		void OpenChest();
 
 	private:
 		std::vector<Item*> myItems;

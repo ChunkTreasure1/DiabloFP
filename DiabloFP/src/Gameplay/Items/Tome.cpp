@@ -8,7 +8,7 @@
 
 namespace Diablo
 {
-	//bool Tome::myRegistered = ItemFactory::Register(Tome::GetFactoryName(), Tome::CreateMethod);
+	bool Tome::myRegistered = ItemFactory::Register(Tome::GetFactoryName(), Tome::CreateMethod);
 
 	Tome::Tome()
 		: Item("Tome")

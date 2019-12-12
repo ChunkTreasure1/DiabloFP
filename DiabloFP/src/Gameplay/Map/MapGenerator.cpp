@@ -183,6 +183,7 @@ namespace Diablo
 		for (size_t i = 0; i < tempChestCount; i++)
 		{
 			std::shared_ptr<Chest> tempChest = ChestFactory::CreateChest(GeneratePosition(aMapSize));
+			tempChests.push_back(tempChest);
 		}
 
 		return tempChests;

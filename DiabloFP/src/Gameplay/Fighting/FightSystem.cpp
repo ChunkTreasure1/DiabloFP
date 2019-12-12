@@ -121,7 +121,7 @@ namespace Diablo
 		return FightExit::Fleed;
 	}
 
-	bool FightSystem::AttackPlayer(std::shared_ptr<Enemy>& apEnemy)
+	bool FightSystem::AttackPlayer(std::shared_ptr<Enemy>& apEnemy)	
 	{
 		uint32_t tempVal = rand() % 10 + 1;
 

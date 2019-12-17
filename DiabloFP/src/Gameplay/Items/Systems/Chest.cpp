@@ -7,19 +7,12 @@
 
 namespace Diablo
 {
-	void Chest::OpenChest()
+	void Chest::OpenChest(std::shared_ptr<Chest>& someChest)
 	{
 		Game::Get()->SetIs3D(false);
 
 		Print::Clear();
-		Print::PrintColorText("Chest:\n", ColorCodes::COLOR_PURPLE);
-
-		uint32_t tempCount = 0;
-		for (auto& tempI : myItems)
-		{
-			tempCount++;
-			Print::PrintColorText(tempCount + ". " + tempI->GetName() + "\n", COLOR_DARK_PURPLE);
-		}
+		Print::Chests(someChest);
 
 		std::cin.get();
 	}

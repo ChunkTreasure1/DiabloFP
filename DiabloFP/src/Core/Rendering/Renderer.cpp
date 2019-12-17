@@ -6,6 +6,7 @@
 #include <Algorithm>
 
 #include "Gameplay/Entities/Player.h"
+#include "Core/Utility/Utility.h"
 
 namespace Diablo
 {
@@ -69,8 +70,8 @@ namespace Diablo
 			while (!bHitWall && fDistanceToWall < tempPlayer->GetDepth())
 			{
 				fDistanceToWall += fStepSize;
-				int nTestX = (int)(tempPlayer->GetXPos() + fEyeX * fDistanceToWall);
-				int nTestY = (int)(tempPlayer->GetYPos() + fEyeY * fDistanceToWall);
+				int nTestX = Utility::Rounded((tempPlayer->GetXPos() + fEyeX * fDistanceToWall));
+				int nTestY = Utility::Rounded((tempPlayer->GetYPos() + fEyeY * fDistanceToWall));
 
 				// Test if ray is out of bounds
 				if (nTestX < 0 || nTestX >= myMapSize || nTestY < 0 || nTestY >= myMapSize)
@@ -157,11 +158,13 @@ namespace Diablo
 
 		// Display Map
 		for (int nx = 0; nx < myMapSize; nx++)
+		{
 			for (int ny = 0; ny < myMapSize; ny++)
 			{
 				sData->Screen[(ny + 1) * myWidth + nx] = sData->Map[ny * myMapSize + nx];
 			}
-		sData->Screen[((int)tempPlayer->GetXPos() + 1) * myWidth + (int)tempPlayer->GetYPos()] = 'P';
+		}
+		sData->Screen[(Utility::Rounded(tempPlayer->GetXPos()) + 1) * myWidth + Utility::Rounded(tempPlayer->GetYPos())] = 'P';
 
 		// Display Frame
 		sData->Screen[myWidth * myHeight - 1] = '\0';

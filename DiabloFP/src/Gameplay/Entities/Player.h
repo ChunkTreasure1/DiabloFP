@@ -46,12 +46,12 @@ namespace Diablo
 		inline static Player* Get() { return myInstance; }
 		inline const std::unique_ptr<Inventory>& GetInventory() const { return mypInventory; }
 
-		std::shared_ptr<Attack> GetAttack();
+		std::shared_ptr<Attack> GetAttack(std::shared_ptr<Enemy>& someEnemy);
 		void Update();
 
 	private:
-		void AttackEnemy(std::shared_ptr<Enemy> aEnemy);
-		void OpenChest(std::shared_ptr<Chest> aChest);
+		void AttackEnemy(std::shared_ptr<Enemy>& aEnemy);
+		void OpenChest(std::shared_ptr<Chest>& aChest);
 		void CheckForEnemy();
 		void CheckForChest();
 

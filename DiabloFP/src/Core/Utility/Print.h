@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include "Gameplay/Entities/Enemy/Enemy.h"
+#include "Gameplay/Items/Systems/Chest.h"
 
 namespace Diablo
 {
@@ -27,10 +29,17 @@ namespace Diablo
 	{
 	public:
 		static void Clear(char aFill = ' ');
-		static void PrintText(std::string aText);
-		static void PrintColorText(const std::string& aText, ColorCodes aColor);
-		static void PrintMiddle(const std::string& aText, ColorCodes aColor);
+		static void Text(std::string aText);
+		static void ColorText(const std::string& aText, ColorCodes aColor);
+		static void Middle(const std::string& aText, ColorCodes aColor, uint32_t aY);
 
+		static void Stats(const std::shared_ptr<Enemy>& someEnemy);
+		static void Chests(std::shared_ptr<Chest>& someChest);
+		static void SetPosition(uint32_t anX, uint32_t aY);
+
+		//To strings
 		static std::string ToString(float aValue);
+		static std::string ToString(int aValue);
+		static std::string ToString(uint32_t aValue);
 	};
 }

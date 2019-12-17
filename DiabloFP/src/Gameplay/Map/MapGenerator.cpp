@@ -34,11 +34,11 @@ namespace Diablo
 
 				if (aT.Position.y > 0)
 				{
-					tempMap[x + (y * tempMapSize - 1)] = aT.Type;
+					tempMap[(uint32_t)(x + (y * tempMapSize - 1))] = aT.Type;
 				}
 				else
 				{
-					tempMap[x] = aT.Type;
+					tempMap[(uint32_t)x] = aT.Type;
 				}
 			}
 		}
@@ -52,12 +52,14 @@ namespace Diablo
 
 		for (auto& tempE : tempEnemies)
 		{
-			float tempPos = tempE->GetCharPos().y + (tempMapSize * tempE->GetCharPos().x) - 1;
+			uint32_t tempPos = (uint32_t)(tempE->GetCharPos().y + (tempMapSize * tempE->GetCharPos().x) - 1);
+			tempE->SetStrPos(tempPos);
 			tempMap[tempPos] = '*';
 		}
 		for (auto& tempC : tempChests)
 		{
-			float tempPos = tempC->GetCharPos().y + (tempMapSize * tempC->GetCharPos().x) - 1;
+			uint32_t tempPos = (uint32_t)(tempC->GetCharPos().y + (tempMapSize * tempC->GetCharPos().x) - 1);
+			tempC->SetStrPos(tempPos);
 			tempMap[tempPos] = '=';
 		}
 

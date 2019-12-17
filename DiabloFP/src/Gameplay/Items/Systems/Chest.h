@@ -15,13 +15,20 @@ namespace Diablo
 
 		inline void AddItem(Item* anItem) { myItems.push_back(anItem); }
 
+		//Setting
 		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
-		inline const glm::vec2& GetCharPos() { return myCharPos; }
+		inline void SetStrPos(uint32_t aPos) { myStrPos = aPos; }
 
-		void OpenChest();
+		//Getting
+		inline const glm::vec2& GetCharPos() { return myCharPos; }
+		inline const uint32_t GetStrPos() { return myStrPos; }
+		inline std::vector<Item*>& GetItems() { return myItems; }
+
+		void OpenChest(std::shared_ptr<Chest>& someChest);
 
 	private:
 		std::vector<Item*> myItems;
 		glm::vec2 myCharPos;
+		uint32_t myStrPos;
 	};
 }

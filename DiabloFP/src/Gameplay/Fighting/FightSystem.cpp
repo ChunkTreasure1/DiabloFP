@@ -23,14 +23,14 @@ namespace Diablo
 	void FightSystem::GameOver()
 	{
 		Print::Clear();
-		Print::PrintColorText("GAME OVER", COLOR_RED);
-		Print::PrintColorText("Press ENTER to exit", COLOR_RED);
+		Print::ColorText("GAME OVER", COLOR_RED);
+		Print::ColorText("Press ENTER to exit", COLOR_RED);
 		std::cin.get();
 
 		throw ExitException();
 	}
 
-	FightExit FightSystem::FightEnemy(std::shared_ptr<Enemy> apEnemy)
+	FightExit FightSystem::FightEnemy(std::shared_ptr<Enemy>& apEnemy)
 	{
 		Game::Get()->SetIs3D(false);
 		bool tempRunning = true;
@@ -40,20 +40,19 @@ namespace Diablo
 
 			Print::Clear();
 
-			Print::PrintColorText("Player health: " + Print::ToString(Player::Get()->GetHealth()) + "\n", COLOR_YELLOW);
-			Print::PrintColorText("Enemy health: " + Print::ToString(apEnemy->GetHealth()) + "\n\n", COLOR_YELLOW);
+			Print::ColorText("What would you like to do?\n", COLOR_YELLOW);
 
-			Print::PrintColorText("What would you like to do?\n", COLOR_YELLOW);
+			Print::ColorText("1. Attack\n", COLOR_RED);
+			Print::ColorText("2. Defend\n", COLOR_RED);
+			Print::ColorText("3. Flee\n", COLOR_RED);
+			Print::ColorText("4. Use Item\n", COLOR_RED);
 
-			Print::PrintColorText("1. Attack\n", COLOR_RED);
-			Print::PrintColorText("2. Defend\n", COLOR_RED);
-			Print::PrintColorText("3. Flee\n", COLOR_RED);
-			Print::PrintColorText("4. Use Item\n", COLOR_RED);
+			Print::Stats(apEnemy);
 
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")
 			{
-				std::shared_ptr<Attack> tempAttack = tempPlayer->GetAttack();
+				std::shared_ptr<Attack> tempAttack = tempPlayer->GetAttack(apEnemy);
 
 				if (apEnemy->GetCombatChoice() == EnemyChoice::Attack)
 				{
@@ -62,8 +61,8 @@ namespace Diablo
 					{
 						Print::Clear();
 
-						if (AttackEnemy(apEnemy, tempAttack)) { return FightExit::EnemyKilled; }
-						if (AttackPlayer(apEnemy)) { Game::Get()->SetIs3D(true); return FightExit::PlayerKilled; }
+						if (AttackEnemy(apEnemy, tempAttack)) { Game::Get()->SetIs3D(true); return FightExit::EnemyKilled; }
+						if (AttackPlayer(apEnemy)) { return FightExit::PlayerKilled; }
 
 						std::cin.get();
 					}
@@ -100,7 +99,7 @@ namespace Diablo
 			else if (tempInput == "3")
 			{
 				Print::Clear();
-				Print::PrintColorText("You have decided to flee!", COLOR_GREEN);
+				Print::ColorText("You have decided to flee!", COLOR_GREEN);
 
 				std::cin.get();
 				return FightExit::Fleed;
@@ -112,7 +111,7 @@ namespace Diablo
 			else
 			{
 				Print::Clear();
-				Print::PrintColorText("Wrong input!", COLOR_RED);
+				Print::ColorText("Wrong input!", COLOR_RED);
 				std::cin.get();
 			}
 
@@ -133,11 +132,11 @@ namespace Diablo
 				return true;
 			}
 
-			Print::PrintColorText(apEnemy->GetName() + " damaged you by " + Print::ToString(apEnemy->GetAttack()->GetDamage()) + "HP!\n", COLOR_RED);
+			Print::ColorText(apEnemy->GetName() + " damaged you by " + Print::ToString(apEnemy->GetAttack()->GetDamage()) + "HP!\n", COLOR_RED);
 		}
 		else
 		{
-			Print::PrintColorText("You evaded an attack from " + apEnemy->GetName() + "!\n", COLOR_GREEN);
+			Print::ColorText("You evaded an attack from " + apEnemy->GetName() + "!\n", COLOR_GREEN);
 		}
 		return false;
 	}
@@ -155,11 +154,11 @@ namespace Diablo
 				return true;
 			}
 
-			Print::PrintColorText(apEnemy->GetName() + " damaged you by " + Print::ToString(apEnemy->GetAttack()->GetDamage()) + "HP!\n", COLOR_RED);
+			Print::ColorText(apEnemy->GetName() + " damaged you by " + Print::ToString(apEnemy->GetAttack()->GetDamage()) + "HP!\n", COLOR_RED);
 		}
 		else
 		{
-			Print::PrintColorText("You evaded an attack from " + apEnemy->GetName() + "!\n", COLOR_GREEN);
+			Print::ColorText("You evaded an attack from " + apEnemy->GetName() + "!\n", COLOR_GREEN);
 		}
 		return false;
 	}
@@ -177,11 +176,11 @@ namespace Diablo
 				return true;
 			}
 
-			Print::PrintColorText("You damaged " + apEnemy->GetName() + " by " + Print::ToString(apAttack->GetDamage()) + "HP!\n", COLOR_GREEN);
+			Print::ColorText("You damaged " + apEnemy->GetName() + " by " + Print::ToString(apAttack->GetDamage()) + "HP!\n", COLOR_GREEN);
 		}
 		else
 		{
-			Print::PrintColorText(apEnemy->GetName() + " evaded your attack!\n", COLOR_RED);
+			Print::ColorText(apEnemy->GetName() + " evaded your attack!\n", COLOR_RED);
 		}
 		return false;
 	}

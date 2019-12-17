@@ -20,98 +20,98 @@ namespace Diablo
 	{
 		if (myStat == "Defence")
 		{
-			if (!Player::Get()->GetDefence() >= 10)
+			if (Player::Get()->GetDefence() < 10)
 			{
 				Player::Get()->GetStats().Defence += 1;
 				return true;
 			}
 
 			Print::Clear();
-			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
 			return false;
 		}
 		else if (myStat == "Agility")
 		{
-			if (!Player::Get()->GetAgility() >= 10)
+			if (Player::Get()->GetAgility() < 10)
 			{
 				Player::Get()->GetStats().Agility += 1;
 				return true;
 			}
 
 			Print::Clear();
-			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
 			return false;
 		}
 		else if (myStat == "Strength")
 		{
-			if (!Player::Get()->GetStrength() >= 10)
+			if (Player::Get()->GetStrength() < 10)
 			{
 				Player::Get()->GetStats().Strength += 1;
 				return true;
 			}
 
 			Print::Clear();
-			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
 			return false;
 		}
 		else if (myStat == "Constitution")
 		{
-			if (!Player::Get()->GetConstitution() >= 10)
+			if (Player::Get()->GetConstitution() < 10)
 			{
 				Player::Get()->GetStats().Constitution += 1;
 				return true;
 			}
 
 			Print::Clear();
-			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
 			return false;
 		}
 		else if (myStat == "Intelligence")
 		{
-			if (!Player::Get()->GetIntelligence() >= 10)
+			if (Player::Get()->GetIntelligence() < 10)
 			{
 				Player::Get()->GetStats().Intelligence += 1;
 				return true;
 			}
 
 			Print::Clear();
-			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
 			return false;
 		}
 		else if (myStat == "Wisdom")
 		{
-			if (!Player::Get()->GetWisdom() >= 10)
+			if (Player::Get()->GetWisdom() < 10)
 			{
 				Player::Get()->GetStats().Wisdom += 1;
 				return true;
 			}
 
 			Print::Clear();
-			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
 			return false;
 		}
 		else if (myStat == "Charisma")
 		{
-			if (!Player::Get()->GetCharisma() >= 10)
+			if (Player::Get()->GetCharisma() < 10)
 			{
 				Player::Get()->GetStats().Charisma += 1;
 				return true;
 			}
 
 			Print::Clear();
-			Print::PrintColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", COLOR_RED);
 			std::cin.get();
 
 		}

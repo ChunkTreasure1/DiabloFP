@@ -83,7 +83,7 @@ namespace Diablo
 		}
 		else if (tempVal == 2)
 		{
-			tempStats.Agility = rand() % 9 + 5;
+			tempStats.Agility = rand() % 6 + 2;
 			tempStats.Charisma = rand() % 7 + 3;
 			tempStats.Constitution = rand() % 3 + 1;
 
@@ -100,7 +100,7 @@ namespace Diablo
 		}
 		else if (tempVal == 3)
 		{
-			tempStats.Agility = rand() % 7 + 3;
+			tempStats.Agility = rand() % 6 + 2;
 			tempStats.Charisma = rand() % 8 + 3;
 			tempStats.Constitution = rand() % 5 + 1;
 

@@ -7,7 +7,7 @@ namespace Diablo
 	public:
 		Utility() = delete;
 
-		static int GetRounded(float aVal)
+		static int Rounded(float aVal)
 		{
 			if (aVal != 0)
 			{

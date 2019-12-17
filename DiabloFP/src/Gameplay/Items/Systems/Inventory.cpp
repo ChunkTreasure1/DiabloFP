@@ -22,11 +22,11 @@ namespace Diablo
 		do
 		{
 			Print::Clear();
-			Print::PrintColorText("What would you like to do?\n", COLOR_YELLOW);
-			Print::PrintColorText("1. Show inventory\n", COLOR_DARK_GREEN);
-			Print::PrintColorText("2. Use item\n", COLOR_DARK_GREEN);
-			Print::PrintColorText("3. Remove item\n", COLOR_DARK_GREEN);
-			Print::PrintColorText("4. Go back\n", COLOR_DARK_GREEN);
+			Print::ColorText("What would you like to do?\n", COLOR_YELLOW);
+			Print::ColorText("1. Show inventory\n", COLOR_DARK_GREEN);
+			Print::ColorText("2. Use item\n", COLOR_DARK_GREEN);
+			Print::ColorText("3. Remove item\n", COLOR_DARK_GREEN);
+			Print::ColorText("4. Go back\n", COLOR_DARK_GREEN);
 
 			std::string tempSelected = Input::GetInput();
 			if (tempSelected == "1")
@@ -48,7 +48,7 @@ namespace Diablo
 			else
 			{
 				Print::Clear();
-				Print::PrintColorText("Wrong input!", COLOR_RED);
+				Print::ColorText("Wrong input!", COLOR_RED);
 				std::cin.get();
 			}
 
@@ -58,14 +58,14 @@ namespace Diablo
 	void Inventory::Show()
 	{
 		Print::Clear();
-		Print::PrintColorText("Your inventory\n", COLOR_YELLOW);
+		Print::ColorText("Your inventory\n", COLOR_YELLOW);
 
 		for (size_t i = 0; i < mypItems.size(); i++)
 		{
-			Print::PrintColorText(i + ". " + mypItems[i]->GetName() + "\n", COLOR_DARK_GREEN);
+			Print::ColorText(i + ". " + mypItems[i]->GetName() + "\n", COLOR_DARK_GREEN);
 		}
 
-		Print::PrintColorText("\nPress ENTER to go back\n", COLOR_YELLOW);
+		Print::ColorText("\nPress ENTER to go back\n", COLOR_YELLOW);
 		std::cin.get();
 
 		Print::Clear();
@@ -75,7 +75,7 @@ namespace Diablo
 	{
 		for (size_t i = 0; i < mypItems.size(); i++)
 		{
-			Print::PrintColorText((i + 1) + ". " + mypItems[i]->GetName() + "\n", COLOR_DARK_GREEN);
+			Print::ColorText((i + 1) + ". " + mypItems[i]->GetName() + "\n", COLOR_DARK_GREEN);
 		}
 	}
 
@@ -84,8 +84,8 @@ namespace Diablo
 		do
 		{
 			Print::Clear();
-			Print::PrintColorText("Choose an item\n", COLOR_YELLOW);
-			Print::PrintColorText("Select 0 to go back\n\n", COLOR_YELLOW);
+			Print::ColorText("Choose an item\n", COLOR_YELLOW);
+			Print::ColorText("Select 0 to go back\n\n", COLOR_YELLOW);
 
 			ShowItemList();
 
@@ -102,7 +102,7 @@ namespace Diablo
 					Print::Clear();
 					if (mypItems[i]->Use())
 					{
-						Print::PrintColorText("You used item " + mypItems[i]->GetName() + "!\n", COLOR_YELLOW);
+						Print::ColorText("You used item " + mypItems[i]->GetName() + "!\n", COLOR_YELLOW);
 						if (mypItems[i]->GetIsScroll())
 						{
 							std::dynamic_pointer_cast<Scroll>(mypItems[i])->SetIsUsed(true);
@@ -118,7 +118,7 @@ namespace Diablo
 						}
 					}
 
-					Print::PrintColorText("Press ENTER to go back\n", COLOR_YELLOW);
+					Print::ColorText("Press ENTER to go back\n", COLOR_YELLOW);
 					std::cin.get();
 					break;
 				}
@@ -132,8 +132,8 @@ namespace Diablo
 		do
 		{
 			Print::Clear();
-			Print::PrintColorText("Choose an item to remove\n", COLOR_YELLOW);
-			Print::PrintColorText("Select 0 to go back\n\n", COLOR_YELLOW);
+			Print::ColorText("Choose an item to remove\n", COLOR_YELLOW);
+			Print::ColorText("Select 0 to go back\n\n", COLOR_YELLOW);
 
 			ShowItemList();
 
@@ -148,9 +148,9 @@ namespace Diablo
 				if (tempSelection == std::to_string(i + 1))
 				{
 					Print::Clear();
-					Print::PrintColorText("You removed item " + mypItems[i]->GetName() + "!\n", COLOR_YELLOW);
+					Print::ColorText("You removed item " + mypItems[i]->GetName() + "!\n", COLOR_YELLOW);
 					mypItems.erase(mypItems.begin() + i);
-					Print::PrintColorText("Press ENTER to go back", COLOR_YELLOW);
+					Print::ColorText("Press ENTER to go back", COLOR_YELLOW);
 					std::cin.get();
 					break;
 				}

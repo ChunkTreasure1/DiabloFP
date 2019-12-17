@@ -20,7 +20,8 @@ namespace Diablo
 	{
 	public:
 		Enemy(float aHealth)
-			: Entity(aHealth), myMaxHealth(aHealth)
+			: Entity(aHealth), myMaxHealth(aHealth), myStrPos(0), myCharPos(0, 0),
+			myKillXP(0)
 		{}
 		~Enemy() {}
 
@@ -31,6 +32,7 @@ namespace Diablo
 
 		inline float GetMaxHealth() const { return myMaxHealth; }
 		inline const glm::vec2& GetCharPos() { return myCharPos; }
+		inline const uint32_t GetStrPos() { return myStrPos; }
 		inline std::shared_ptr<Attack> GetAttack() const { return myAttack; }
 
 
@@ -42,6 +44,7 @@ namespace Diablo
 		inline void SetMaxHealth(float aHealth) { myMaxHealth = aHealth; }
 		inline void SetAttack(std::shared_ptr<Attack>& anAttack) { myAttack = std::move(anAttack); }
 		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
+		inline void SetStrPos(uint32_t aPos) { myStrPos = aPos; }
 
 		EnemyChoice GetCombatChoice();
 
@@ -49,6 +52,7 @@ namespace Diablo
 		std::string myName;
 		uint32_t myKillXP;
 		glm::vec2 myCharPos;
+		uint32_t myStrPos;
 
 		float myMaxHealth;
 		std::shared_ptr<Item> myDropLoot;

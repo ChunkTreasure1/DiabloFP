@@ -51,9 +51,11 @@ namespace Diablo
 					return tempIT->second();
 				}
 			}
+
+			return nullptr;
 		}
 
-		static uint32_t GetSize() { return myMethods.size(); }
+		static uint32_t GetSize() { return (uint32_t)myMethods.size(); }
 
 	private:
 		static std::map<std::string, TCreateMethod> myMethods;

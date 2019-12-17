@@ -23,17 +23,17 @@ namespace Diablo
 		do
 		{
 			Print::Clear();
-			Print::PrintColorText("Your level have increased to " + std::to_string(myPlayerLevel) + "!\n", COLOR_GREEN);
-			Print::PrintColorText("Choose a stat to increase!\n", COLOR_YELLOW);
-			Print::PrintColorText("1. Defence: " + std::to_string(Player::Get()->GetDefence()) + "\n", COLOR_YELLOW);
+			Print::ColorText("Your level have increased to " + std::to_string(myPlayerLevel) + "!\n", COLOR_GREEN);
+			Print::ColorText("Choose a stat to increase!\n", COLOR_YELLOW);
+			Print::ColorText("1. Defence: " + std::to_string(Player::Get()->GetDefence()) + "\n", COLOR_YELLOW);
 
-			Print::PrintColorText("2. Agility: " + std::to_string(Player::Get()->GetAgility()) + "\n", COLOR_YELLOW);
-			Print::PrintColorText("3. Strength: " + std::to_string(Player::Get()->GetStrength()) + "\n", COLOR_YELLOW);
-			Print::PrintColorText("4. Constitution: " + std::to_string(Player::Get()->GetConstitution()) + "\n", COLOR_YELLOW);
+			Print::ColorText("2. Agility: " + std::to_string(Player::Get()->GetAgility()) + "\n", COLOR_YELLOW);
+			Print::ColorText("3. Strength: " + std::to_string(Player::Get()->GetStrength()) + "\n", COLOR_YELLOW);
+			Print::ColorText("4. Constitution: " + std::to_string(Player::Get()->GetConstitution()) + "\n", COLOR_YELLOW);
 
-			Print::PrintColorText("5. Intelligence: " + std::to_string(Player::Get()->GetIntelligence()) + "\n", COLOR_YELLOW);
-			Print::PrintColorText("6. Wisdom: " + std::to_string(Player::Get()->GetWisdom()) + "\n", COLOR_YELLOW);
-			Print::PrintColorText("7. Charisma: " + std::to_string(Player::Get()->GetCharisma()) + "\n", COLOR_YELLOW);
+			Print::ColorText("5. Intelligence: " + std::to_string(Player::Get()->GetIntelligence()) + "\n", COLOR_YELLOW);
+			Print::ColorText("6. Wisdom: " + std::to_string(Player::Get()->GetWisdom()) + "\n", COLOR_YELLOW);
+			Print::ColorText("7. Charisma: " + std::to_string(Player::Get()->GetCharisma()) + "\n", COLOR_YELLOW);
 
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")
@@ -74,7 +74,7 @@ namespace Diablo
 			else
 			{
 				Print::Clear();
-				Print::PrintColorText("Wrong input!", COLOR_RED);
+				Print::ColorText("Wrong input!", COLOR_RED);
 				std::cin.get();
 			}
 

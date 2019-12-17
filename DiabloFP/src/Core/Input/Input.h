@@ -8,6 +8,8 @@
 #include "Core/Game.h"
 #include "Gameplay/Map/Map.h"
 
+#include "Core/Utility/Utility.h"
+
 namespace Diablo
 {
 	class Input
@@ -35,7 +37,7 @@ namespace Diablo
 			{
 				tempXPos += sinf(tempAngle) * tempSpeed * aDeltaTime;
 				tempYPos += cosf(tempAngle) * tempSpeed * aDeltaTime;
-				if (aMap->GetStringMap().c_str()[(int)tempXPos * aMap->GetMapSize() + (int)tempYPos] == '#')
+				if (aMap->GetStringMap().c_str()[Utility::Rounded(tempXPos) * aMap->GetMapSize() + Utility::Rounded(tempYPos)] == '#')
 				{
 					tempXPos -= sinf(tempAngle) * tempSpeed * aDeltaTime;
 					tempYPos -= cosf(tempAngle) * tempSpeed * aDeltaTime;
@@ -47,7 +49,7 @@ namespace Diablo
 			{
 				tempXPos -= sinf(tempAngle) * tempSpeed * aDeltaTime;
 				tempYPos -= cosf(tempAngle) * tempSpeed * aDeltaTime;
-				if (aMap->GetStringMap().c_str()[(int)tempXPos * aMap->GetMapSize() + (int)tempYPos] == '#')
+				if (aMap->GetStringMap().c_str()[Utility::Rounded(tempXPos) * aMap->GetMapSize() + Utility::Rounded(tempYPos)] == '#')
 				{
 					tempXPos += sinf(tempAngle) * tempSpeed * aDeltaTime;
 					tempYPos += cosf(tempAngle) * tempSpeed * aDeltaTime;

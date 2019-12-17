@@ -14,7 +14,7 @@ namespace Diablo
 
 	Player::Player(float aHealth, uint32_t aMapWidth)
 		: Entity(aHealth), myDepth(16.f), myFOV(3.14159f / 4.f), mySpeed(5.f),
-		myXPos(14.7f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth)
+		myXPos(3.f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth)
 	{
 		myInstance = this;
 		mypInventory = std::make_unique<Inventory>();
@@ -36,6 +36,14 @@ namespace Diablo
 	void Player::SetYPos(float aPos)
 	{
 		myYPos = aPos;
+		if (Map::Get()->GetEnemies().size() > 0)
+		{
+			CheckForEnemy();
+		}
+		else
+		{
+			CheckForChest();
+		}
 	}
 
 	void Player::SetPlayerStats(PlayerType aPlayerType)
@@ -95,20 +103,22 @@ namespace Diablo
 		myHealth *= myStats.Constitution;
 	}
 
-	std::shared_ptr<Attack> Player::GetAttack()
+	std::shared_ptr<Attack> Player::GetAttack(std::shared_ptr<Enemy>& someEnemy)
 	{
 		do
 		{
 			Print::Clear();
 
 			//Show opponent stats
-			Print::PrintColorText("Press 0 to return\n", COLOR_GREEN);
-			Print::PrintColorText("Choose an attack to use on opponent!\n", COLOR_GREEN);
+			Print::ColorText("Press 0 to return\n", COLOR_GREEN);
+			Print::ColorText("Choose an attack to use on opponent!\n", COLOR_GREEN);
 
 			for (size_t i = 0; i < myAttacks.size(); i++)
 			{
-				Print::PrintColorText(std::to_string(i + 1) + ". " + myAttacks[i]->GetName() + "\n", COLOR_YELLOW);
+				Print::ColorText(std::to_string(i + 1) + ". " + myAttacks[i]->GetName() + "\n", COLOR_YELLOW);
 			}
+
+			Print::Stats(someEnemy);
 
 			std::string tempInput = Input::GetInput();
 			for (size_t i = 0; i < myAttacks.size(); i++)
@@ -124,7 +134,7 @@ namespace Diablo
 				break;
 			}
 
-			Print::PrintColorText("Wrong input!", COLOR_RED);
+			Print::ColorText("Wrong input!", COLOR_RED);
 			std::cin.get();
 
 		} while (true);
@@ -140,14 +150,13 @@ namespace Diablo
 		}
 	}
 
-	void Player::AttackEnemy(std::shared_ptr<Enemy> aEnemy)
+	void Player::AttackEnemy(std::shared_ptr<Enemy>& aEnemy)
 	{
 		auto tempRet = FightSystem::Get()->FightEnemy(aEnemy);
 
 		if (tempRet == FightExit::EnemyKilled)
 		{
-			uint32_t tempEPos = (int)aEnemy->GetCharPos().y + (int)aEnemy->GetCharPos().x * myMapWidth;
-			Map::Get()->GetStringMap()[tempEPos] = '.';
+			Map::Get()->GetStringMap()[aEnemy->GetStrPos()] = '.';
 
 			auto tempIT = std::find(Map::Get()->GetEnemies().begin(), Map::Get()->GetEnemies().end(), aEnemy);
 			if (tempIT != Map::Get()->GetEnemies().end())
@@ -161,19 +170,19 @@ namespace Diablo
 		}
 	}
 
-	void Player::OpenChest(std::shared_ptr<Chest> aChest)
+	void Player::OpenChest(std::shared_ptr<Chest>& aChest)
 	{
-		aChest->OpenChest();
+		aChest->OpenChest(aChest);
 	}
 
 	void Player::CheckForEnemy()
 	{
-		uint32_t tempCharPos = Utility::GetRounded(myYPos) + Utility::GetRounded(myXPos) * myMapWidth;
+		uint32_t tempCharPos = Utility::Rounded(myYPos) + Utility::Rounded(myXPos) * myMapWidth;
 		if (Map::Get()->GetStringMap().c_str()[tempCharPos - myMapWidth] == '*')
 		{
 			for (auto& tempE : Map::Get()->GetEnemies())
 			{
-				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempE->GetCharPos().y) + Utility::Rounded(tempE->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos - myMapWidth)
 				{
@@ -188,7 +197,7 @@ namespace Diablo
 		{
 			for (auto& tempE : Map::Get()->GetEnemies())
 			{
-				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempE->GetCharPos().y) + Utility::Rounded(tempE->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos + myMapWidth)
 				{
@@ -203,7 +212,7 @@ namespace Diablo
 		{
 			for (auto& tempE : Map::Get()->GetEnemies())
 			{
-				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempE->GetCharPos().y) + Utility::Rounded(tempE->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos)
 				{
@@ -218,7 +227,7 @@ namespace Diablo
 		{
 			for (auto& tempE : Map::Get()->GetEnemies())
 			{
-				uint32_t tempCheck = (int)tempE->GetCharPos().y + (int)tempE->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempE->GetCharPos().y) + Utility::Rounded(tempE->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos)
 				{
@@ -233,12 +242,12 @@ namespace Diablo
 
 	void Player::CheckForChest()
 	{
-		uint32_t tempCharPos = Utility::GetRounded(myYPos) + Utility::GetRounded(myXPos) * myMapWidth;
+		uint32_t tempCharPos = Utility::Rounded(myYPos) + Utility::Rounded(myXPos) * myMapWidth;
 		if (Map::Get()->GetStringMap().c_str()[tempCharPos - myMapWidth] == '=')
 		{
 			for (auto& tempC : Map::Get()->GetChests())
 			{
-				uint32_t tempCheck = (int)tempC->GetCharPos().y + (int)tempC->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos - myMapWidth)
 				{
@@ -253,7 +262,7 @@ namespace Diablo
 		{
 			for (auto& tempC : Map::Get()->GetChests())
 			{
-				uint32_t tempCheck = (int)tempC->GetCharPos().y + (int)tempC->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos + myMapWidth)
 				{
@@ -268,7 +277,7 @@ namespace Diablo
 		{
 			for (auto& tempC : Map::Get()->GetChests())
 			{
-				uint32_t tempCheck = (int)tempC->GetCharPos().y + (int)tempC->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos)
 				{
@@ -283,7 +292,7 @@ namespace Diablo
 		{
 			for (auto& tempC : Map::Get()->GetChests())
 			{
-				uint32_t tempCheck = (int)tempC->GetCharPos().y + (int)tempC->GetCharPos().x * myMapWidth;;
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
 
 				if (tempCheck != tempCharPos)
 				{

@@ -20,7 +20,7 @@ namespace Diablo
 
 	protected:
 		Attack(const std::string& aName)
-			: myName(aName)
+			: myName(aName), myDamage(0), mySpeed(0)
 		{}
 
 		float mySpeed;

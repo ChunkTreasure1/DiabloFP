@@ -12,8 +12,11 @@ namespace Diablo
 		virtual void Update() {};
 
 		//Getting
-		inline virtual const std::string GetName() const { return myName; }
+		inline virtual const std::string& GetName() const { return myName; }
 		inline bool GetIsScroll() const { return myIsScroll; }
+
+		//Setting
+		inline void SetName(const std::string& aName) { myName = aName; }
 
 	protected:
 		Item(const std::string& aName)

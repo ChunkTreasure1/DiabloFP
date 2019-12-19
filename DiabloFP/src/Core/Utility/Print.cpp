@@ -1,14 +1,6 @@
+#include "pch.h"
 #include "Print.h"
-
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-
-#include <Windows.h>
 #include "Gameplay/Entities/Player.h"
-
-
-#define BUFFER_WIDTH 120
 
 namespace Diablo
 {
@@ -29,15 +21,15 @@ namespace Diablo
 		std::cout << aText.c_str();
 	}
 
-	void Print::ColorText(const std::string& aText, ColorCodes aColor)
+	void Print::ColorText(const std::string& aText, Color aColor)
 	{
 		HANDLE tempHConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(tempHConsole, aColor);
+		SetConsoleTextAttribute(tempHConsole, static_cast<int>(aColor));
 		std::cout << aText.c_str();
-		SetConsoleTextAttribute(tempHConsole, 15);                    
+		SetConsoleTextAttribute(tempHConsole, 15); 
 	}
 
-	void Print::Middle(const std::string& aText, ColorCodes aColor, uint32_t aY)
+	void Print::Middle(const std::string& aText, Color aColor, uint32_t aY)
 	{
 		SetPosition(BUFFER_WIDTH / 2, aY);
 		ColorText(aText, aColor);
@@ -75,60 +67,60 @@ namespace Diablo
 
 		////////Player////////
 		SetPosition(BUFFER_WIDTH / 2 + 2, 2);
-		Print::ColorText("Name: Player", COLOR_GREEN);
+		Print::ColorText("Name: Player", Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 4);
-		Print::ColorText("Defence: " + ToString(Player::Get()->GetDefence()), COLOR_GREEN);
+		Print::ColorText("Defence: " + ToString(Player::Get()->GetDefence()), Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 5);
-		Print::ColorText("Agility: " + ToString(Player::Get()->GetAgility()), COLOR_GREEN);
+		Print::ColorText("Agility: " + ToString(Player::Get()->GetAgility()), Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 6);
-		Print::ColorText("Strength: " + ToString(Player::Get()->GetStrength()), COLOR_GREEN);
+		Print::ColorText("Strength: " + ToString(Player::Get()->GetStrength()), Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 7);
-		Print::ColorText("Constitution: " + ToString(Player::Get()->GetConstitution()), COLOR_GREEN);
+		Print::ColorText("Constitution: " + ToString(Player::Get()->GetConstitution()), Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 8);
-		Print::ColorText("Intelligence: " + ToString(Player::Get()->GetIntelligence()), COLOR_GREEN);
+		Print::ColorText("Intelligence: " + ToString(Player::Get()->GetIntelligence()), Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 9);
-		Print::ColorText("Wisdom: " + ToString(Player::Get()->GetWisdom()), COLOR_GREEN);
+		Print::ColorText("Wisdom: " + ToString(Player::Get()->GetWisdom()), Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 10);
-		Print::ColorText("Charisma: " + ToString(Player::Get()->GetCharisma()), COLOR_GREEN);
+		Print::ColorText("Charisma: " + ToString(Player::Get()->GetCharisma()), Color::GREEN);
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 12);
-		Print::ColorText("Health: " + ToString(Player::Get()->GetHealth()), COLOR_GREEN);
+		Print::ColorText("Health: " + ToString(Player::Get()->GetHealth()), Color::GREEN);
 		//////////////////////
 
 		////////Enemy////////
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 2);
-		Print::ColorText("Name: " + someEnemy->GetName(), COLOR_GREEN);
+		Print::ColorText("Name: " + someEnemy->GetName(), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 4);
-		Print::ColorText("Defence: " + ToString(someEnemy->GetDefence()), COLOR_GREEN);
+		Print::ColorText("Defence: " + ToString(someEnemy->GetDefence()), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 5);
-		Print::ColorText("Agility: " + ToString(someEnemy->GetAgility()), COLOR_GREEN);
+		Print::ColorText("Agility: " + ToString(someEnemy->GetAgility()), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 6);
-		Print::ColorText("Strength: " + ToString(someEnemy->GetStrength()), COLOR_GREEN);
+		Print::ColorText("Strength: " + ToString(someEnemy->GetStrength()), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 7);
-		Print::ColorText("Constitution: " + ToString(someEnemy->GetConstitution()), COLOR_GREEN);
+		Print::ColorText("Constitution: " + ToString(someEnemy->GetConstitution()), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 8);
-		Print::ColorText("Intelligence: " + ToString(someEnemy->GetIntelligence()), COLOR_GREEN);
+		Print::ColorText("Intelligence: " + ToString(someEnemy->GetIntelligence()), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 9);
-		Print::ColorText("Wisdom: " + ToString(someEnemy->GetWisdom()), COLOR_GREEN);
+		Print::ColorText("Wisdom: " + ToString(someEnemy->GetWisdom()), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 10);
-		Print::ColorText("Charisma: " + ToString(someEnemy->GetCharisma()), COLOR_GREEN);
+		Print::ColorText("Charisma: " + ToString(someEnemy->GetCharisma()), Color::GREEN);
 
 		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 12);
-		Print::ColorText("Health: " + ToString(someEnemy->GetHealth()), COLOR_GREEN);
+		Print::ColorText("Health: " + ToString(someEnemy->GetHealth()), Color::GREEN);
 		/////////////////////
 
 		SetPosition(0, 6);
@@ -142,34 +134,34 @@ namespace Diablo
 
 		////////Frame////////
 		SetPosition(BUFFER_WIDTH / 4, 1);
-		for (size_t i = 0; i < BUFFER_WIDTH / 2 + 1; i++)
+		for (uint32_t i = 0; i < BUFFER_WIDTH / 2 + 1; i++)
 		{
-			ColorText("-", COLOR_DARK_PURPLE);
+			ColorText("-", Color::DARK_PURPLE);
 		}
 
-		for (size_t i = tempOffset; i < tempHeight; i++)
+		for (uint32_t i = tempOffset; i < tempHeight; i++)
 		{
 			SetPosition(BUFFER_WIDTH / 4, i);
-			ColorText("|", COLOR_DARK_PURPLE);
+			ColorText("|", Color::DARK_PURPLE);
 
 			SetPosition((BUFFER_WIDTH / 4) * 3, i);
-			ColorText("|", COLOR_DARK_PURPLE);
+			ColorText("|", Color::DARK_PURPLE);
 		}
 
 		SetPosition(BUFFER_WIDTH / 4, tempHeight);
-		for (size_t i = 0; i < BUFFER_WIDTH / 2 + 1; i++)
+		for (uint32_t i = 0; i < BUFFER_WIDTH / 2 + 1; i++)
 		{
-			ColorText("-", COLOR_DARK_PURPLE);
+			ColorText("-", Color::DARK_PURPLE);
 		}
 		/////////////////////
 
 		////////Content////////
-		Middle("Chest", COLOR_PURPLE, 3);
+		Middle("Chest", Color::PURPLE, 3);
 
 		for (uint32_t i = 0; i < someChest->GetItems().size(); i++)
 		{
 			SetPosition(BUFFER_WIDTH / 4 + 2, i + 5);
-			ColorText(ToString(i + 1) + ". " + someChest->GetItems()[i]->GetName(), COLOR_RED);
+			ColorText(ToString(i + 1) + ". " + someChest->GetItems()[i]->GetName(), Color::RED);
 		}
 		///////////////////////
 

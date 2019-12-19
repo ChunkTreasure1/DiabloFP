@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "EnemyFactory.h"
 
 #include "Gameplay/Items/HealthPotion.h"
@@ -12,7 +13,7 @@
 
 namespace Diablo
 {
-	std::shared_ptr<Enemy> EnemyFactory::CreateEnemy(const glm::vec2& aCharPos)
+	std::shared_ptr<Enemy> EnemyFactory::Create(const glm::vec2& aCharPos)
 	{
 		//Generate stats
 		int tempDiff = LevelSystem::GetDifficulty();

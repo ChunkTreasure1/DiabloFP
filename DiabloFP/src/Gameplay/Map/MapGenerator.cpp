@@ -1,13 +1,11 @@
+#include "pch.h"
 #include "MapGenerator.h"
 #include "Map.h"
-
-#include <utility>
-#include <time.h>
 
 #include "Gameplay/Entities/Enemy/EnemyFactory.h"
 #include "Gameplay/Items/Systems/ChestFactory.h"
 
-#include "Core/Utility/Random.h"
+
 
 namespace Diablo
 {
@@ -170,7 +168,7 @@ namespace Diablo
 
 		for (size_t i = 0; i < tempEnemyCount; i++)
 		{
-			std::shared_ptr<Enemy> tempEnemy = EnemyFactory::CreateEnemy(GeneratePosition(aMapSize));
+			std::shared_ptr<Enemy> tempEnemy = EnemyFactory::Create(GeneratePosition(aMapSize));
 
 			tempEnemies.push_back(std::move(tempEnemy));
 		}

@@ -1,12 +1,7 @@
+#include "pch.h"
 #include "Renderer.h"
-
-#include <Windows.h>
-#include <string>
-#include <vector>
-#include <Algorithm>
-
 #include "Gameplay/Entities/Player.h"
-#include "Core/Utility/Utility.h"
+
 
 namespace Diablo
 {

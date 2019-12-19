@@ -1,14 +1,14 @@
+#include "pch.h"
 #include "Scroll.h"
-
 #include "Gameplay/Entities/Player.h"
-#include "Core/Utility/Print.h"
+
 #include "Core/Input/Input.h"
 
 #include "Systems/ItemFactory.h"
 
 namespace Diablo
 {
-	//bool Scroll::myRegistered = ItemFactory::Register(Scroll::GetFactoryName(), Scroll::CreateMethod);
+	//bool Scroll::myRegistered = REGISTER_ITEM(Scroll)
 
 	Scroll::Scroll()
 		: Item("Scroll")
@@ -44,7 +44,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -58,7 +58,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -72,7 +72,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -86,7 +86,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -100,7 +100,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -114,7 +114,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -128,7 +128,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;

@@ -1,12 +1,11 @@
+#include "pch.h"
 #include "Player.h"
 
 #include "Gameplay/Fighting/Attacks/Axe.h"
 #include "Gameplay/Fighting/Attacks/Spell.h"
 #include "Gameplay/Fighting/Attacks/Sword.h"
 
-#include "Core/Utility/Print.h"
 #include "Core/Input/Input.h"
-#include "Core/Utility/Utility.h"
 
 namespace Diablo
 {
@@ -14,10 +13,11 @@ namespace Diablo
 
 	Player::Player(float aHealth, uint32_t aMapWidth)
 		: Entity(aHealth), myDepth(16.f), myFOV(3.14159f / 4.f), mySpeed(5.f),
-		myXPos(3.f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth)
+		myXPos(3.f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth), myBaseHealth(aHealth)
 	{
 		myInstance = this;
 		mypInventory = std::make_unique<Inventory>();
+		mypInventory->SelectEquipment();
 	}
 
 	void Player::SetXPos(float aPos)
@@ -46,7 +46,7 @@ namespace Diablo
 		}
 	}
 
-	void Player::SetPlayerStats(PlayerType aPlayerType)
+	void Player::SetStats(PlayerType aPlayerType)
 	{
 		if (aPlayerType == PlayerType::Warrior)
 		{
@@ -110,12 +110,12 @@ namespace Diablo
 			Print::Clear();
 
 			//Show opponent stats
-			Print::ColorText("Press 0 to return\n", COLOR_GREEN);
-			Print::ColorText("Choose an attack to use on opponent!\n", COLOR_GREEN);
+			Print::ColorText("Press 0 to return\n", Color::GREEN);
+			Print::ColorText("Choose an attack to use on opponent!\n", Color::GREEN);
 
 			for (size_t i = 0; i < myAttacks.size(); i++)
 			{
-				Print::ColorText(std::to_string(i + 1) + ". " + myAttacks[i]->GetName() + "\n", COLOR_YELLOW);
+				Print::ColorText(std::to_string(i + 1) + ". " + myAttacks[i]->GetName() + "\n", Color::YELLOW);
 			}
 
 			Print::Stats(someEnemy);
@@ -134,7 +134,7 @@ namespace Diablo
 				break;
 			}
 
-			Print::ColorText("Wrong input!", COLOR_RED);
+			Print::ColorText("Wrong input!", Color::RED);
 			std::cin.get();
 
 		} while (true);

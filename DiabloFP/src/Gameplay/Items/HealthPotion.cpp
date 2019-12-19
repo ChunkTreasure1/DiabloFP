@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "HealthPotion.h"
 
 #include "Gameplay/Entities/Player.h"
@@ -5,7 +6,7 @@
 
 namespace Diablo
 {
-	//bool HealthPotion::myRegistered = ItemFactory::Register(HealthPotion::GetFactoryName(), HealthPotion::CreateMethod);
+	//bool HealthPotion::myRegistered = REGISTER_ITEM(HealthPotion)
 
 	HealthPotion::HealthPotion()
 		: Item("Health Potion")

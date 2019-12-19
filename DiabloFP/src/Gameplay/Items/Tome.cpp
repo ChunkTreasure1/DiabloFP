@@ -1,14 +1,14 @@
+#include "pch.h"
 #include "Tome.h"
-
 #include "Gameplay/Entities/Player.h"
-#include "Core/Utility/Print.h"
+
 #include "Core/Input/Input.h"
 
 #include "Systems/ItemFactory.h"
 
 namespace Diablo
 {
-	bool Tome::myRegistered = ItemFactory::Register(Tome::GetFactoryName(), Tome::CreateMethod);
+	bool Tome::myRegistered = REGISTER_ITEM(Tome)
 
 	Tome::Tome()
 		: Item("Tome")
@@ -27,7 +27,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -41,7 +41,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -55,7 +55,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -69,7 +69,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -83,7 +83,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -97,7 +97,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 			return false;
@@ -111,7 +111,7 @@ namespace Diablo
 			}
 
 			Print::Clear();
-			Print::ColorText("You have already maxed this stat!", COLOR_RED);
+			Print::ColorText("You have already maxed this stat!", Color::RED);
 			std::cin.get();
 
 		}

@@ -106,8 +106,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -115,6 +114,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)DiabloFP\vendor\glm;$(SolutionDir)DiabloFP\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +167,11 @@
     <ClCompile Include="src\Gameplay\Entities\Enemy\Enemy.cpp" />
     <ClCompile Include="src\Gameplay\Entities\Enemy\EnemyFactory.cpp" />
     <ClCompile Include="src\Gameplay\Fighting\FightSystem.cpp" />
+    <ClCompile Include="src\Gameplay\Items\Equipment\EquipmentFactory.cpp" />
+    <ClCompile Include="src\Gameplay\Items\Equipment\Types\Boots.cpp" />
+    <ClCompile Include="src\Gameplay\Items\Equipment\Types\Chestplate.cpp" />
+    <ClCompile Include="src\Gameplay\Items\Equipment\Types\Helmet.cpp" />
+    <ClCompile Include="src\Gameplay\Items\Equipment\Types\Leggings.cpp" />
     <ClCompile Include="src\Gameplay\Items\HealthPotion.cpp" />
     <ClCompile Include="src\Gameplay\Items\Scroll.cpp" />
     <ClCompile Include="src\Gameplay\Items\Systems\Chest.cpp" />
@@ -178,6 +183,9 @@
     <ClCompile Include="src\Gameplay\Map\Map.cpp" />
     <ClCompile Include="src\Gameplay\Map\MapGenerator.cpp" />
     <ClCompile Include="src\Gameplay\Entities\Player.cpp" />
+    <ClCompile Include="src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Input\Input.h" />
@@ -195,6 +203,12 @@
     <ClInclude Include="src\Gameplay\Fighting\Attacks\Spell.h" />
     <ClInclude Include="src\Gameplay\Fighting\Attacks\Sword.h" />
     <ClInclude Include="src\Gameplay\Fighting\FightSystem.h" />
+    <ClInclude Include="src\Gameplay\Items\Equipment\Equipment.h" />
+    <ClInclude Include="src\Gameplay\Items\Equipment\EquipmentFactory.h" />
+    <ClInclude Include="src\Gameplay\Items\Equipment\Types\Boots.h" />
+    <ClInclude Include="src\Gameplay\Items\Equipment\Types\Chestplate.h" />
+    <ClInclude Include="src\Gameplay\Items\Equipment\Types\Helmet.h" />
+    <ClInclude Include="src\Gameplay\Items\Equipment\Types\Leggings.h" />
     <ClInclude Include="src\Gameplay\Items\HealthPotion.h" />
     <ClInclude Include="src\Gameplay\Items\Item.h" />
     <ClInclude Include="src\Gameplay\Items\Scroll.h" />
@@ -208,6 +222,7 @@
     <ClInclude Include="src\Gameplay\Map\MapGenerator.h" />
     <ClInclude Include="src\Gameplay\Entities\Player.h" />
     <ClInclude Include="src\Gameplay\Room\Room.h" />
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,6 @@
+#include "pch.h"
 #include "Chest.h"
-
-#include "Core/Utility/Print.h"
 #include "Core/Game.h"
-
-#include <iostream>
 
 namespace Diablo
 {

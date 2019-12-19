@@ -1,5 +1,8 @@
 #pragma once
  
+#define REGISTER_EQUIPMENT(x) EquipmentFactory::Register(x::GetFactoryName(), x::Create);
+#define REGISTER_ITEM(x) ItemFactory::Register(x::GetFactoryName(), x::CreateMethod);
+
 namespace Diablo
 {
 	class Utility

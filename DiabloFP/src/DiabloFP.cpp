@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <utility>
-#include <algorithm>
-#include <chrono>
+#include "pch.h"
 
 #include "Core/Game.h"
 #include "Core/Utility/ExitException.h"

@@ -16,5 +16,10 @@ namespace Diablo
 
 			return tempDist(tempRand);
 		}
+
+		static float Float(float aMin, float aMax)
+		{
+			return float(Int(aMin, aMax)) / float(Int(aMin, aMax)) * 0.5f;
+		}
 	};
 }

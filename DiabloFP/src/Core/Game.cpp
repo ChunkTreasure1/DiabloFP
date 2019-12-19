@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "Game.h"
-
-#include <chrono>
 
 #include "Input/Input.h"
 #include "Gameplay/Map/MapGenerator.h"
@@ -64,19 +63,19 @@ namespace Diablo
 		do
 		{
 			Print::Clear();
-			Print::ColorText("DIABLO\n\n", COLOR_RED);
-			Print::ColorText("1. Start Game\n", COLOR_DARK_RED);
-			Print::ColorText("2. Quit\n", COLOR_DARK_RED);
+			Print::ColorText("DIABLO\n\n", Color::RED);
+			Print::ColorText("1. Start Game\n", Color::DARK_RED);
+			Print::ColorText("2. Quit\n", Color::DARK_RED);
 
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")
 			{
-				myPlayer->SetPlayerType(GetPlayerType());
+				myPlayer->SetType(GetPlayerType());
 
 				Print::Clear();
-				Print::ColorText("You wake up in a cold and dark room. Where are you? How will you get out?\n", COLOR_GREEN);
-				Print::ColorText("Use your instincts...\n", COLOR_GREEN);
-				Print::ColorText("Press ANY button to continue.", COLOR_BLUE);
+				Print::ColorText("You wake up in a cold and dark room. Where are you? How will you get out?\n", Color::GREEN);
+				Print::ColorText("Use your instincts...\n", Color::GREEN);
+				Print::ColorText("Press ANY button to continue.", Color::BLUE);
 				std::cin.get();
 
 				SetIs3D(true);
@@ -89,7 +88,7 @@ namespace Diablo
 			else
 			{
 				Print::Clear();
-				Print::ColorText("Wrong input!", COLOR_RED);
+				Print::ColorText("Wrong input!", Color::RED);
 			}
 
 		} while (true);
@@ -103,18 +102,18 @@ namespace Diablo
 		do
 		{
 			Print::Clear();
-			Print::ColorText("Choose player type: \n", COLOR_DARK_BLUE);
-			Print::ColorText("1. Warrior\n", COLOR_DARK_BLUE);
-			Print::ColorText("2. Rogue\n", COLOR_DARK_BLUE);
-			Print::ColorText("3. Sorcerer\n", COLOR_DARK_BLUE);
+			Print::ColorText("Choose player type: \n", Color::DARK_BLUE);
+			Print::ColorText("1. Warrior\n", Color::DARK_BLUE);
+			Print::ColorText("2. Rogue\n", Color::DARK_BLUE);
+			Print::ColorText("3. Sorcerer\n", Color::DARK_BLUE);
 
 			std::string tempSelected = Input::GetInput();
 
 			if (tempSelected == "1")
 			{
 				Print::Clear();
-				Print::ColorText("You selected warrior!", COLOR_YELLOW);
-				myPlayer->SetPlayerStats(PlayerType::Warrior);
+				Print::ColorText("You selected warrior!", Color::YELLOW);
+				myPlayer->SetStats(PlayerType::Warrior);
 				std::cin.get();
 
 				return PlayerType::Warrior;
@@ -122,8 +121,8 @@ namespace Diablo
 			else if (tempSelected == "2")
 			{
 				Print::Clear();
-				Print::ColorText("You selected rogue!", COLOR_YELLOW);
-				myPlayer->SetPlayerStats(PlayerType::Rogue);
+				Print::ColorText("You selected rogue!", Color::YELLOW);
+				myPlayer->SetStats(PlayerType::Rogue);
 				std::cin.get();
 
 				return PlayerType::Rogue;
@@ -131,15 +130,15 @@ namespace Diablo
 			else if (tempSelected == "3")
 			{
 				Print::Clear();
-				Print::ColorText("You selected sorcerer", COLOR_YELLOW);
-				myPlayer->SetPlayerStats(PlayerType::Sorcerer);
+				Print::ColorText("You selected sorcerer", Color::YELLOW);
+				myPlayer->SetStats(PlayerType::Sorcerer);
 				std::cin.get();
 
 				return PlayerType::Sorcerer;
 			}
 			else
 			{
-				Print::ColorText("Wrong input!\n", COLOR_RED);
+				Print::ColorText("Wrong input!\n", Color::RED);
 				continue;
 			}
 			tempSelecting = false;

@@ -30,8 +30,9 @@ namespace Diablo
 		void SetYPos(float aPos);
 		inline void SetAngle(float anAngle) { myAngle = anAngle; }
 
-		inline void SetPlayerType(PlayerType aPlayerType) { myPlayerType = aPlayerType; }
-		void SetPlayerStats(PlayerType aPlayerType);
+		inline void SetType(PlayerType aPlayerType) { myPlayerType = aPlayerType; }
+		void SetStats(PlayerType aPlayerType);
+		inline void SetStats(Stats someStats) { myStats = someStats; myHealth = myBaseHealth * myStats.Constitution; }
 
 		//Getting
 		inline const float GetXPos() { return myXPos; }
@@ -42,7 +43,7 @@ namespace Diablo
 		inline const float GetFOV() { return myFOV; }
 		inline const float GetDepth() { return myDepth; }
 
-		inline const PlayerType GetPlayerType() const { return myPlayerType; }
+		inline const PlayerType GetType() const { return myPlayerType; }
 		inline static Player* Get() { return myInstance; }
 		inline const std::unique_ptr<Inventory>& GetInventory() const { return mypInventory; }
 
@@ -65,6 +66,7 @@ namespace Diablo
 		float myAngle;
 
 		float myLevel;
+		float myBaseHealth;
 		PlayerType myPlayerType;
 		uint32_t myMapWidth;
 

@@ -16,7 +16,7 @@ namespace Diablo
 		myXPos(3.f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth), myBaseHealth(aHealth)
 	{
 		myInstance = this;
-		mypInventory = std::make_unique<Inventory>();
+		mypInventory = CreateScope<Inventory>();
 		mypInventory->SelectEquipment();
 	}
 
@@ -60,7 +60,7 @@ namespace Diablo
 
 			myStats.Charisma = rand() % 6 + 2;
 
-			std::shared_ptr<Axe> tempAttack = std::make_shared<Axe>();
+			Ref<Axe> tempAttack = CreateRef<Axe>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Strength / 3.f));
 
 			myAttacks.push_back(std::move(tempAttack));
@@ -77,7 +77,7 @@ namespace Diablo
 
 			myStats.Charisma = rand() % 7 + 2;
 
-			std::shared_ptr<Spell> tempAttack = std::make_shared<Spell>();
+			Ref<Spell> tempAttack = CreateRef<Spell>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Wisdom / 3.f));
 
 			myAttacks.push_back(std::move(tempAttack));
@@ -94,7 +94,7 @@ namespace Diablo
 
 			myStats.Charisma = rand() % 8 + 4;
 
-			std::shared_ptr<Sword> tempAttack = std::make_shared<Sword>();
+			Ref<Sword> tempAttack = CreateRef<Sword>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Strength / 2.f));
 
 			myAttacks.push_back(std::move(tempAttack));
@@ -103,7 +103,7 @@ namespace Diablo
 		myHealth *= myStats.Constitution;
 	}
 
-	std::shared_ptr<Attack> Player::GetAttack(std::shared_ptr<Enemy>& someEnemy)
+	Ref<Attack> Player::GetAttack(Ref<Enemy>& someEnemy)
 	{
 		do
 		{
@@ -150,7 +150,7 @@ namespace Diablo
 		}
 	}
 
-	void Player::AttackEnemy(std::shared_ptr<Enemy>& aEnemy)
+	void Player::AttackEnemy(Ref<Enemy>& aEnemy)
 	{
 		auto tempRet = FightSystem::Get()->FightEnemy(aEnemy);
 
@@ -170,7 +170,7 @@ namespace Diablo
 		}
 	}
 
-	void Player::OpenChest(std::shared_ptr<Chest>& aChest)
+	void Player::OpenChest(Ref<Chest>& aChest)
 	{
 		aChest->OpenChest(aChest);
 	}

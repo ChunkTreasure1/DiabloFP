@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Item.h"
+#include "Core/Utility/Utility.h"
 
 namespace Diablo
 {
@@ -14,7 +15,7 @@ namespace Diablo
 		std::string GetStat();
 
 	public:
-		static Item* CreateMethod() { return new Tome(); }
+		static Scope<Item> CreateMethod() { return CreateScope<Tome>(); }
 		static std::string GetFactoryName() { return "Tome"; }
 
 	private:

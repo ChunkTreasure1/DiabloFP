@@ -45,7 +45,7 @@ namespace Diablo
 		Player* myPlayer;
 		HANDLE myDefaultConsole;
 
-		std::shared_ptr<FightSystem> myFightSystem;
+		Ref<FightSystem> myFightSystem;
 
 	private:
 		static Game* myInstance;

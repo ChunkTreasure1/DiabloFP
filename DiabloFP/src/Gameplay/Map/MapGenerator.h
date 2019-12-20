@@ -15,8 +15,8 @@ namespace Diablo
 
 	private:
 		static std::vector<Room> GenerateRooms(uint32_t aMapSize, uint32_t aRoomSize);
-		static std::vector<std::shared_ptr<Enemy>> GenerateEnemies(uint32_t aMapSize);
-		static std::vector<std::shared_ptr<Chest>> GenerateChests(uint32_t aMapSize);
+		static std::vector<Ref<Enemy>> GenerateEnemies(uint32_t aMapSize);
+		static std::vector<Ref<Chest>> GenerateChests(uint32_t aMapSize);
 
 		static glm::vec2 GeneratePosition(uint32_t aMapSize);
 	};

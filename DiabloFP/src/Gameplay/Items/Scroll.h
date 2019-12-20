@@ -3,6 +3,8 @@
 #include "Item.h"
 #include <string>
 
+#include "Core/Utility/Utility.h"
+
 namespace Diablo
 {
 	class Scroll : public Item
@@ -18,7 +20,7 @@ namespace Diablo
 		inline void SetIsUsed(bool aValue) { myIsUsed = aValue; }
 
 	public:
-		static Item* CreateMethod() { return new Scroll(); }
+		static Scope<Item> CreateMethod() { return CreateScope<Scroll>(); }
 		static std::string GetFactoryName() { return "Scroll"; }
 
 	private:

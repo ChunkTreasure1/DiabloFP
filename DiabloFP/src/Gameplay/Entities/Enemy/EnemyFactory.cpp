@@ -13,15 +13,15 @@
 
 namespace Diablo
 {
-	std::shared_ptr<Enemy> EnemyFactory::Create(const glm::vec2& aCharPos)
+	Ref<Enemy> EnemyFactory::Create(const glm::vec2& aCharPos)
 	{
 		//Generate stats
 		int tempDiff = LevelSystem::GetDifficulty();
 
-		std::shared_ptr<Enemy> tempEnemy = std::make_shared<Enemy>(8.f);
+		Ref<Enemy> tempEnemy = CreateRef<Enemy>(8.f);
 		tempEnemy->SetCharPos(aCharPos);
 
-		std::tuple<Stats, std::string, std::shared_ptr<Attack>> tempTuple = GetEnemyStats();
+		std::tuple<Stats, std::string, Ref<Attack>> tempTuple = GetEnemyStats();
 		tempEnemy->SetStats(std::get<0>(tempTuple));
 		tempEnemy->SetName(std::get<1>(tempTuple));
 
@@ -36,20 +36,20 @@ namespace Diablo
 			float tempVal = (float)(rand() % 100 + 1);
 			tempVal /= 100.f;
 
-			std::shared_ptr<Item> tempItem;
+			Ref<Item> tempItem;
 			if (tempVal <= 0.7f)
 			{
-				tempItem = std::make_shared<HealthPotion>();
+				tempItem = CreateRef<HealthPotion>();
 				auto tempI = std::dynamic_pointer_cast<HealthPotion>(tempItem);
 				tempI->SetAddAmount((float)(rand() % 20 + 10));
 			}
 			else if (tempVal > 0.7f && tempVal < 0.9f)
 			{
-				tempItem = std::make_shared<Scroll>();
+				tempItem = CreateRef<Scroll>();
 			}
 			else if (tempVal > 0.95f)
 			{
-				tempItem = std::make_shared<Tome>();
+				tempItem = CreateRef<Tome>();
 			}
 
 			tempEnemy->SetLoot(std::move(tempItem));
@@ -58,11 +58,11 @@ namespace Diablo
 		return tempEnemy;
 	}
 
-	std::tuple<Stats, std::string, std::shared_ptr<Attack>> EnemyFactory::GetEnemyStats()
+	std::tuple<Stats, std::string, Ref<Attack>> EnemyFactory::GetEnemyStats()
 	{
 		Stats tempStats = Stats();
 		std::string tempName;
-		std::shared_ptr<Attack> tempAttack;
+		Ref<Attack> tempAttack;
 
 		int tempVal = rand() % 3 + 1;
 		if (tempVal == 1)
@@ -77,7 +77,7 @@ namespace Diablo
 			tempStats.Strength = rand() % 8 + 4;
 			tempStats.Wisdom = rand() % 4 + 1;
 
-			tempAttack = std::make_shared<Axe>();
+			tempAttack = CreateRef<Axe>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (tempStats.Strength / 4));
 
 			tempName = "Orch";
@@ -94,7 +94,7 @@ namespace Diablo
 			tempStats.Strength = rand() % 4 + 1;
 			tempStats.Wisdom = rand() % 6 + 2;
 
-			tempAttack = std::make_shared<Sword>();
+			tempAttack = CreateRef<Sword>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (tempStats.Strength / 1));
 
 			tempName = "Goblin";
@@ -111,7 +111,7 @@ namespace Diablo
 			tempStats.Strength = rand() % 6 + 3;
 			tempStats.Wisdom = rand() % 8 + 3;
 
-			tempAttack = std::make_shared<Spell>();
+			tempAttack = CreateRef<Spell>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (tempStats.Wisdom / 3));
 
 			tempName = "Wizard";

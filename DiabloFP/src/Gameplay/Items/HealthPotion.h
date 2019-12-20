@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Item.h"
+#include "Core/Utility/Utility.h"
 
 namespace Diablo
 {
@@ -14,7 +15,7 @@ namespace Diablo
 		virtual bool Use() override;
 
 	public:
-		static Item* CreateMethod() { return new HealthPotion(); }
+		static Scope<Item> CreateMethod() { return CreateScope<HealthPotion>(); }
 		static std::string GetFactoryName() { return "HealthPotion"; }
 
 	private:

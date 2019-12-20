@@ -51,7 +51,7 @@ namespace Diablo
 		}
 
 	public:
-		static Equipment* Create() { return new Chestplate(""); }
+		static Ref<Equipment> Create() { return CreateScope<Chestplate>(""); }
 		static std::string GetFactoryName() { return "Chestplate"; }
 
 	private:

@@ -8,7 +8,7 @@
 
 namespace Diablo
 {
-	bool Tome::myRegistered = REGISTER_ITEM(Tome)
+	//bool Tome::myRegistered = REGISTER_ITEM(Tome)
 
 	Tome::Tome()
 		: Item("Tome")

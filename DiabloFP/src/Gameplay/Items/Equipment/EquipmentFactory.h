@@ -1,46 +1,32 @@
 #pragma once
 #include "Equipment.h"
 
+#include "Core/Utility/Utility.h"
+
 namespace Diablo
 {
-	class EquipmentFactory 
+	class EquipmentFactory
 	{
-		using TCreateMethod = Equipment * (*)();
+	public:
+		using TCreateMethod = Ref<Equipment>(*)();
 
 	public:
 		EquipmentFactory() = delete;
 
-		static Equipment* CreateRandom();
+		static Ref<Equipment> CreateRandom();
 
-		static Equipment* CreateHelmet(uint32_t aMax);
-		static Equipment* CreateChestplate(uint32_t aMax);
-		static Equipment* CreateLeggings(uint32_t aMax);
-		static Equipment* CreateBoots(uint32_t aMax);
+		static Ref<Equipment> CreateHelmet(uint32_t aMax);
+		static Ref<Equipment> CreateChestplate(uint32_t aMax);
+		static Ref<Equipment> CreateLeggings(uint32_t aMax);
+		static Ref<Equipment> CreateBoots(uint32_t aMax);
 
 
-		static bool Register(const std::string& aName, TCreateMethod aFunc) 
-		{
-			if (myMethods.count(aName) == 0)
-			{
-				myMethods[aName] = aFunc;
-				return true;
-			}
-
-			return false;
-		}
-		static Equipment* Create(const std::string& aName)
-		{
-			if (auto tempIT = myMethods.find(aName); tempIT != myMethods.end())
-			{
-				return tempIT->second();
-			}
-
-			return nullptr;
-		}
-		static Equipment* Create(uint32_t anI)
+		static bool Register(const std::string& aName, TCreateMethod aFunc);
+		static Ref<Equipment> Create(const std::string& aName);
+		static Ref<Equipment> Create(uint32_t anI)
 		{
 			std::map<std::string, TCreateMethod>::const_iterator tempEnd = myMethods.end();
-			
+
 			int tempCounter = 0;
 			for (std::map<std::string, TCreateMethod>::const_iterator tempIT = myMethods.begin(); tempIT != tempEnd; ++tempIT)
 			{

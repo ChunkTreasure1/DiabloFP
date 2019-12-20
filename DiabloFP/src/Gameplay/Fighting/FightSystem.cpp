@@ -10,7 +10,7 @@
 
 namespace Diablo
 {
-	std::shared_ptr<FightSystem> FightSystem::mypInstance = nullptr;
+	Ref<FightSystem> FightSystem::mypInstance = nullptr;
 
 	FightSystem::FightSystem()
 	{
@@ -30,7 +30,7 @@ namespace Diablo
 		throw ExitException();
 	}
 
-	FightExit FightSystem::FightEnemy(std::shared_ptr<Enemy>& apEnemy)
+	FightExit FightSystem::FightEnemy(Ref<Enemy>& apEnemy)
 	{
 		Game::Get()->SetIs3D(false);
 		bool tempRunning = true;
@@ -52,7 +52,7 @@ namespace Diablo
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")
 			{
-				std::shared_ptr<Attack> tempAttack = tempPlayer->GetAttack(apEnemy);
+				Ref<Attack> tempAttack = tempPlayer->GetAttack(apEnemy);
 
 				if (apEnemy->GetCombatChoice() == EnemyChoice::Attack)
 				{
@@ -120,7 +120,7 @@ namespace Diablo
 		return FightExit::Fleed;
 	}
 
-	bool FightSystem::AttackPlayer(std::shared_ptr<Enemy>& apEnemy)	
+	bool FightSystem::AttackPlayer(Ref<Enemy>& apEnemy)	
 	{
 		uint32_t tempVal = rand() % 10 + 1;
 
@@ -141,7 +141,7 @@ namespace Diablo
 		return false;
 	}
 
-	bool FightSystem::AttackPlayer(std::shared_ptr<Enemy>& apEnemy, uint32_t aValue)
+	bool FightSystem::AttackPlayer(Ref<Enemy>& apEnemy, uint32_t aValue)
 	{
 		float tempDamage = apEnemy->GetAttack()->GetDamage() * (aValue / 7);
 		uint32_t tempVal = rand() % 10 + 1;
@@ -163,7 +163,7 @@ namespace Diablo
 		return false;
 	}
 
-	bool FightSystem::AttackEnemy(std::shared_ptr<Enemy>& apEnemy, std::shared_ptr<Attack>& apAttack)
+	bool FightSystem::AttackEnemy(Ref<Enemy>& apEnemy, Ref<Attack>& apAttack)
 	{
 		uint32_t tempVal = rand() % 10 + 1;
 

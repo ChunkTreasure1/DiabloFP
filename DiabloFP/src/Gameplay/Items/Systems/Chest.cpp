@@ -4,7 +4,7 @@
 
 namespace Diablo
 {
-	void Chest::OpenChest(std::shared_ptr<Chest>& someChest)
+	void Chest::OpenChest(Ref<Chest>& someChest)
 	{
 		Game::Get()->SetIs3D(false);
 

@@ -51,8 +51,8 @@ namespace Diablo
 		}
 
 	public:
-		static Equipment* Create() { return new Leggings(""); }
-		static std::string GetFactoryName() { return "Boots"; }
+		static Ref<Equipment> Create() { return CreateScope<Leggings>(""); }
+		static std::string GetFactoryName() { return "Leggings"; }
 
 	private:
 		static bool myRegistered;

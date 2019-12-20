@@ -13,7 +13,7 @@ namespace Diablo
 	public:
 		Chest() = default;
 
-		inline void AddItem(Item* anItem) { myItems.push_back(anItem); }
+		inline void AddItem(Ref<Item> anItem) { myItems.push_back(std::move(anItem)); }
 
 		//Setting
 		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
@@ -22,12 +22,12 @@ namespace Diablo
 		//Getting
 		inline const glm::vec2& GetCharPos() { return myCharPos; }
 		inline const uint32_t GetStrPos() { return myStrPos; }
-		inline std::vector<Item*>& GetItems() { return myItems; }
+		inline std::vector<Ref<Item>>& GetItems() { return myItems; }
 
-		void OpenChest(std::shared_ptr<Chest>& someChest);
+		void OpenChest(Ref<Chest>& someChest);
 
 	private:
-		std::vector<Item*> myItems;
+		std::vector<Ref<Item>> myItems;
 		glm::vec2 myCharPos;
 		uint32_t myStrPos;
 	};

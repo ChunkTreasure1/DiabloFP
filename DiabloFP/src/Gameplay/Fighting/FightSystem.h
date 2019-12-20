@@ -20,17 +20,17 @@ namespace Diablo
 		~FightSystem();
 
 		//Getting
-		static inline std::shared_ptr<FightSystem>& Get() { return mypInstance; }
+		static inline Ref<FightSystem>& Get() { return mypInstance; }
 
 		void GameOver();
-		FightExit FightEnemy(std::shared_ptr<Enemy>& apEnemy);
+		FightExit FightEnemy(Ref<Enemy>& apEnemy);
 
 	private:
-		bool AttackPlayer(std::shared_ptr<Enemy>& apEnemy);
-		bool AttackPlayer(std::shared_ptr<Enemy>& apEnemy, uint32_t aValue);
-		bool AttackEnemy(std::shared_ptr<Enemy>& apEnemy, std::shared_ptr<Attack>& apAttack);
+		bool AttackPlayer(Ref<Enemy>& apEnemy);
+		bool AttackPlayer(Ref<Enemy>& apEnemy, uint32_t aValue);
+		bool AttackEnemy(Ref<Enemy>& apEnemy, Ref<Attack>& apAttack);
 
 	private:
-		static std::shared_ptr<FightSystem> mypInstance;
+		static Ref<FightSystem> mypInstance;
 	};
 }

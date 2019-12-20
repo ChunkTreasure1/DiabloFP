@@ -45,14 +45,14 @@ namespace Diablo
 
 		inline const PlayerType GetType() const { return myPlayerType; }
 		inline static Player* Get() { return myInstance; }
-		inline const std::unique_ptr<Inventory>& GetInventory() const { return mypInventory; }
+		inline const Scope<Inventory>& GetInventory() const { return mypInventory; }
 
-		std::shared_ptr<Attack> GetAttack(std::shared_ptr<Enemy>& someEnemy);
+		Ref<Attack> GetAttack(Ref<Enemy>& someEnemy);
 		void Update();
 
 	private:
-		void AttackEnemy(std::shared_ptr<Enemy>& aEnemy);
-		void OpenChest(std::shared_ptr<Chest>& aChest);
+		void AttackEnemy(Ref<Enemy>& aEnemy);
+		void OpenChest(Ref<Chest>& aChest);
 		void CheckForEnemy();
 		void CheckForChest();
 
@@ -70,8 +70,8 @@ namespace Diablo
 		PlayerType myPlayerType;
 		uint32_t myMapWidth;
 
-		std::unique_ptr<Inventory> mypInventory;
-		std::vector<std::shared_ptr<Attack>> myAttacks;
+		Scope<Inventory> mypInventory;
+		std::vector<Ref<Attack>> myAttacks;
 
 	private:
 		static Player* myInstance;

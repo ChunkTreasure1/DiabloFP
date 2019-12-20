@@ -35,8 +35,8 @@ namespace Diablo
 		static void ColorText(const std::string& aText, Color aColor);
 		static void Middle(const std::string& aText, Color aColor, uint32_t aY);
 
-		static void Stats(const std::shared_ptr<Enemy>& someEnemy);
-		static void Chests(std::shared_ptr<Chest>& someChest);
+		static void Stats(const Ref<Enemy>& someEnemy);
+		static void Chests(Ref<Chest>& someChest);
 		static void SetPosition(uint32_t anX, uint32_t aY);
 
 		//To strings

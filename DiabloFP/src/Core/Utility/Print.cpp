@@ -35,7 +35,7 @@ namespace Diablo
 		ColorText(aText, aColor);
 	}
 
-	void Print::Stats(const std::shared_ptr<Enemy>& someEnemy)
+	void Print::Stats(const Ref<Enemy>& someEnemy)
 	{
 		uint32_t tempHeight = 20;
 
@@ -126,7 +126,7 @@ namespace Diablo
 		SetPosition(0, 6);
 	}
 
-	void Print::Chests(std::shared_ptr<Chest>& someChest)
+	void Print::Chests(Ref<Chest>& someChest)
 	{
 		uint32_t tempHeight = 20;
 		uint32_t tempOffset = 2;

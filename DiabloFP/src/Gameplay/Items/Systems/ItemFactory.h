@@ -1,24 +1,21 @@
 #pragma once
 
 #include "Gameplay/Items/Item.h"
-
-#include <map>
+#include "Core/Utility/Utility.h"
 
 namespace Diablo
 {
 	class ItemFactory
 	{
 	public:
-		using TCreateMethod = Item * (*)();
+		using TCreateMethod = Scope<Item>(*)();
 
 	public:
 		ItemFactory() = delete;
 
 		static bool Register(const std::string& aName, TCreateMethod aFunc)
 		{
-			auto tempIT = myMethods.find(aName);
-
-			if (tempIT == myMethods.end())
+		if (auto tempIT = myMethods.find(aName); tempIT == myMethods.end())
 			{
 				myMethods[aName] = aFunc;
 				return true;
@@ -27,7 +24,7 @@ namespace Diablo
 			return false;
 		}
 
-		static Item* Create(const std::string& aName)
+		static Scope<Item> Create(const std::string& aName)
 		{
 			if (auto tempIT = myMethods.find(aName); tempIT != myMethods.end())
 			{
@@ -37,7 +34,7 @@ namespace Diablo
 			return nullptr;
 		}
 
-		static Item* Create(uint32_t anI)
+		static Scope<Item> Create(uint32_t anI)
 		{
 			std::map<std::string, TCreateMethod>::const_iterator tempEnd = myMethods.end();
 

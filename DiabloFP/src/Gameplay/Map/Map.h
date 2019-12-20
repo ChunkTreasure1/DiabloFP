@@ -9,7 +9,7 @@ namespace Diablo
 	class Map
 	{
 	public:
-		Map(std::wstring aMap, uint32_t aSize, uint32_t aRoomCount, std::vector<std::shared_ptr<Enemy>> someEnemies, std::vector<std::shared_ptr<Chest>> someChests)
+		Map(std::wstring aMap, uint32_t aSize, uint32_t aRoomCount, std::vector<Ref<Enemy>> someEnemies, std::vector<Ref<Chest>> someChests)
 			: myStringMap(aMap), myMapSize(aSize), myRoomCount(aRoomCount), myEnemies(someEnemies), myChests(someChests)
 		{
 			myInstance = this;
@@ -21,15 +21,15 @@ namespace Diablo
 		inline const uint32_t GetRoomCount() { return myRoomCount; }
 		inline const uint32_t GetMapSize() { return myMapSize; }
 
-		inline std::vector<std::shared_ptr<Enemy>>& GetEnemies() { return myEnemies; }
-		inline std::vector<std::shared_ptr<Chest>>& GetChests() { return myChests; }
+		inline std::vector<Ref<Enemy>>& GetEnemies() { return myEnemies; }
+		inline std::vector<Ref<Chest>>& GetChests() { return myChests; }
 
 	public:
 		static Map* Get() { return myInstance; }
 
 	private:
-		std::vector<std::shared_ptr<Enemy>> myEnemies;
-		std::vector<std::shared_ptr<Chest>> myChests;
+		std::vector<Ref<Enemy>> myEnemies;
+		std::vector<Ref<Chest>> myChests;
 
 		std::wstring myStringMap;
 		uint32_t myRoomCount;

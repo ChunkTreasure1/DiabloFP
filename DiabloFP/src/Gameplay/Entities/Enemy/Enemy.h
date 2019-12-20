@@ -28,21 +28,21 @@ namespace Diablo
 		//Getting
 		inline const std::string GetName() const { return myName; }
 		inline const uint32_t GetKillXP() const { return myKillXP; }
-		inline std::shared_ptr<Item>& GetDropLoot() { return myDropLoot; }
+		inline Ref<Item>& GetDropLoot() { return myDropLoot; }
 
 		inline float GetMaxHealth() const { return myMaxHealth; }
 		inline const glm::vec2& GetCharPos() { return myCharPos; }
 		inline const uint32_t GetStrPos() { return myStrPos; }
-		inline std::shared_ptr<Attack> GetAttack() const { return myAttack; }
+		inline Ref<Attack> GetAttack() const { return myAttack; }
 
 
 		//Setting
 		inline void SetName(std::string aName) { myName = aName; }
 		inline void SetKillXP(uint32_t someValue) { myKillXP = someValue; }
-		inline void SetLoot(std::shared_ptr<Item> someLoot) { myDropLoot = std::move(someLoot); }
+		inline void SetLoot(Ref<Item> someLoot) { myDropLoot = std::move(someLoot); }
 
 		inline void SetMaxHealth(float aHealth) { myMaxHealth = aHealth; }
-		inline void SetAttack(std::shared_ptr<Attack>& anAttack) { myAttack = std::move(anAttack); }
+		inline void SetAttack(Ref<Attack>& anAttack) { myAttack = std::move(anAttack); }
 		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
 		inline void SetStrPos(uint32_t aPos) { myStrPos = aPos; }
 
@@ -55,7 +55,7 @@ namespace Diablo
 		uint32_t myStrPos;
 
 		float myMaxHealth;
-		std::shared_ptr<Item> myDropLoot;
-		std::shared_ptr<Attack> myAttack;
+		Ref<Item> myDropLoot;
+		Ref<Attack> myAttack;
 	};
 }

@@ -15,10 +15,10 @@ namespace Diablo
 		~Inventory();
 
 		//Adding
-		bool AddItem(std::shared_ptr<Item> apItem);
+		bool AddItem(Ref<Item> apItem);
 
 		//Get
-		std::vector<std::shared_ptr<Item>>& GetVector() { return mypItems; }
+		std::vector<Ref<Item>>& GetVector() { return mypItems; }
 
 		void OpenInventory();
 		void SelectEquipment();
@@ -31,7 +31,7 @@ namespace Diablo
 		void RemoveItem();
 	private:
 		uint32_t myMaxSpace;
-		std::vector<std::shared_ptr<Item>> mypItems;
-		std::vector<Equipment*> myEquipment;
+		std::vector<Ref<Item>> mypItems;
+		std::vector<Ref<Equipment>> myEquipment;
 	};
 }

@@ -173,6 +173,11 @@ namespace Diablo
 
 			if (apEnemy->GetHealth() <= 0)
 			{
+				LevelSystem::AddXPToPlayer(apEnemy->GetKillXP());
+				Print::ColorText("You gained " + Print::ToString(apEnemy->GetKillXP()) + " XP!\n", Color::GREEN);
+				Player::Get()->GetInventory()->AddItem(apEnemy->GetDropLoot());
+				Print::ColorText("The enemy dropped item " + apEnemy->GetDropLoot()->GetName() + "!\n", Color::GREEN);
+
 				return true;
 			}
 

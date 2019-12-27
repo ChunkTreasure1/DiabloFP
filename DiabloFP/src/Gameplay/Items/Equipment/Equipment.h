@@ -4,7 +4,6 @@
 
 namespace Diablo 
 {
-
 	class Equipment : public Item
 	{
 	public:

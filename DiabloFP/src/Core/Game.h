@@ -47,6 +47,9 @@ namespace Diablo
 
 		Ref<FightSystem> myFightSystem;
 
+		std::vector<Map*> myMaps;
+		uint32_t myCurrentMapIndex;
+
 	private:
 		static Game* myInstance;
 	};

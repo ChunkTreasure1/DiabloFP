@@ -60,6 +60,8 @@ namespace Diablo
 			tempC->SetStrPos(tempPos);
 			tempMap[tempPos] = '=';
 		}
+		Ref<Enemy> tempBoss = EnemyFactory::CreateBoss();
+
 
 		//(2, 3)
 		//map += L"################..";
@@ -79,7 +81,7 @@ namespace Diablo
 		//map += L"#..............#..";
 		//map += L"################..";
 
-		return new Map(tempMap, tempMapSize, 1, tempEnemies, tempChests);
+		return new Map(tempMap, tempMapSize, 1, tempEnemies, tempChests, tempBoss);
 	}
 
 	std::vector<Room> MapGenerator::GenerateRooms(uint32_t aMapSize, uint32_t aRoomSize)
@@ -151,11 +153,11 @@ namespace Diablo
 					tempRoom.GetTiles().push_back(Tile('.', glm::vec2(tempStart.x + x, tempStart.y + y)));
 				}
 			}
-
 			tempLastStartPos = glm::vec2(tempStart.x + aRoomSize, tempStart.y);
 
 			tempRooms.push_back(tempRoom);
 		}
+		tempRooms[0].GetTiles()[7].Type = '&';
 
 		return tempRooms;
 	}

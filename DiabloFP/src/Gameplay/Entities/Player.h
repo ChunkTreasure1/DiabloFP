@@ -33,6 +33,7 @@ namespace Diablo
 		inline void SetType(PlayerType aPlayerType) { myPlayerType = aPlayerType; }
 		void SetStats(PlayerType aPlayerType);
 		inline void SetStats(Stats someStats) { myStats = someStats; myHealth = myBaseHealth * myStats.Constitution; }
+		inline void SetShouldExit(bool someState) { myShouldExit = someState; }
 
 		//Getting
 		inline const float GetXPos() { return myXPos; }
@@ -48,13 +49,18 @@ namespace Diablo
 		inline const Scope<Inventory>& GetInventory() const { return mypInventory; }
 
 		Ref<Attack> GetAttack(Ref<Enemy>& someEnemy);
+		inline const bool GetShouldExit() { return myShouldExit; }
+
 		void Update();
 
 	private:
 		void AttackEnemy(Ref<Enemy>& aEnemy);
 		void OpenChest(Ref<Chest>& aChest);
+		void Exit();
+
 		void CheckForEnemy();
 		void CheckForChest();
+		void CheckForExit();
 
 	private:
 		float myXPos;
@@ -67,6 +73,7 @@ namespace Diablo
 
 		float myLevel;
 		float myBaseHealth;
+		bool myShouldExit;
 		PlayerType myPlayerType;
 		uint32_t myMapWidth;
 

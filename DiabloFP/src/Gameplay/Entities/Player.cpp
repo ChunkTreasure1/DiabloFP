@@ -7,13 +7,16 @@
 
 #include "Core/Input/Input.h"
 
+#include "Core/Utility/ExitException.h"
+
 namespace Diablo
 {
 	Player* Player::myInstance = nullptr;
 
 	Player::Player(float aHealth, uint32_t aMapWidth)
 		: Entity(aHealth), myDepth(16.f), myFOV(3.14159f / 4.f), mySpeed(5.f),
-		myXPos(3.f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth), myBaseHealth(aHealth)
+		myXPos(3.f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth), myBaseHealth(aHealth),
+		myShouldExit(false)
 	{
 		myInstance = this;
 		mypInventory = CreateScope<Inventory>();
@@ -29,6 +32,7 @@ namespace Diablo
 		}
 		else
 		{
+			CheckForExit();
 			CheckForChest();
 		}
 	}
@@ -42,6 +46,7 @@ namespace Diablo
 		}
 		else
 		{
+			CheckForExit();
 			CheckForChest();
 		}
 	}
@@ -175,6 +180,26 @@ namespace Diablo
 		aChest->OpenChest(aChest);
 	}
 
+	void Player::Exit()
+	{
+		if (Map::Get()->GetBoss()->GetHealth() > 0)
+		{
+			auto tempS = FightSystem::Get()->FightEnemy(Map::Get()->GetBoss());
+			if (tempS == FightExit::EnemyKilled)
+			{
+				myShouldExit = true;
+			}
+			else
+			{
+				throw ExitException();
+			}
+		}
+		else
+		{
+			myShouldExit = true;
+		}
+	}
+
 	void Player::CheckForEnemy()
 	{
 		uint32_t tempCharPos = Utility::Rounded(myYPos) + Utility::Rounded(myXPos) * myMapWidth;
@@ -300,6 +325,71 @@ namespace Diablo
 				}
 
 				OpenChest(tempC);
+				break;
+			}
+		}
+	}
+
+	void Player::CheckForExit()
+	{
+		uint32_t tempCharPos = Utility::Rounded(myYPos) + Utility::Rounded(myXPos) * myMapWidth;
+		if (Map::Get()->GetStringMap().c_str()[tempCharPos - myMapWidth] == '&')
+		{
+			for (auto& tempC : Map::Get()->GetChests())
+			{
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
+
+				if (tempCheck != tempCharPos - myMapWidth)
+				{
+					continue;
+				}
+				Exit();
+
+				break;
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + myMapWidth] == '&')
+		{
+			for (auto& tempC : Map::Get()->GetChests())
+			{
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
+
+				if (tempCheck != tempCharPos + myMapWidth)
+				{
+					continue;
+				}
+
+				Exit();
+				break;
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos - 1] == '&')
+		{
+			for (auto& tempC : Map::Get()->GetChests())
+			{
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
+
+				if (tempCheck != tempCharPos)
+				{
+					continue;
+				}
+
+				Exit();
+				break;
+			}
+		}
+		else if (Map::Get()->GetStringMap().c_str()[tempCharPos + 1] == '&')
+		{
+			for (auto& tempC : Map::Get()->GetChests())
+			{
+				uint32_t tempCheck = Utility::Rounded(tempC->GetCharPos().y) + Utility::Rounded(tempC->GetCharPos().x) * myMapWidth;
+
+				if (tempCheck != tempCharPos)
+				{
+					continue;
+				}
+
+				Exit();
 				break;
 			}
 		}

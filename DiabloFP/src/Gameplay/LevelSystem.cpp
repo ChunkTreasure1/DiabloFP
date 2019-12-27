@@ -21,6 +21,7 @@ namespace Diablo
 
 	void LevelSystem::AddStat()
 	{
+		Game::Get()->SetIs3D(false);
 		do
 		{
 			Print::Clear();
@@ -35,6 +36,8 @@ namespace Diablo
 			Print::ColorText("5. Intelligence: " + std::to_string(Player::Get()->GetIntelligence()) + "\n", Color::YELLOW);
 			Print::ColorText("6. Wisdom: " + std::to_string(Player::Get()->GetWisdom()) + "\n", Color::YELLOW);
 			Print::ColorText("7. Charisma: " + std::to_string(Player::Get()->GetCharisma()) + "\n", Color::YELLOW);
+
+			Print::Stats(nullptr);
 
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")

@@ -11,7 +11,8 @@ namespace Diablo
 
 	Game::Game()
 		: myIsRunning(true), myScreenWidth(120), myScreenHeight(40),
-		myMapHeight(16), myMapWidth(16), myIs3D(false), myDefaultConsole(GetStdHandle(STD_OUTPUT_HANDLE))
+		myMapHeight(16), myMapWidth(16), myIs3D(false), myDefaultConsole(GetStdHandle(STD_OUTPUT_HANDLE)),
+		myCurrentMapIndex(0)
 	{
 		myInstance = this;
 		Renderer::Initialize(myScreenWidth, myScreenHeight);
@@ -32,14 +33,22 @@ namespace Diablo
 		auto tempTP1 = std::chrono::system_clock::now();
 		auto tempTP2 = std::chrono::system_clock::now();
 
+		myPlayer->SetType(GetPlayerType());
+
 		do
 		{
 			bool tempRunning = StartMenu();
-			myMap = MapGenerator::GenerateMap();
+
 			Renderer::Update(myMap->GetMapSize(), myMap->GetStringMap());
 
 			while (tempRunning)
 			{
+				if (Player::Get()->GetShouldExit())
+				{
+					tempRunning = false;
+					Player::Get()->SetShouldExit(false);
+				}
+
 				//Setup timing so the console runs at constant speed
 				tempTP2 = std::chrono::system_clock::now();
 				std::chrono::duration<float> tempElapsed = tempTP2 - tempTP1;
@@ -64,14 +73,13 @@ namespace Diablo
 		{
 			Print::Clear();
 			Print::ColorText("DIABLO\n\n", Color::RED);
-			Print::ColorText("1. Start Game\n", Color::DARK_RED);
-			Print::ColorText("2. Quit\n", Color::DARK_RED);
+			Print::ColorText("1. Enter next room\n", Color::DARK_RED);
+			Print::ColorText("2. Enter last room", Color::DARK_RED);
+			Print::ColorText("3. Quit\n", Color::DARK_RED);
 
 			std::string tempInput = Input::GetInput();
 			if (tempInput == "1")
 			{
-				myPlayer->SetType(GetPlayerType());
-
 				Print::Clear();
 				Print::ColorText("You wake up in a cold and dark room. Where are you? How will you get out?\n", Color::GREEN);
 				Print::ColorText("Use your instincts...\n", Color::GREEN);
@@ -79,9 +87,35 @@ namespace Diablo
 				std::cin.get();
 
 				SetIs3D(true);
+
+				myMap = MapGenerator::GenerateMap();
+				myMaps.push_back(myMap);
+				myCurrentMapIndex = myMaps.size() - 1;
+
 				return true;
 			}
 			else if (tempInput == "2")
+			{
+				Print::Clear();
+				if (myMaps.size() <= 1)
+				{
+					Print::ColorText("You have not been in any rooms!\n", Color::DARK_RED);
+					std::cin.get();
+				}
+				else 
+				{
+					SetIs3D(true);
+
+					myCurrentMapIndex -= 1;
+					myMap = myMaps[myCurrentMapIndex];
+					Map::Set(myMap);
+
+					return true;
+				}
+
+				return true;
+			}
+			else if (tempInput == "3")
 			{
 				return false;
 			}

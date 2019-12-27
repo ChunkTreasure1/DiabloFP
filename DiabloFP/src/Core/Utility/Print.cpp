@@ -95,33 +95,37 @@ namespace Diablo
 		//////////////////////
 
 		////////Enemy////////
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 2);
-		Print::ColorText("Name: " + someEnemy->GetName(), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 4);
-		Print::ColorText("Defence: " + ToString(someEnemy->GetDefence()), Color::GREEN);
+		if (someEnemy != nullptr)
+		{
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 2);
+			Print::ColorText("Name: " + someEnemy->GetName(), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 5);
-		Print::ColorText("Agility: " + ToString(someEnemy->GetAgility()), Color::GREEN);
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 4);
+			Print::ColorText("Defence: " + ToString(someEnemy->GetDefence()), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 6);
-		Print::ColorText("Strength: " + ToString(someEnemy->GetStrength()), Color::GREEN);
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 5);
+			Print::ColorText("Agility: " + ToString(someEnemy->GetAgility()), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 7);
-		Print::ColorText("Constitution: " + ToString(someEnemy->GetConstitution()), Color::GREEN);
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 6);
+			Print::ColorText("Strength: " + ToString(someEnemy->GetStrength()), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 8);
-		Print::ColorText("Intelligence: " + ToString(someEnemy->GetIntelligence()), Color::GREEN);
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 7);
+			Print::ColorText("Constitution: " + ToString(someEnemy->GetConstitution()), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 9);
-		Print::ColorText("Wisdom: " + ToString(someEnemy->GetWisdom()), Color::GREEN);
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 8);
+			Print::ColorText("Intelligence: " + ToString(someEnemy->GetIntelligence()), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 10);
-		Print::ColorText("Charisma: " + ToString(someEnemy->GetCharisma()), Color::GREEN);
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 9);
+			Print::ColorText("Wisdom: " + ToString(someEnemy->GetWisdom()), Color::GREEN);
 
-		SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 12);
-		Print::ColorText("Health: " + ToString(someEnemy->GetHealth()), Color::GREEN);
-		/////////////////////
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 10);
+			Print::ColorText("Charisma: " + ToString(someEnemy->GetCharisma()), Color::GREEN);
+
+			SetPosition((BUFFER_WIDTH / 4) * 3 + 2, 12);
+			Print::ColorText("Health: " + ToString(someEnemy->GetHealth()), Color::GREEN);
+			/////////////////////
+		}
 
 		SetPosition(0, 6);
 	}

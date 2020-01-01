@@ -189,115 +189,123 @@ namespace Diablo
 
 	void Inventory::SelectEquipment()
 	{
-		Print::Clear();
-		uint32_t tempHeight = 20;
-
-		////////Frame////////
-		Print::SetPosition(0, 0);
-		for (size_t i = 0; i < BUFFER_WIDTH; i++)
+		do
 		{
-			Print::ColorText("-", Color::DARK_GREEN);
-		}
+			Print::Clear();
+			uint32_t tempHeight = 23;
 
-		for (size_t i = 1; i < tempHeight + 1; i++)
-		{
-			Print::SetPosition(0, i);
-			Print::ColorText("|", Color::DARK_GREEN);
-
-			Print::SetPosition(BUFFER_WIDTH / 4, i);
-			Print::ColorText("|", Color::DARK_GREEN);
-
-			Print::SetPosition((BUFFER_WIDTH / 4) * 3, i);
-			Print::ColorText("|", Color::DARK_GREEN);
-
-			Print::SetPosition(BUFFER_WIDTH / 2, i);
-			Print::ColorText("|", Color::DARK_GREEN);
-
-			Print::SetPosition(BUFFER_WIDTH - 1, i);
-			Print::ColorText("|", Color::DARK_GREEN);
-		}
-
-		Print::SetPosition(0, tempHeight);
-		for (size_t i = 0; i < BUFFER_WIDTH; i++)
-		{
-			Print::ColorText("-", Color::DARK_GREEN);
-		}
-		/////////////////////
-
-		////////Content////////
-		int i = 1;
-		for (auto& tempE : myEquipment)
-		{
-			if (Ref<Helmet> tempH = std::dynamic_pointer_cast<Helmet>(std::move(tempE)))
+			////////Frame////////
+			Print::SetPosition(0, 3);
+			for (size_t i = 0; i < BUFFER_WIDTH; i++)
 			{
-				Print::SetPosition(2, i);
-				if (tempH->GetEquiped())
-				{
-					Print::ColorText(Print::ToString(i) + ". " + tempH->GetName(), Color::PURPLE);
-				}
-				else 
-				{
-					Print::ColorText(Print::ToString(i) + ". " + tempH->GetName(), Color::BLUE);
-				}
-				i++;
+				Print::ColorText("-", Color::DARK_GREEN);
 			}
-		}
 
-		i = 1;
-		for (auto& tempE : myEquipment)
-		{
-			if (Ref<Chestplate> tempC = std::dynamic_pointer_cast<Chestplate>(std::move(tempE)))
+			for (size_t i = 4; i < tempHeight + 1; i++)
 			{
-				Print::SetPosition((BUFFER_WIDTH / 2) + 2, i);
-				if (tempC->GetEquiped())
-				{
-					Print::ColorText(Print::ToString(i) + ". " + tempC->GetName(), Color::PURPLE);
-				}
-				else
-				{
-					Print::ColorText(Print::ToString(i) + ". " + tempC->GetName(), Color::BLUE);
-				}
-				i++;
-			}
-		}
+				Print::SetPosition(0, i);
+				Print::ColorText("|", Color::DARK_GREEN);
 
-		i = 1;
-		for (auto& tempE : myEquipment)
-		{
-			if (Ref<Leggings> tempL = std::dynamic_pointer_cast<Leggings>(std::move(tempE)))
+				Print::SetPosition(BUFFER_WIDTH / 4, i);
+				Print::ColorText("|", Color::DARK_GREEN);
+
+				Print::SetPosition((BUFFER_WIDTH / 4) * 3, i);
+				Print::ColorText("|", Color::DARK_GREEN);
+
+				Print::SetPosition(BUFFER_WIDTH / 2, i);
+				Print::ColorText("|", Color::DARK_GREEN);
+
+				Print::SetPosition(BUFFER_WIDTH - 1, i);
+				Print::ColorText("|", Color::DARK_GREEN);
+			}
+
+			Print::SetPosition(0, tempHeight);
+			for (size_t i = 0; i < BUFFER_WIDTH; i++)
 			{
-				Print::SetPosition((BUFFER_WIDTH / 4) * 3 + 2, i);
-				if (tempL->GetEquiped())
-				{
-					Print::ColorText(Print::ToString(i) + ". " + tempL->GetName(), Color::PURPLE);
-				}
-				else
-				{
-					Print::ColorText(Print::ToString(i) + ". " + tempL->GetName(), Color::BLUE);
-				}
-				i++;
+				Print::ColorText("-", Color::DARK_GREEN);
 			}
-		}
+			/////////////////////
 
-		i = 1;
-		for (auto& tempE : myEquipment)
-		{
-			if (Ref<Boots> tempB = std::dynamic_pointer_cast<Boots>(std::move(tempE)))
+			////////Content////////
+			int i = 5;
+			for (auto& tempE : myEquipment)
 			{
-				Print::SetPosition(BUFFER_WIDTH / 4 + 2, i);
-				if (tempB->GetEquiped())
+				if (Ref<Helmet> tempH = std::dynamic_pointer_cast<Helmet>(std::move(tempE)))
 				{
-					Print::ColorText(Print::ToString(i) + ". " + tempB->GetName(), Color::PURPLE);
+					Print::SetPosition(2, i);
+					if (tempH->GetEquiped())
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempH->GetName(), Color::PURPLE);
+					}
+					else
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempH->GetName(), Color::BLUE);
+					}
+					i++;
 				}
-				else
-				{
-					Print::ColorText(Print::ToString(i) + ". " + tempB->GetName(), Color::BLUE);
-				}
-				i++;
 			}
-		}
-		///////////////////////
 
-		std::cin.get();
+			i = 5;
+			for (auto& tempE : myEquipment)
+			{
+				if (Ref<Chestplate> tempC = std::dynamic_pointer_cast<Chestplate>(std::move(tempE)))
+				{
+					Print::SetPosition((BUFFER_WIDTH / 2) + 2, i);
+					if (tempC->GetEquiped())
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempC->GetName(), Color::PURPLE);
+					}
+					else
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempC->GetName(), Color::BLUE);
+					}
+					i++;
+				}
+			}
+
+			i = 5;
+			for (auto& tempE : myEquipment)
+			{
+				if (Ref<Leggings> tempL = std::dynamic_pointer_cast<Leggings>(std::move(tempE)))
+				{
+					Print::SetPosition((BUFFER_WIDTH / 4) * 3 + 2, i);
+					if (tempL->GetEquiped())
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempL->GetName(), Color::PURPLE);
+					}
+					else
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempL->GetName(), Color::BLUE);
+					}
+					i++;
+				}
+			}
+
+			i = 5;
+			for (auto& tempE : myEquipment)
+			{
+				if (Ref<Boots> tempB = std::dynamic_pointer_cast<Boots>(std::move(tempE)))
+				{
+					Print::SetPosition(BUFFER_WIDTH / 4 + 2, i);
+					if (tempB->GetEquiped())
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempB->GetName(), Color::PURPLE);
+					}
+					else
+					{
+						Print::ColorText(Print::ToString(i - 4) + ". " + tempB->GetName(), Color::BLUE);
+					}
+					i++;
+				}
+			}
+			///////////////////////
+
+			Print::SetPosition(0, 0);
+			Print::ColorText("Use 0 to exit\n", Color::GREEN);
+			Print::ColorText("Select using format '1, 1'(column, row)\n", Color::GREEN);
+
+
+			std::cin.get();
+		} while (true);
 	}
 }

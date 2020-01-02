@@ -30,6 +30,7 @@ namespace Diablo
 			tempS.Wisdom += myStatIncrease.Wisdom;
 
 			Player::Get()->SetStats(tempS);
+			myEquiped = true;
 
 			return true;
 		}
@@ -48,6 +49,7 @@ namespace Diablo
 			tempS.Wisdom -= myStatIncrease.Wisdom;
 
 			Player::Get()->SetStats(tempS);
+			myEquiped = false;
 		}
 
 	public:

@@ -4,6 +4,7 @@
 #include "Gameplay/Fighting/Attacks/Axe.h"
 #include "Gameplay/Fighting/Attacks/Spell.h"
 #include "Gameplay/Fighting/Attacks/Sword.h"
+#include "Gameplay/LevelSystem.h"
 
 #include "Core/Input/Input.h"
 
@@ -20,7 +21,6 @@ namespace Diablo
 	{
 		myInstance = this;
 		mypInventory = CreateScope<Inventory>();
-		mypInventory->SelectEquipment();
 	}
 
 	void Player::SetXPos(float aPos)
@@ -82,7 +82,7 @@ namespace Diablo
 
 			myStats.Charisma = rand() % 7 + 2;
 
-			Ref<Spell> tempAttack = CreateRef<Spell>();
+			Ref<Sword> tempAttack = CreateRef<Sword>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Wisdom / 3.f));
 
 			myAttacks.push_back(std::move(tempAttack));
@@ -188,6 +188,7 @@ namespace Diablo
 			if (tempS == FightExit::EnemyKilled)
 			{
 				myShouldExit = true;
+				LevelSystem::IncreseDifficulty();
 			}
 			else
 			{

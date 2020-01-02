@@ -43,9 +43,10 @@ namespace Diablo
 			Print::ColorText("What would you like to do?\n", Color::YELLOW);
 
 			Print::ColorText("1. Attack\n", Color::RED);
-			Print::ColorText("2. Defend\n", Color::RED);
-			Print::ColorText("3. Flee\n", Color::RED);
-			Print::ColorText("4. Use Item\n", Color::RED);
+			Print::ColorText("2. Use Magic\n", Color::RED);
+			Print::ColorText("3. Defend\n", Color::RED);
+			Print::ColorText("4. Flee\n", Color::RED);
+			Print::ColorText("5. Use Item\n", Color::RED);
 
 			Print::Stats(apEnemy);
 
@@ -87,6 +88,10 @@ namespace Diablo
 			}
 			else if (tempInput == "2")
 			{
+
+			}
+			else if (tempInput == "3")
+			{
 				Print::Clear();
 
 				if (apEnemy->GetCombatChoice() == EnemyChoice::Attack)
@@ -96,7 +101,7 @@ namespace Diablo
 					std::cin.get();
 				}
 			}
-			else if (tempInput == "3")
+			else if (tempInput == "4")
 			{
 				Print::Clear();
 				Print::ColorText("You have decided to flee!", Color::GREEN);
@@ -104,7 +109,7 @@ namespace Diablo
 				std::cin.get();
 				return FightExit::Fleed;
 			}
-			else if (tempInput == "4")
+			else if (tempInput == "5")
 			{
 				Player::Get()->GetInventory()->OpenInventory();
 			}

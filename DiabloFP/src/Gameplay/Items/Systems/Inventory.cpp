@@ -15,16 +15,17 @@ namespace Diablo
 	Inventory::Inventory()
 	{
 		myEquipment.push_back(EquipmentFactory::CreateHelmet(3));
-		myEquipment[0]->SetEquiped(true);
+		myEquipment[0]->Use();
 
 		myEquipment.push_back(EquipmentFactory::CreateChestplate(3));
-		myEquipment[1]->SetEquiped(true);
+		myEquipment[1]->Use();
 
 		myEquipment.push_back(EquipmentFactory::CreateLeggings(3));
-		myEquipment[2]->SetEquiped(true);
+		myEquipment[2]->Use();
 
 		myEquipment.push_back(EquipmentFactory::CreateBoots(3));
-		myEquipment[3]->SetEquiped(true);
+		myEquipment[3]->Use();
+		myEquipment.push_back(EquipmentFactory::CreateHelmet(2));
 	}
 
 	Inventory::~Inventory()
@@ -189,6 +190,8 @@ namespace Diablo
 
 	void Inventory::SelectEquipment()
 	{
+		bool tempRunning = true;
+
 		do
 		{
 			Print::Clear();
@@ -230,7 +233,7 @@ namespace Diablo
 			int i = 5;
 			for (auto& tempE : myEquipment)
 			{
-				if (Ref<Helmet> tempH = std::dynamic_pointer_cast<Helmet>(std::move(tempE)))
+				if (Ref<Helmet> tempH = std::dynamic_pointer_cast<Helmet>(tempE))
 				{
 					Print::SetPosition(2, i);
 					if (tempH->GetEquiped())
@@ -248,7 +251,7 @@ namespace Diablo
 			i = 5;
 			for (auto& tempE : myEquipment)
 			{
-				if (Ref<Chestplate> tempC = std::dynamic_pointer_cast<Chestplate>(std::move(tempE)))
+				if (Ref<Chestplate> tempC = std::dynamic_pointer_cast<Chestplate>(tempE))
 				{
 					Print::SetPosition((BUFFER_WIDTH / 2) + 2, i);
 					if (tempC->GetEquiped())
@@ -266,7 +269,7 @@ namespace Diablo
 			i = 5;
 			for (auto& tempE : myEquipment)
 			{
-				if (Ref<Leggings> tempL = std::dynamic_pointer_cast<Leggings>(std::move(tempE)))
+				if (Ref<Leggings> tempL = std::dynamic_pointer_cast<Leggings>(tempE))
 				{
 					Print::SetPosition((BUFFER_WIDTH / 4) * 3 + 2, i);
 					if (tempL->GetEquiped())
@@ -284,7 +287,7 @@ namespace Diablo
 			i = 5;
 			for (auto& tempE : myEquipment)
 			{
-				if (Ref<Boots> tempB = std::dynamic_pointer_cast<Boots>(std::move(tempE)))
+				if (Ref<Boots> tempB = std::dynamic_pointer_cast<Boots>(tempE))
 				{
 					Print::SetPosition(BUFFER_WIDTH / 4 + 2, i);
 					if (tempB->GetEquiped())
@@ -302,10 +305,129 @@ namespace Diablo
 
 			Print::SetPosition(0, 0);
 			Print::ColorText("Use 0 to exit\n", Color::GREEN);
-			Print::ColorText("Select using format '1, 1'(column, row)\n", Color::GREEN);
+			Print::ColorText("Select using format '1,1'(column, row)\n", Color::GREEN);
 
+			std::string tempInput = Input::GetInput();
+			if (tempInput == "0")
+			{
+				tempRunning = false;
+			}
+			else if (tempInput.size() == 3)
+			{
+				int tempCol = tempInput[0] - 48;
+				int tempRow = tempInput[2] - 48;
 
-			std::cin.get();
-		} while (true);
+				if (tempCol == 1)
+				{
+					int i = 1;
+					for (auto& tempE : myEquipment)
+					{
+						if (Ref<Helmet> tempH = std::dynamic_pointer_cast<Helmet>(tempE))
+						{
+							if (tempH->GetEquiped())
+							{
+								tempH->Unuse();
+							}
+
+							if (i == tempRow)
+							{
+								tempH->Use();
+							}
+							i++;
+						}
+					}
+					if (tempInput[2] - 48 > i)
+					{
+						Print::Clear();
+						Print::ColorText("Value does not exist!", Color::RED);
+						std::cin.get();
+					}
+				}
+				else if (tempCol == 2)
+				{
+					i = 1;
+					for (auto& tempE : myEquipment)
+					{
+						if (Ref<Chestplate> tempC = std::dynamic_pointer_cast<Chestplate>(tempE))
+						{
+							if (tempC->GetEquiped())
+							{
+								tempC->Unuse();
+							}
+
+							if (i == tempRow)
+							{
+								tempC->Use();
+							}
+							i++;
+						}
+					}
+					if (tempInput[2] - 48 > i)
+					{
+						Print::Clear();
+						Print::ColorText("Value does not exist!", Color::RED);
+						std::cin.get();
+					}
+				}
+				else if (tempCol == 3)
+				{
+					i = 1;
+					for (auto& tempE : myEquipment)
+					{
+						if (Ref<Leggings> tempL = std::dynamic_pointer_cast<Leggings>(tempE))
+						{
+							if (tempL->GetEquiped())
+							{
+								tempL->Unuse();
+							}
+							
+							if (i == tempRow)
+							{
+								tempL->Use();
+							}
+							i++;
+						}
+					}
+					if (tempInput[2] - 48 > i)
+					{
+						Print::Clear();
+						Print::ColorText("Value does not exist!", Color::RED);
+						std::cin.get();
+					}
+				}
+				else if (tempCol == 4)
+				{
+					i = 1;
+					for (auto& tempE : myEquipment)
+					{
+						if (Ref<Boots> tempB = std::dynamic_pointer_cast<Boots>(tempE))
+						{
+							if (tempB->GetEquiped())
+							{
+								tempB->Unuse();
+							}
+
+							if (i == tempRow)
+							{
+								tempB->Use();
+							}
+							i++;
+						}
+					}
+					if (tempInput[2] - 48 > i)
+					{
+						Print::Clear();
+						Print::ColorText("Value does not exist!", Color::RED);
+						std::cin.get();
+					}
+				}
+			}
+			else 
+			{
+				Print::Clear();
+				Print::ColorText("Wrong input!", Color::RED);
+				std::cin.get();
+			}
+		} while (tempRunning);
 	}
 }

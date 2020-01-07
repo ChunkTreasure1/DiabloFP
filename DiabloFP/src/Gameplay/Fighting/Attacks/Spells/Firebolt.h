@@ -11,7 +11,7 @@ namespace Diablo
 			: Spell("Firebolt")
 		{
 			myDamage = 7.f;
-			myManaCost = 5.f;
+			myManaCost = 25.f;
 
 			myCategory = SpellCategory::Attack;
 		}

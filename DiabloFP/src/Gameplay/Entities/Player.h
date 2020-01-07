@@ -33,7 +33,10 @@ namespace Diablo
 		inline void SetType(PlayerType aPlayerType) { myPlayerType = aPlayerType; }
 		void SetStats(PlayerType aPlayerType);
 		inline void SetStats(Stats someStats) { myStats = someStats; myHealth = myBaseHealth * myStats.Constitution; }
+
 		inline void SetShouldExit(bool someState) { myShouldExit = someState; }
+		inline void SetMana(float someVal) { myMana = someVal; }
+		inline void AddMana(float someVal) { myMana += someVal; }
 
 		//Getting
 		inline const float GetXPos() { return myXPos; }
@@ -49,7 +52,10 @@ namespace Diablo
 		inline const Scope<Inventory>& GetInventory() const { return mypInventory; }
 
 		Ref<Attack> GetAttack(Ref<Enemy>& someEnemy);
+		Ref<Spell> GetSpell(Ref<Enemy>& someEnemy);
+
 		inline const bool GetShouldExit() { return myShouldExit; }
+		inline const float GetMana() { return myMana; }
 
 		void Update();
 
@@ -73,12 +79,16 @@ namespace Diablo
 
 		float myLevel;
 		float myBaseHealth;
+		float myMana;
+		float myMaxMana;
+		
 		bool myShouldExit;
 		PlayerType myPlayerType;
 		uint32_t myMapWidth;
 
 		Scope<Inventory> mypInventory;
 		std::vector<Ref<Attack>> myAttacks;
+		std::vector<Ref<Spell>> mySpells;
 
 	private:
 		static Player* myInstance;

@@ -4,10 +4,12 @@
 #include "Gameplay/Fighting/Attacks/Axe.h"
 #include "Gameplay/Fighting/Attacks/Spell.h"
 #include "Gameplay/Fighting/Attacks/Sword.h"
+
+#include "Gameplay/Fighting/Attacks/Spells/Firebolt.h"
+#include "Gameplay/Fighting/Attacks/Spells/HolyBolt.h"
+
 #include "Gameplay/LevelSystem.h"
-
 #include "Core/Input/Input.h"
-
 #include "Core/Utility/ExitException.h"
 
 namespace Diablo
@@ -17,7 +19,7 @@ namespace Diablo
 	Player::Player(float aHealth, uint32_t aMapWidth)
 		: Entity(aHealth), myDepth(16.f), myFOV(3.14159f / 4.f), mySpeed(5.f),
 		myXPos(3.f), myYPos(5.09f), myAngle(0), myMapWidth(aMapWidth), myBaseHealth(aHealth),
-		myShouldExit(false)
+		myShouldExit(false), myMana(100), myMaxMana(100)
 	{
 		myInstance = this;
 		mypInventory = CreateScope<Inventory>();
@@ -69,6 +71,9 @@ namespace Diablo
 			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Strength / 3.f));
 
 			myAttacks.push_back(std::move(tempAttack));
+
+			Ref<Firebolt> tempSpell = CreateRef<Firebolt>();
+			mySpells.push_back(std::move(tempSpell));
 		}
 		else if (aPlayerType == PlayerType::Sorcerer)
 		{
@@ -86,6 +91,9 @@ namespace Diablo
 			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Wisdom / 3.f));
 
 			myAttacks.push_back(std::move(tempAttack));
+
+			Ref<HolyBolt> tempSpell = CreateRef<HolyBolt>();
+			mySpells.push_back(std::move(tempSpell));
 		}
 		else if (aPlayerType == PlayerType::Rogue)
 		{
@@ -103,6 +111,9 @@ namespace Diablo
 			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Strength / 2.f));
 
 			myAttacks.push_back(std::move(tempAttack));
+
+			Ref<Firebolt> tempSpell = CreateRef<Firebolt>();
+			mySpells.push_back(std::move(tempSpell));
 		}
 
 		myHealth *= myStats.Constitution;
@@ -145,6 +156,28 @@ namespace Diablo
 		} while (true);
 
 		return nullptr;
+	}
+
+	Ref<Spell> Player::GetSpell(Ref<Enemy>& someEnemy)
+	{
+		do
+		{
+			Print::Clear();
+
+			//Show opponent stats
+			Print::ColorText("Press 0 to return\n", Color::GREEN);
+			Print::ColorText("Choose an attack to use on opponent!\n", Color::GREEN);
+
+			for (size_t i = 0; i < mySpells.size(); i++)
+			{
+				Print::ColorText(std::to_string(i + 1) + ". " + mySpells[i]->GetName() + "\n", Color::YELLOW);
+			}
+
+			Print::Stats(someEnemy);
+
+		} while (true);
+
+		return Ref<Spell>();
 	}
 
 	void Player::Update()

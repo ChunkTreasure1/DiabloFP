@@ -8,6 +8,8 @@
 #include "Core/Game.h"
 #include "Core/Utility/ExitException.h"
 
+#include "Attacks/Spell.h"
+
 namespace Diablo
 {
 	Ref<FightSystem> FightSystem::mypInstance = nullptr;
@@ -88,7 +90,17 @@ namespace Diablo
 			}
 			else if (tempInput == "2")
 			{
+				Ref<Spell> tempSpell = tempPlayer->GetSpell(apEnemy);
 
+				if (apEnemy->GetCombatChoice() == EnemyChoice::Attack)
+				{
+					Print::Clear();
+
+					if (AttackEnemy(apE))
+					{
+
+					}
+				}
 			}
 			else if (tempInput == "3")
 			{
@@ -183,6 +195,7 @@ namespace Diablo
 				Player::Get()->GetInventory()->AddItem(apEnemy->GetDropLoot());
 				Print::ColorText("The enemy dropped item " + apEnemy->GetDropLoot()->GetName() + "!\n", Color::GREEN);
 
+				Player::Get()->AddMana(50);
 				return true;
 			}
 

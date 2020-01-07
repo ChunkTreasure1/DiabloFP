@@ -201,6 +201,8 @@
     <ClInclude Include="src\Gameplay\Fighting\Attack.h" />
     <ClInclude Include="src\Gameplay\Fighting\Attacks\Axe.h" />
     <ClInclude Include="src\Gameplay\Fighting\Attacks\Spell.h" />
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Firebolt.h" />
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\HolyBolt.h" />
     <ClInclude Include="src\Gameplay\Fighting\Attacks\Sword.h" />
     <ClInclude Include="src\Gameplay\Fighting\FightSystem.h" />
     <ClInclude Include="src\Gameplay\Items\Equipment\Equipment.h" />

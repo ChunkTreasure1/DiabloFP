@@ -194,5 +194,11 @@
     <ClInclude Include="src\Gameplay\Items\Equipment\Types\Boots.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Firebolt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\HolyBolt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

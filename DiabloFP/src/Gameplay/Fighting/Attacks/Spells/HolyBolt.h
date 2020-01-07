@@ -10,7 +10,7 @@ namespace Diablo
 			: Spell("HolyBolt")
 		{
 			myDamage = 3.f;
-			myManaCost = 2.f;
+			myManaCost = 15.f;
 
 			myCategory = SpellCategory::Attack;
 		}

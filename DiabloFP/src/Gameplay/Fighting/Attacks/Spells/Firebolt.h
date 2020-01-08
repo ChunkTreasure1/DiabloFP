@@ -10,7 +10,8 @@ namespace Diablo
 		Firebolt()
 			: Spell("Firebolt")
 		{
-			myDamage = 7.f;
+			myBaseDamage = 7.f;
+			myDamage = myBaseDamage;
 			myManaCost = 25.f;
 
 			myCategory = SpellCategory::Attack;

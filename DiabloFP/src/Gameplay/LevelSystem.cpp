@@ -16,6 +16,7 @@ namespace Diablo
 		{
 			myPlayerLevel++;
 			AddStat();
+			UpgradeSpell();
 		}
 	}
 
@@ -81,6 +82,41 @@ namespace Diablo
 				Print::ColorText("Wrong input!", Color::RED);
 				std::cin.get();
 			}
+
+			Player::Get()->UpdateAttacks();
+
+		} while (true);
+	}
+
+	void LevelSystem::UpgradeSpell()
+	{
+		do
+		{
+			Print::Clear();
+			Print::ColorText("Choose a spell to upgrade!\n", Color::YELLOW);
+
+			for (uint32_t i = 0; i < Player::Get()->GetSpells().size(); i++)
+			{
+				Print::ColorText(Print::ToString(i + 1) + ". " + Player::Get()->GetSpells()[i]->GetName() + " (" + Spell::CategoryToString(Player::Get()->GetSpells()[i]->GetCategory()) + "\n", Color::BLUE);
+			}
+
+			std::string tempInput = Input::GetInput();
+			for (uint32_t i = 0; i < Player::Get()->GetSpells().size(); i++)
+			{
+				if (tempInput == Print::ToString(i + 1))
+				{
+					auto& tempS = Player::Get()->GetSpells()[i];
+					tempS->SetDamage(tempS->GetBaseDamage() * (myPlayerLevel - 0.5f));
+
+					Print::Clear();
+					Print::ColorText("You have upgraded spell " + tempS->GetName() + "!\n", Color::GREEN);
+					std::cin.get();
+
+					return;
+				}
+			}
+
+			Print::ColorText("Wrong input!", Color::RED);
 
 		} while (true);
 	}

@@ -92,6 +92,9 @@ namespace Diablo
 
 		SetPosition(BUFFER_WIDTH / 2 + 2, 12);
 		Print::ColorText("Health: " + ToString(Player::Get()->GetHealth()), Color::GREEN);
+
+		SetPosition(BUFFER_WIDTH / 2 + 2, 14);
+		Print::ColorText("Mana: " + ToString(Player::Get()->GetMana()), Color::GREEN);
 		//////////////////////
 
 		////////Enemy////////

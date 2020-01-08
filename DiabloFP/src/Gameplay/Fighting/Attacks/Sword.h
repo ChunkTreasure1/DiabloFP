@@ -10,7 +10,7 @@ namespace Diablo
 		Sword()
 			: Attack("Sword")
 		{
-			myDamage = 5.f;
+			myBaseDamage = 5.f;
 			mySpeed = 7; //0 - 10
 		}
 	};

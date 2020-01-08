@@ -68,7 +68,7 @@ namespace Diablo
 			myStats.Charisma = rand() % 6 + 2;
 
 			Ref<Axe> tempAttack = CreateRef<Axe>();
-			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Strength / 3.f));
+			tempAttack->SetDamage(tempAttack->GetBaseDamage() * (myStats.Strength / 2.f));
 
 			myAttacks.push_back(std::move(tempAttack));
 
@@ -88,7 +88,7 @@ namespace Diablo
 			myStats.Charisma = rand() % 7 + 2;
 
 			Ref<Sword> tempAttack = CreateRef<Sword>();
-			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Wisdom / 3.f));
+			tempAttack->SetDamage(tempAttack->GetBaseDamage() * (myStats.Wisdom / 2.f));
 
 			myAttacks.push_back(std::move(tempAttack));
 
@@ -108,7 +108,7 @@ namespace Diablo
 			myStats.Charisma = rand() % 8 + 4;
 
 			Ref<Sword> tempAttack = CreateRef<Sword>();
-			tempAttack->SetDamage(tempAttack->GetDamage() * (myStats.Strength / 2.f));
+			tempAttack->SetDamage(tempAttack->GetBaseDamage() * (myStats.Strength / 2.f));
 
 			myAttacks.push_back(std::move(tempAttack));
 
@@ -170,10 +170,24 @@ namespace Diablo
 
 			for (size_t i = 0; i < mySpells.size(); i++)
 			{
-				Print::ColorText(std::to_string(i + 1) + ". " + mySpells[i]->GetName() + "\n", Color::YELLOW);
+				Print::ColorText(std::to_string(i + 1) + ". " + mySpells[i]->GetName() + " (" + Spell::CategoryToString(mySpells[i]->GetCategory()) + ")\n", Color::YELLOW);
 			}
 
 			Print::Stats(someEnemy);
+
+			std::string tempInput = Input::GetInput();
+			for (size_t i = 0; i < myAttacks.size(); i++)
+			{
+				if (tempInput == std::to_string(i + 1))
+				{
+					return mySpells[i];
+				}
+			}
+
+			if (tempInput == "0")
+			{
+				break;
+			}
 
 		} while (true);
 
@@ -185,6 +199,14 @@ namespace Diablo
 		for (size_t i = 0; i < mypInventory->GetVector().size(); i++)
 		{
 			mypInventory->GetVector()[i]->Update();
+		}
+	}
+
+	void Player::UpdateAttacks()
+	{
+		for (auto& tempA : myAttacks)
+		{
+			tempA->SetDamage(tempA->GetBaseDamage() * (GetStrength() / 2));
 		}
 	}
 

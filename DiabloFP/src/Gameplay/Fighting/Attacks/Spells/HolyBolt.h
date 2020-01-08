@@ -6,10 +6,12 @@ namespace Diablo
 {
 	class HolyBolt final : public Spell
 	{
+	public:
 		HolyBolt()
 			: Spell("HolyBolt")
 		{
-			myDamage = 3.f;
+			myBaseDamage = 3.f;
+			myDamage = myBaseDamage;
 			myManaCost = 15.f;
 
 			myCategory = SpellCategory::Attack;

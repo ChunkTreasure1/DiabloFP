@@ -200,5 +200,29 @@
     <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\HolyBolt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Heal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Freeze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Slowness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Weakness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Harm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Avoidance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Buff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gameplay\Fighting\Attacks\Spells\Fire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

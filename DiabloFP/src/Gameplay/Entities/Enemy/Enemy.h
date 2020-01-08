@@ -21,7 +21,7 @@ namespace Diablo
 	public:
 		Enemy(float aHealth)
 			: Entity(aHealth), myMaxHealth(aHealth), myStrPos(0), myCharPos(0, 0),
-			myKillXP(0)
+			myKillXP(0), myIsFrozen(false), myFrozenRound(0)
 		{}
 		~Enemy() {}
 
@@ -33,7 +33,9 @@ namespace Diablo
 		inline float GetMaxHealth() const { return myMaxHealth; }
 		inline const glm::vec2& GetCharPos() { return myCharPos; }
 		inline const uint32_t GetStrPos() { return myStrPos; }
+
 		inline Ref<Attack> GetAttack() const { return myAttack; }
+		inline const bool GetFrozen() { return myIsFrozen; }
 
 
 		//Setting
@@ -44,18 +46,24 @@ namespace Diablo
 		inline void SetMaxHealth(float aHealth) { myMaxHealth = aHealth; }
 		inline void SetAttack(Ref<Attack>& anAttack) { myAttack = std::move(anAttack); }
 		inline void SetCharPos(const glm::vec2& aPos) { myCharPos = aPos; }
-		inline void SetStrPos(uint32_t aPos) { myStrPos = aPos; }
 
+		inline void SetStrPos(uint32_t aPos) { myStrPos = aPos; }
+		inline void SetFrozen(bool someState) { myIsFrozen = someState; }
 		EnemyChoice GetCombatChoice();
+
+		void Update();
 
 	private:
 		std::string myName;
 		uint32_t myKillXP;
 		glm::vec2 myCharPos;
-		uint32_t myStrPos;
 
-		float myMaxHealth;
+		uint32_t myStrPos;
 		Ref<Item> myDropLoot;
 		Ref<Attack> myAttack;
+
+		float myMaxHealth;
+		bool myIsFrozen;
+		uint32_t myFrozenRound;
 	};
 }

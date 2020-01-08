@@ -9,6 +9,7 @@
 
 #include "Gameplay/Map/Map.h"
 #include "Gameplay/Fighting/FightSystem.h"
+#include "Gameplay/Fighting/Attacks/Spell.h"
 
 namespace Diablo
 {
@@ -56,8 +57,10 @@ namespace Diablo
 
 		inline const bool GetShouldExit() { return myShouldExit; }
 		inline const float GetMana() { return myMana; }
+		inline std::vector<Ref<Spell>>& GetSpells() { return mySpells; }
 
 		void Update();
+		void UpdateAttacks();
 
 	private:
 		void AttackEnemy(Ref<Enemy>& aEnemy);

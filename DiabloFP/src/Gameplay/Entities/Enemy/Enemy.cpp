@@ -18,4 +18,18 @@ namespace Diablo
 
 		return EnemyChoice();
 	}
+
+	void Enemy::Update()
+	{
+		if (myIsFrozen)
+		{
+			if (myFrozenRound == 1)
+			{
+				myIsFrozen = false;
+				return;
+			}
+
+			myFrozenRound++;
+		}
+	}
 }

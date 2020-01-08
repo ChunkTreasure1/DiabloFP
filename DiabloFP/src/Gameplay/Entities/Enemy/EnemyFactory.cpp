@@ -155,7 +155,7 @@ namespace Diablo
 			tempStats.Strength = Random::Int(3, 6);
 			tempStats.Wisdom = Random::Int(3, 8);
 
-			tempAttack = CreateRef<Spell>();
+			tempAttack = CreateRef<Axe>();
 			tempAttack->SetDamage(tempAttack->GetDamage() * (tempStats.Wisdom / 3));
 
 			tempName = "Wizard";

@@ -21,6 +21,7 @@ namespace Diablo
 	private:
 		static void Update();
 		static void AddStat();
+		static void UpgradeSpell();
 
 	private:
 		static uint32_t myPlayerXP;

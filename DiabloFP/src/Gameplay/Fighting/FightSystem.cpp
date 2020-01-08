@@ -9,12 +9,22 @@
 #include "Core/Utility/ExitException.h"
 
 #include "Attacks/Spell.h"
+#include "Attacks/Spells/Heal.h"
+#include "Attacks/Spells/Freeze.h"
+
+#include "Attacks/Spells/Slowness.h"
+#include "Attacks/Spells/Weakness.h"
+#include "Attacks/Spells/Avoidance.h"
+
+#include "Attacks/Spells/Buff.h"
+#include "Attacks/Spells/Fire.h"
 
 namespace Diablo
 {
 	Ref<FightSystem> FightSystem::mypInstance = nullptr;
 
 	FightSystem::FightSystem()
+		: mySlowed(false), myBuffValue(0.f), myFireAttackValue(0.f)
 	{
 		mypInstance.reset(this);
 	}
@@ -53,6 +63,12 @@ namespace Diablo
 			Print::Stats(apEnemy);
 
 			std::string tempInput = Input::GetInput();
+
+			if (apEnemy->GetFrozen())
+			{
+				apEnemy->Update();
+			}
+
 			if (tempInput == "1")
 			{
 				Ref<Attack> tempAttack = tempPlayer->GetAttack(apEnemy);
@@ -60,12 +76,21 @@ namespace Diablo
 				if (apEnemy->GetCombatChoice() == EnemyChoice::Attack)
 				{
 					//Check attack speed
-					if (tempAttack->GetSpeed() > apEnemy->GetAttack()->GetSpeed())
+					if (tempAttack->GetSpeed() > apEnemy->GetAttack()->GetSpeed() || mySlowed)
 					{
+						mySlowed = false;
 						Print::Clear();
 
 						if (AttackEnemy(apEnemy, tempAttack)) { Game::Get()->SetIs3D(true); return FightExit::EnemyKilled; }
-						if (AttackPlayer(apEnemy)) { return FightExit::PlayerKilled; }
+						
+						if (!myAvoiding)
+						{
+							if (AttackPlayer(apEnemy) && !apEnemy->GetFrozen()) { return FightExit::PlayerKilled; }
+						}
+						else 
+						{
+							myAvoiding = false;
+						}
 
 						std::cin.get();
 					}
@@ -73,7 +98,14 @@ namespace Diablo
 					{
 						Print::Clear();
 
-						if (AttackPlayer(apEnemy)) { return FightExit::PlayerKilled; }
+						if (!myAvoiding)
+						{
+							if (AttackPlayer(apEnemy) && !apEnemy->GetFrozen()) { return FightExit::PlayerKilled; }
+						}
+						else 
+						{
+							myAvoiding = false;
+						}
 						if (AttackEnemy(apEnemy, tempAttack)) { Game::Get()->SetIs3D(true); return FightExit::EnemyKilled; }
 
 						std::cin.get();
@@ -92,13 +124,61 @@ namespace Diablo
 			{
 				Ref<Spell> tempSpell = tempPlayer->GetSpell(apEnemy);
 
-				if (apEnemy->GetCombatChoice() == EnemyChoice::Attack)
+				if (tempSpell->GetCategory() == SpellCategory::Attack)
 				{
-					Print::Clear();
-
-					if (AttackEnemy(apE))
+					if (Ref<Fire> tempF = std::dynamic_pointer_cast<Fire>(tempSpell))
 					{
+						myFireAttackValue = tempF->GetDamage();
+						continue;
+					}
 
+					if (apEnemy->GetCombatChoice() == EnemyChoice::Attack)
+					{
+						Print::Clear();
+
+						if (AttackEnemy(apEnemy, tempSpell)) { Game::Get()->SetIs3D(true); return FightExit::EnemyKilled; }
+						if (AttackPlayer(apEnemy) && !apEnemy->GetFrozen()) { return FightExit::PlayerKilled; }
+
+						std::cin.get();
+					}
+					else
+					{
+						Print::Clear();
+
+						if (AttackEnemy(apEnemy, tempSpell)) { Game::Get()->SetIs3D(true); return FightExit::EnemyKilled; }
+
+						std::cin.get();
+					}
+				}
+				else if (tempSpell->GetCategory() == SpellCategory::Support)
+				{
+					if (Ref<Heal> tempH = std::dynamic_pointer_cast<Heal>(tempSpell))
+					{
+						//Not actually damaging, but adding health
+						Player::Get()->SetHealth(Player::Get()->GetHealth() + tempH->GetDamage());
+					}
+					else if (Ref<Weakness> tempW = std::dynamic_pointer_cast<Weakness>(tempSpell))
+					{
+						apEnemy->GetAttack()->SetDamage(apEnemy->GetAttack()->GetDamage() - tempW->GetDamage());
+					}
+					else if (Ref<Buff> tempB = std::dynamic_pointer_cast<Buff>(tempSpell))
+					{
+						myBuffValue = tempB->GetDamage();
+					}
+				}
+				else if (tempSpell->GetCategory() == SpellCategory::Control)
+				{
+					if (Ref<Freeze> tempF = std::dynamic_pointer_cast<Freeze>(tempSpell))
+					{
+						apEnemy->SetFrozen(true);
+					}
+					else if (Ref<Slowness> tempS = std::dynamic_pointer_cast<Slowness>(tempSpell))
+					{
+						mySlowed = true;
+					}
+					else if (Ref<Avoidance> tempA = std::dynamic_pointer_cast<Avoidance>(tempSpell))
+					{
+						myAvoiding = true;
 					}
 				}
 			}
@@ -182,11 +262,24 @@ namespace Diablo
 
 	bool FightSystem::AttackEnemy(Ref<Enemy>& apEnemy, Ref<Attack>& apAttack)
 	{
+		if (myFireAttackValue > 0)
+		{
+			apEnemy->SetHealth(apEnemy->GetHealth() - 5.f);
+			myFireAttackValue -= 5.f;
+
+			Print::ColorText("Enemy damaged by 5HP from fire!\n", Color::GREEN);
+		}
+		else if (myFireAttackValue < 0)
+		{
+			myFireAttackValue = 0;
+		}
+
 		uint32_t tempVal = rand() % 10 + 1;
 
 		if (tempVal > apEnemy->GetAgility())
 		{
-			apEnemy->SetHealth(apEnemy->GetHealth() - apAttack->GetDamage());
+			apEnemy->SetHealth(apEnemy->GetHealth() - (apAttack->GetDamage() + myBuffValue));
+			myBuffValue = 0;
 
 			if (apEnemy->GetHealth() <= 0)
 			{
@@ -205,6 +298,40 @@ namespace Diablo
 		{
 			Print::ColorText(apEnemy->GetName() + " evaded your attack!\n", Color::RED);
 		}
+		return false;
+	}
+
+	bool FightSystem::AttackEnemy(Ref<Enemy>& apEnemy, Ref<Spell>& apSpell)
+	{
+		if (myFireAttackValue > 0)
+		{
+			apEnemy->SetHealth(apEnemy->GetHealth() - 5.f);
+			myFireAttackValue -= 5.f;
+
+			Print::ColorText("Enemy damaged by 5HP from fire!\n", Color::GREEN);
+		}
+		else if (myFireAttackValue < 0)
+		{
+			myFireAttackValue = 0;
+		}
+
+		apEnemy->SetHealth(apEnemy->GetHealth() - (apSpell->GetDamage() + myBuffValue));
+		myBuffValue = 0;
+
+		Player::Get()->AddMana(-(apSpell->GetManaCost()));
+		if (apEnemy->GetHealth() <= 0)
+		{
+			LevelSystem::AddXPToPlayer(apEnemy->GetKillXP());
+			Print::ColorText("You gained " + Print::ToString(apEnemy->GetKillXP()) + " XP!\n", Color::GREEN);
+			Player::Get()->GetInventory()->AddItem(apEnemy->GetDropLoot());
+			Print::ColorText("The enemy dropped item " + apEnemy->GetDropLoot()->GetName() + "!\n", Color::GREEN);
+
+			Player::Get()->AddMana(50);
+			return true;
+		}
+
+		Print::ColorText("You damaged " + apEnemy->GetName() + " by " + Print::ToString(apSpell->GetDamage()) + "HP!\n", Color::GREEN);
+
 		return false;
 	}
 }

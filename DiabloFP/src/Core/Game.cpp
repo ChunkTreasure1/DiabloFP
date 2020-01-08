@@ -19,7 +19,7 @@ namespace Diablo
 
 		myDefaultConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-		myPlayer = new Player(50.f, myMapWidth + 2);
+		myPlayer = new Player(5.f, myMapWidth + 2);
 		myFightSystem = CreateRef<FightSystem>();
 	}
 
@@ -74,7 +74,7 @@ namespace Diablo
 			Print::Clear();
 			Print::ColorText("DIABLO\n\n", Color::RED);
 			Print::ColorText("1. Enter next room\n", Color::DARK_RED);
-			Print::ColorText("2. Enter last room", Color::DARK_RED);
+			Print::ColorText("2. Enter last room\n", Color::DARK_RED);
 			Print::ColorText("3. Quit\n", Color::DARK_RED);
 
 			std::string tempInput = Input::GetInput();

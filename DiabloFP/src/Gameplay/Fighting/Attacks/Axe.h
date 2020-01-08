@@ -10,7 +10,7 @@ namespace Diablo
 		Axe()
 			: Attack("Axe")
 		{
-			myDamage = 5.5f;
+			myBaseDamage = 5.5f;
 			mySpeed = 6;
 		}
 	};

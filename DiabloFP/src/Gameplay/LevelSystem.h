@@ -23,6 +23,8 @@ namespace Diablo
 		static void AddStat();
 		static void UpgradeSpell();
 
+		static void GetNewSpell();
+
 	private:
 		static uint32_t myPlayerXP;
 		static uint32_t myPlayerLevel;
